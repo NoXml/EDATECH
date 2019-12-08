@@ -1,2 +1,2 @@
 # EDATECH
-![Image alt](https://github.com/AlexAntufiev/EDATECH/raw/dev/EDATECH_Architecture.png)
+![Image alt](EDATECH_Architecture.png)
