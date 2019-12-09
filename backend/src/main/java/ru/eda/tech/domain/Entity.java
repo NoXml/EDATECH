@@ -3,11 +3,17 @@ package ru.eda.tech.domain;
 import ru.eda.tech.domain.enums.Status;
 
 public class Entity {
-    private long id;
+    private Long id;
     private String name;
     private Status status;
 
-    public long getId() {
+    public Entity(Long id, String name, Status status) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+    }
+
+    public Long getId() {
         return id;
     }
 
