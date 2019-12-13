@@ -1,28 +1,20 @@
-package ru.eda.tech.controller.api.read;
+package ru.eda.tech.controller.api.delete;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ReadEntityResponse {
+public class EntityDeleteRequest {
 
     private Long id;
 
-    private String name;
-
     @JsonCreator
-    public ReadEntityResponse(@JsonProperty("id") Long id, @JsonProperty("name") String name) {
+    public EntityDeleteRequest(@JsonProperty("id") Long id) {
         this.id = id;
-        this.name = name;
     }
 
     @JsonGetter("id")
     public Long getId() {
         return id;
-    }
-
-    @JsonGetter("name")
-    public String getName() {
-        return name;
     }
 }

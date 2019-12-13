@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class DeleteEntityResponse {
+public class EntityDeleteResponse {
 
     private Long id;
 
     private String name;
 
     @JsonCreator
-    public DeleteEntityResponse(@JsonProperty("id") Long id, @JsonProperty("name") String name) {
+    public EntityDeleteResponse(@JsonProperty("id") Long id, @JsonProperty("name") String name) {
         this.id = id;
         this.name = name;
     }

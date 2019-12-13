@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UpdateEntityResponse {
+public class EntityUpdateRequest {
 
     private Long id;
 
     private String name;
 
     @JsonCreator
-    public UpdateEntityResponse(@JsonProperty("id") Long id, @JsonProperty("name") String name) {
+    public EntityUpdateRequest(@JsonProperty("id") Long id, @JsonProperty("name") String name) {
         this.id = id;
         this.name = name;
     }

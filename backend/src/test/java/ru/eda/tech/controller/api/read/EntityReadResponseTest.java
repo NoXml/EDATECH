@@ -1,18 +1,19 @@
-package ru.eda.tech.controller.api.create;
+package ru.eda.tech.controller.api.read;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CreateEntityResponseTest {
+class EntityReadResponseTest {
 
     @Test
     void whenSerializingUsingJsonGetter_thenCorrect() throws JsonProcessingException {
-        CreateEntityResponse createEntityResponse = new CreateEntityResponse(1l, "test");
-        String response = new ObjectMapper().writeValueAsString(createEntityResponse);
+        EntityReadResponse entityReadResponse = new EntityReadResponse(1L, "test");
+        String response = new ObjectMapper().writeValueAsString(entityReadResponse);
 
         assertEquals("{\"id\":1,\"name\":\"test\"}", response);
     }
+
 }

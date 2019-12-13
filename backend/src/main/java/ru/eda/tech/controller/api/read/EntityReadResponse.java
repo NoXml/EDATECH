@@ -1,17 +1,17 @@
-package ru.eda.tech.controller.api.create;
+package ru.eda.tech.controller.api.read;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CreateEntityResponse {
+public class EntityReadResponse {
 
     private Long id;
 
     private String name;
 
     @JsonCreator
-    public CreateEntityResponse(@JsonProperty("id") Long id, @JsonProperty("name") String name) {
+    public EntityReadResponse(@JsonProperty("id") Long id, @JsonProperty("name") String name) {
         this.id = id;
         this.name = name;
     }
