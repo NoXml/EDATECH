@@ -10,8 +10,7 @@ public class EntityUpdateResponse {
 
     private String name;
 
-    @JsonCreator
-    public EntityUpdateResponse(@JsonProperty("id") Long id, @JsonProperty("name") String name) {
+    public EntityUpdateResponse(Long id, String name) {
         this.id = id;
         this.name = name;
     }

@@ -13,7 +13,6 @@ public class EntityDeleteRequest {
         this.id = id;
     }
 
-    @JsonGetter("id")
     public Long getId() {
         return id;
     }

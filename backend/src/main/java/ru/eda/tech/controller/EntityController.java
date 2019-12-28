@@ -23,21 +23,26 @@ public class EntityController {
 
     @PutMapping
     public EntityCreateResponse create(@RequestBody EntityCreateRequest request) {
-        return new EntityCreateResponse(1L, "name");
+        String name = request.getName();
+        return new EntityCreateResponse(1L, name);
     }
 
     @GetMapping
     public EntityReadResponse read(@RequestBody EntityReadRequest request) {
-        return new EntityReadResponse(1L, "name");
+        Long id = request.getId();
+        return new EntityReadResponse(id, "name");
     }
 
     @PostMapping
     public EntityUpdateResponse update(@RequestBody EntityUpdateRequest request) {
-        return new EntityUpdateResponse(1L, "name");
+        Long id = request.getId();
+        String name = request.getName();
+        return new EntityUpdateResponse(id, name);
     }
 
     @DeleteMapping
     public EntityDeleteResponse delete(@RequestBody EntityDeleteRequest request) {
-        return new EntityDeleteResponse(1L, "name");
+        Long id = request.getId();
+        return new EntityDeleteResponse(id, "name");
     }
 }

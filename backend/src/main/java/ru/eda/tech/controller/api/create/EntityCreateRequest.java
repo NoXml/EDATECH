@@ -13,7 +13,6 @@ public class EntityCreateRequest {
         this.name = name;
     }
 
-    @JsonGetter("name")
     public String getName() {
         return name;
     }

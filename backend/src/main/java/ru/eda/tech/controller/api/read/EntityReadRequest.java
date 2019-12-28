@@ -13,7 +13,6 @@ public class EntityReadRequest {
         this.id = id;
     }
 
-    @JsonGetter("id")
     public Long getId() {
         return id;
     }

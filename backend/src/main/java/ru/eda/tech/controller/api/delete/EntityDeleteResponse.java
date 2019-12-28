@@ -10,8 +10,7 @@ public class EntityDeleteResponse {
 
     private String name;
 
-    @JsonCreator
-    public EntityDeleteResponse(@JsonProperty("id") Long id, @JsonProperty("name") String name) {
+    public EntityDeleteResponse(Long id, String name) {
         this.id = id;
         this.name = name;
     }

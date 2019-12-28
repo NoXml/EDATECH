@@ -2,12 +2,10 @@ package ru.eda.tech.controller.api.delete;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import ru.eda.tech.configuration.ApplicationContextTestEntityControllerApi;
+import org.springframework.core.io.Resource;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 
@@ -15,21 +13,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-@ContextConfiguration(
-        loader = AnnotationConfigContextLoader.class,
-        classes = ApplicationContextTestEntityControllerApi.class)
 class EntityDeleteRequestTest {
 
-    @Resource(name = "entityDeleteRequest")
-    File requestJson;
+    @Value("classpath:/jsons/delete/entityDeleteRequest.json")
+    Resource requestJsonResource;
 
     @Test
     void whenDeserializingUsingJsonCreator_thenCorrect() throws IOException {
-        assertNotNull(requestJson, "requestJson");
+        assertNotNull(requestJsonResource, "requestJsonResource");
+
+        File requestJsonFile = requestJsonResource.getFile();
 
         EntityDeleteRequest entityDeleteRequest = new ObjectMapper()
                 .readerFor(EntityDeleteRequest.class)
-                .readValue(requestJson);
+                .readValue(requestJsonFile);
 
         assertEquals(1L, entityDeleteRequest.getId());
     }

@@ -16,12 +16,10 @@ public class EntityUpdateRequest {
         this.name = name;
     }
 
-    @JsonGetter("id")
     public Long getId() {
         return id;
     }
 
-    @JsonGetter("name")
     public String getName() {
         return name;
     }
