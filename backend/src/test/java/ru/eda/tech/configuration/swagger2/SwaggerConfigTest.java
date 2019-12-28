@@ -16,7 +16,7 @@ class SwaggerConfigTest {
 
     @Test
     void getSwaggerUIStatus() throws Exception {
-        this.mockMvc.perform(get("/swagger-ui.html"))
+        mockMvc.perform(get("/swagger-ui.html"))
                 .andExpect(status().isOk());
     }
 
