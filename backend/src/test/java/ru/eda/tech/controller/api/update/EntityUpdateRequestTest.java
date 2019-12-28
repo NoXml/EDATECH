@@ -15,13 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 class EntityUpdateRequestTest {
 
-    @Value("classpath:/jsons/update/entityUpdateRequest.json")
+    @Value("classpath:/data/entity/update/entityUpdateRequest.json")
     Resource requestJsonResource;
 
     @Test
     void whenDeserializingUsingJsonCreator_thenCorrect() throws IOException {
-        assertNotNull(requestJsonResource, "requestJsonResource");
-
         File requestJsonFile = requestJsonResource.getFile();
 
         EntityUpdateRequest entityUpdateRequest = new ObjectMapper()
