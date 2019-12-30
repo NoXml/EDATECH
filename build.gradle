@@ -1,0 +1,10 @@
+plugins {
+    id 'idea'
+}
+
+group = 'ru.eda'
+version = '0.1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}

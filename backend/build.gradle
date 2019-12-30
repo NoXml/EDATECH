@@ -7,8 +7,8 @@ plugins {
 
 group = 'ru.eda'
 version = '0.1.0-SNAPSHOT'
-sourceCompatibility = '11'
-targetCompatibility = '11'
+sourceCompatibility = '8'
+targetCompatibility = '8'
 
 repositories {
     mavenCentral()
