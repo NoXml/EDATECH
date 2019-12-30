@@ -17,4 +17,4 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Build with Gradle
-        run: backend/gradlew clean build
+        run: backend/gradlew build
