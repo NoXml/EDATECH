@@ -3,11 +3,16 @@ package ru.eda.tech.controller.api.delete;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "EntityDeleteResponse class, which instance contains entity id and name")
 public class EntityDeleteResponse {
 
+    @ApiModelProperty(notes = "Entity id")
     private Long id;
 
+    @ApiModelProperty(notes = "Entity name")
     private String name;
 
     public EntityDeleteResponse(Long id, String name) {

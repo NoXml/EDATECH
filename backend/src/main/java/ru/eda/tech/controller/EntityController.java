@@ -1,5 +1,8 @@
 package ru.eda.tech.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,30 +22,45 @@ import ru.eda.tech.controller.api.update.EntityUpdateResponse;
 
 @RestController
 @RequestMapping("/entity")
+@Api(tags = {"Entity Controller"})
 public class EntityController {
 
+    @ApiOperation(value = "Create entity with requested name", response = EntityCreateResponse.class)
     @PutMapping
-    public EntityCreateResponse create(@RequestBody EntityCreateRequest request) {
+    public EntityCreateResponse create(
+            @ApiParam(value = "EntityCreateRequest object containing entity name", required = true)
+            @RequestBody EntityCreateRequest request) {
         String name = request.getName();
         return new EntityCreateResponse(1L, name);
     }
 
+    @ApiOperation(value = "Read entity by requested id", response = EntityReadResponse.class)
     @GetMapping
-    public EntityReadResponse read(@RequestBody EntityReadRequest request) {
+    public EntityReadResponse read(
+            @ApiParam(value = "EntityReadRequest object containing entity id",required = true)
+            @RequestBody EntityReadRequest request) {
         Long id = request.getId();
         return new EntityReadResponse(id, "name");
     }
 
+    @ApiOperation(value = "Update requested entity", response = EntityUpdateResponse.class)
     @PostMapping
-    public EntityUpdateResponse update(@RequestBody EntityUpdateRequest request) {
+    public EntityUpdateResponse update(
+            @ApiParam(value = "EntityUpdateRequest object containing entity id and name", required = true)
+            @RequestBody EntityUpdateRequest request) {
         Long id = request.getId();
         String name = request.getName();
         return new EntityUpdateResponse(id, name);
     }
 
+    @ApiOperation(value = "Delete entity by requested id", response = EntityDeleteResponse.class)
     @DeleteMapping
-    public EntityDeleteResponse delete(@RequestBody EntityDeleteRequest request) {
+    public EntityDeleteResponse delete(
+            @ApiParam(value = "EntityDeleteRequest object containing entity id", required = true)
+            @RequestBody EntityDeleteRequest request) {
         Long id = request.getId();
         return new EntityDeleteResponse(id, "name");
     }
 }
+
+
