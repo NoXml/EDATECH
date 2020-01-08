@@ -20,7 +20,8 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-                .tags(new Tag("Info Controller", "Getting backend info"),
+                .tags(
+                        new Tag("Info Controller", "Getting backend info"),
                         new Tag("Entity Controller", "CRUD operations with Entity"));
     }
 }

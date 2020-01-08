@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "Info Controller")
 public class InfoController {
 
-    @ApiOperation(value = "Get backend status state", response = String.class)
+    @ApiOperation(value = "Get backend status state")
     @GetMapping("/status")
     public String getStatus() {
         return "";
