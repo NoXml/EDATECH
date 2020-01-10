@@ -25,38 +25,38 @@ import ru.eda.tech.controller.api.update.EntityUpdateResponse;
 @Api(tags = {"Entity Controller"})
 public class EntityController {
 
-    @ApiOperation(value = "Create entity with requested name")
+    @ApiOperation(value = "Create entity")
     @PutMapping
     public EntityCreateResponse create(
-            @ApiParam(value = "Object containing entity name", required = true)
+            @ApiParam(value = "Entity create request object", required = true)
             @RequestBody EntityCreateRequest request) {
         String name = request.getName();
         return new EntityCreateResponse(1L, name);
     }
 
-    @ApiOperation(value = "Read entity by requested id")
+    @ApiOperation(value = "Read entity")
     @GetMapping
     public EntityReadResponse read(
-            @ApiParam(value = "Object containing entity id",required = true)
+            @ApiParam(value = "Entity read request object",required = true)
             @RequestBody EntityReadRequest request) {
         Long id = request.getId();
         return new EntityReadResponse(id, "name");
     }
 
-    @ApiOperation(value = "Update requested entity")
+    @ApiOperation(value = "Update entity")
     @PostMapping
     public EntityUpdateResponse update(
-            @ApiParam(value = "Object containing entity id and name", required = true)
+            @ApiParam(value = "Entity update request object", required = true)
             @RequestBody EntityUpdateRequest request) {
         Long id = request.getId();
         String name = request.getName();
         return new EntityUpdateResponse(id, name);
     }
 
-    @ApiOperation(value = "Delete entity by requested id")
+    @ApiOperation(value = "Delete entity")
     @DeleteMapping
     public EntityDeleteResponse delete(
-            @ApiParam(value = "Object containing entity id", required = true)
+            @ApiParam(value = "Entity delete request object", required = true)
             @RequestBody EntityDeleteRequest request) {
         Long id = request.getId();
         return new EntityDeleteResponse(id, "name");

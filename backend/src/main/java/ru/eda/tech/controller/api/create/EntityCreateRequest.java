@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "EntityCreateRequest class, which instance contains entity name")
+@ApiModel(description = "Entity create request object, which contains request information")
 public class EntityCreateRequest {
 
     @ApiModelProperty(notes = "Entity name")
