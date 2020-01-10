@@ -1,16 +1,14 @@
 package ru.eda.tech.controller;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.eda.tech.controller.api.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.create.EntityCreateResponse;
 import ru.eda.tech.controller.api.delete.EntityDeleteRequest;
@@ -22,10 +20,9 @@ import ru.eda.tech.controller.api.update.EntityUpdateResponse;
 
 @RestController
 @RequestMapping("/entity")
-@Api(tags = {"Entity Controller"})
 public class EntityController {
 
-    @ApiOperation(value = "Create entity")
+    @ApiOperation("Create entity")
     @PutMapping
     public EntityCreateResponse create(
             @ApiParam(value = "Entity create request object", required = true)
@@ -34,7 +31,7 @@ public class EntityController {
         return new EntityCreateResponse(1L, name);
     }
 
-    @ApiOperation(value = "Read entity")
+    @ApiOperation("Read entity")
     @GetMapping
     public EntityReadResponse read(
             @ApiParam(value = "Entity read request object",required = true)
@@ -43,7 +40,7 @@ public class EntityController {
         return new EntityReadResponse(id, "name");
     }
 
-    @ApiOperation(value = "Update entity")
+    @ApiOperation("Update entity")
     @PostMapping
     public EntityUpdateResponse update(
             @ApiParam(value = "Entity update request object", required = true)
@@ -53,7 +50,7 @@ public class EntityController {
         return new EntityUpdateResponse(id, name);
     }
 
-    @ApiOperation(value = "Delete entity")
+    @ApiOperation("Delete entity")
     @DeleteMapping
     public EntityDeleteResponse delete(
             @ApiParam(value = "Entity delete request object", required = true)

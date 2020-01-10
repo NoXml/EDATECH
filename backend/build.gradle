@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.1.RELEASE'
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
     id 'idea'
@@ -7,8 +7,8 @@ plugins {
 
 group = 'ru.eda'
 version = '0.1.0-SNAPSHOT'
-sourceCompatibility = '11'
-targetCompatibility = '11'
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
