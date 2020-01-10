@@ -9,13 +9,13 @@ import java.util.Objects;
 @ApiModel(description = "All details about entity")
 public class Entity {
     @ApiModelProperty(notes = "Entity id")
-    private Long id;
+    private final Long id;
 
     @ApiModelProperty(notes = "Entity name")
-    private String name;
+    private final String name;
 
     @ApiModelProperty(notes = "Entity status")
-    private Status status;
+    private final Status status;
 
     public Entity(@NotNull Long id, @NotNull String name, @NotNull Status status) {
         this.id = Objects.requireNonNull(id, "id");

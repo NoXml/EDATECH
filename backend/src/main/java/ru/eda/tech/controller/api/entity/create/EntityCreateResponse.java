@@ -8,10 +8,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class EntityCreateResponse {
 
     @ApiModelProperty(notes = "Entity id")
-    private Long id;
+    private final Long id;
 
     @ApiModelProperty(notes = "Entity name")
-    private String name;
+    private final String name;
 
     public EntityCreateResponse(Long id, String name) {
         this.id = id;

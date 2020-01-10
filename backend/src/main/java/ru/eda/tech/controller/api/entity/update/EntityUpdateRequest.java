@@ -9,10 +9,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class EntityUpdateRequest {
 
     @ApiModelProperty(notes = "Entity id")
-    private Long id;
+    private final Long id;
 
     @ApiModelProperty(notes = "Entity name")
-    private String name;
+    private final String name;
 
     @JsonCreator
     public EntityUpdateRequest(@JsonProperty("id") Long id, @JsonProperty("name") String name) {

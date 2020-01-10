@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class EntityCreateRequest {
 
     @ApiModelProperty(notes = "Entity name")
-    private String name;
+    private final String name;
 
     @JsonCreator
     public EntityCreateRequest(@JsonProperty("name") String name) {

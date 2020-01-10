@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class EntityDeleteRequest {
 
     @ApiModelProperty(notes = "Entity id")
-    private Long id;
+    private final Long id;
 
     @JsonCreator
     public EntityDeleteRequest(@JsonProperty("id") Long id) {
