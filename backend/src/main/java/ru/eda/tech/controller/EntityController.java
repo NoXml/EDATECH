@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.eda.tech.controller.api.create.EntityCreateRequest;
-import ru.eda.tech.controller.api.create.EntityCreateResponse;
-import ru.eda.tech.controller.api.delete.EntityDeleteRequest;
-import ru.eda.tech.controller.api.delete.EntityDeleteResponse;
-import ru.eda.tech.controller.api.read.EntityReadRequest;
-import ru.eda.tech.controller.api.read.EntityReadResponse;
-import ru.eda.tech.controller.api.update.EntityUpdateRequest;
-import ru.eda.tech.controller.api.update.EntityUpdateResponse;
+import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
+import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
+import ru.eda.tech.controller.api.entity.delete.EntityDeleteRequest;
+import ru.eda.tech.controller.api.entity.delete.EntityDeleteResponse;
+import ru.eda.tech.controller.api.entity.read.EntityReadRequest;
+import ru.eda.tech.controller.api.entity.read.EntityReadResponse;
+import ru.eda.tech.controller.api.entity.update.EntityUpdateRequest;
+import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
 
 @RestController
 @RequestMapping("/entity")
