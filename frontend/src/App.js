@@ -1,26 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+const App = () => {
+
+
+	useEffect(() => {
+
+		const asyncRequests = async () => {
+			let response;
+
+			response = await fetch('/status', {
+				method: 'GET',
+				body: JSON.stringify({name: 'test'})
+			});
+
+			if (response.status !== 200) alert('NOT 200 RESPONSE!');
+		};
+		asyncRequests();
+
+
+	}, []);
+
+  	return (
+    	<div>
+			EDATECH
+    	</div>
+  	);
 }
 
 export default App;
