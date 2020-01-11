@@ -12,6 +12,7 @@ import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
 
 @Component
 public class EntityServiceImpl implements EntityService {
+
     @Override
     public EntityCreateResponse create(EntityCreateRequest request) {
         String name = request.getName();
