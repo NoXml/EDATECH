@@ -1,4 +1,4 @@
-package ru.eda.tech.controller.api.delete;
+package ru.eda.tech.controller.api.entity.create;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -10,23 +10,21 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-class EntityDeleteRequestTest {
+class EntityCreateRequestTest {
 
-    @Value("classpath:/data/entity/delete/entityDeleteRequest.json")
+    @Value("classpath:/data/entity/create/entityCreateRequest.json")
     Resource requestJsonResource;
 
     @Test
     void whenDeserializingUsingJsonCreator_thenCorrect() throws IOException {
         File requestJsonFile = requestJsonResource.getFile();
 
-        EntityDeleteRequest entityDeleteRequest = new ObjectMapper()
-                .readerFor(EntityDeleteRequest.class)
+        EntityCreateRequest entityCreateRequest = new ObjectMapper()
+                .readerFor(EntityCreateRequest.class)
                 .readValue(requestJsonFile);
 
-        assertEquals(1L, entityDeleteRequest.getId());
+        assertEquals("test", entityCreateRequest.getName());
     }
-
 }

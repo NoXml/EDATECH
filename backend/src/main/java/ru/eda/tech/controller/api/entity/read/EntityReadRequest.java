@@ -1,12 +1,15 @@
-package ru.eda.tech.controller.api.read;
+package ru.eda.tech.controller.api.entity.read;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "Entity read request object, which contains request information")
 public class EntityReadRequest {
 
-    private Long id;
+    @ApiModelProperty(notes = "Entity id")
+    private final Long id;
 
     @JsonCreator
     public EntityReadRequest(@JsonProperty("id") Long id) {

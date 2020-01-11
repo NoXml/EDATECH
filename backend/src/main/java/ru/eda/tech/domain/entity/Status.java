@@ -1,4 +1,4 @@
-package ru.eda.tech.domain.enums;
+package ru.eda.tech.domain.entity;
 
 import javax.validation.constraints.NotNull;
 import java.util.Objects;

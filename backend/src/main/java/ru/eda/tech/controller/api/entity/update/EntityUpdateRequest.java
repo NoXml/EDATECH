@@ -1,14 +1,18 @@
-package ru.eda.tech.controller.api.update;
+package ru.eda.tech.controller.api.entity.update;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "Entity update request object, which contains request information")
 public class EntityUpdateRequest {
 
-    private Long id;
+    @ApiModelProperty(notes = "Entity id")
+    private final Long id;
 
-    private String name;
+    @ApiModelProperty(notes = "Entity name")
+    private final String name;
 
     @JsonCreator
     public EntityUpdateRequest(@JsonProperty("id") Long id, @JsonProperty("name") String name) {

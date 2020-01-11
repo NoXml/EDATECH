@@ -1,15 +1,21 @@
-package ru.eda.tech.domain;
+package ru.eda.tech.domain.entity;
 
-import org.springframework.lang.NonNull;
-import ru.eda.tech.domain.enums.Status;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+@ApiModel(description = "All details about entity")
 public class Entity {
-    private Long id;
-    private String name;
-    private Status status;
+    @ApiModelProperty(notes = "Entity id")
+    private final Long id;
+
+    @ApiModelProperty(notes = "Entity name")
+    private final String name;
+
+    @ApiModelProperty(notes = "Entity status")
+    private final Status status;
 
     public Entity(@NotNull Long id, @NotNull String name, @NotNull Status status) {
         this.id = Objects.requireNonNull(id, "id");

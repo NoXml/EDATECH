@@ -1,4 +1,4 @@
-package ru.eda.tech.controller.api.delete;
+package ru.eda.tech.controller.api.entity.read;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EntityDeleteResponseTest {
+class EntityReadResponseTest {
 
     @Test
     void whenSerializingUsingJsonGetter_thenCorrect() throws JsonProcessingException {
-        EntityDeleteResponse entityDeleteResponse = new EntityDeleteResponse(1L, "test");
-        String response = new ObjectMapper().writeValueAsString(entityDeleteResponse);
+        EntityReadResponse entityReadResponse = new EntityReadResponse(1L, "test");
+        String response = new ObjectMapper().writeValueAsString(entityReadResponse);
 
         assertEquals("{\"id\":1,\"name\":\"test\"}", response);
     }
