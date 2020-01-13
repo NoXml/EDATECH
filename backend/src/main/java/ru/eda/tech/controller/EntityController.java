@@ -17,27 +17,32 @@ import ru.eda.tech.controller.api.entity.read.EntityReadRequest;
 import ru.eda.tech.controller.api.entity.read.EntityReadResponse;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateRequest;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
+import ru.eda.tech.service.entity.EntityService;
 
 @RestController
 @RequestMapping("/entity")
 public class EntityController {
+
+    private final EntityService entityService;
+
+    public EntityController(EntityService entityService) {
+        this.entityService = entityService;
+    }
 
     @ApiOperation("Create entity")
     @PutMapping
     public EntityCreateResponse create(
             @ApiParam(value = "Entity create request object", required = true)
             @RequestBody EntityCreateRequest request) {
-        String name = request.getName();
-        return new EntityCreateResponse(1L, name);
+        return entityService.create(request);
     }
 
     @ApiOperation("Read entity")
     @GetMapping
     public EntityReadResponse read(
-            @ApiParam(value = "Entity read request object",required = true)
+            @ApiParam(value = "Entity read request object", required = true)
             @RequestBody EntityReadRequest request) {
-        Long id = request.getId();
-        return new EntityReadResponse(id, "name");
+        return entityService.read(request);
     }
 
     @ApiOperation("Update entity")
@@ -45,9 +50,7 @@ public class EntityController {
     public EntityUpdateResponse update(
             @ApiParam(value = "Entity update request object", required = true)
             @RequestBody EntityUpdateRequest request) {
-        Long id = request.getId();
-        String name = request.getName();
-        return new EntityUpdateResponse(id, name);
+        return entityService.update(request);
     }
 
     @ApiOperation("Delete entity")
@@ -55,8 +58,7 @@ public class EntityController {
     public EntityDeleteResponse delete(
             @ApiParam(value = "Entity delete request object", required = true)
             @RequestBody EntityDeleteRequest request) {
-        Long id = request.getId();
-        return new EntityDeleteResponse(id, "name");
+        return entityService.delete(request);
     }
 }
 
