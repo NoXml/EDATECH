@@ -23,7 +23,7 @@ import ru.eda.tech.service.entity.EntityService;
 @RequestMapping("/entity")
 public class EntityController {
 
-    private EntityService entityService;
+    private final EntityService entityService;
 
     public EntityController(EntityService entityService) {
         this.entityService = entityService;

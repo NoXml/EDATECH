@@ -1,6 +1,6 @@
 package ru.eda.tech.service.entity;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
 import ru.eda.tech.controller.api.entity.delete.EntityDeleteRequest;
@@ -10,7 +10,7 @@ import ru.eda.tech.controller.api.entity.read.EntityReadResponse;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateRequest;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
 
-@Component
+@Service
 public class EntityServiceImpl implements EntityService {
 
     @Override
