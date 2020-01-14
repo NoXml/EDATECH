@@ -1,32 +1,22 @@
 package ru.eda.tech.controller.api.entity.update;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.Resource;
+import ru.eda.tech.base.JsonTestContext;
 
-import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-@SpringBootTest
-class EntityUpdateRequestTest {
-
-    @Value("classpath:/data/entity/update/entityUpdateRequest.json")
-    Resource requestJsonResource;
+class EntityUpdateRequestTest extends JsonTestContext {
 
     @Test
-    void whenDeserializingUsingJsonCreator_thenCorrect() throws IOException {
-        File requestJsonFile = requestJsonResource.getFile();
+    public void whenDeserializingUsingJsonCreator_thenCorrect() throws IOException {
+        EntityUpdateRequest entityUpdateRequest = new EntityUpdateRequest(1L, "test");
+        shouldDeserialize("EntityUpdateRequest.json", entityUpdateRequest);
+    }
 
-        EntityUpdateRequest entityUpdateRequest = new ObjectMapper()
-                .readerFor(EntityUpdateRequest.class)
-                .readValue(requestJsonFile);
-
-        assertEquals(1L, entityUpdateRequest.getId());
-        assertEquals("test", entityUpdateRequest.getName());
+    @Test
+    void whenSerializingUsingJsonGetter_thenCorrect() throws Exception {
+        EntityUpdateResponse entityUpdateResponse = new EntityUpdateResponse(1L, "test");
+        shouldSerialize(entityUpdateResponse, "EntityUpdateResponse.json");
     }
 
 }
