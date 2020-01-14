@@ -24,7 +24,8 @@ public abstract class JsonTestContext {
         try {
             objectDeserialized = tester.readObject(srcJsonFilename);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException(
+                    "Error while reading from: " + srcJsonFilename, e);
         }
         assertThat(objectDeserialized).isEqualToComparingFieldByField(expectedObject);
     }
@@ -36,7 +37,8 @@ public abstract class JsonTestContext {
         try {
             srcJson = tester.write(srcObject);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException(
+                    "Error while getting JsonContent from input object", e);
         }
         assertThat(srcJson).isEqualToJson(expectedJsonFilename);
     }
