@@ -3,18 +3,16 @@ package ru.eda.tech.controller.api.entity.update;
 import org.junit.jupiter.api.Test;
 import ru.eda.tech.base.JsonTestContext;
 
-import java.io.IOException;
-
 class EntityUpdateJsonTest extends JsonTestContext {
 
     @Test
-    public void whenDeserializingUsingJsonCreator_thenCorrect() throws IOException {
+    public void whenDeserializingUsingJsonCreator_thenCorrect() {
         EntityUpdateRequest entityUpdateRequest = new EntityUpdateRequest(1L, "test");
         shouldDeserialize("EntityUpdateRequest.json", entityUpdateRequest);
     }
 
     @Test
-    void whenSerializingUsingJsonGetter_thenCorrect() throws Exception {
+    void whenSerializingUsingJsonGetter_thenCorrect() {
         EntityUpdateResponse entityUpdateResponse = new EntityUpdateResponse(1L, "test");
         shouldSerialize(entityUpdateResponse, "EntityUpdateResponse.json");
     }
