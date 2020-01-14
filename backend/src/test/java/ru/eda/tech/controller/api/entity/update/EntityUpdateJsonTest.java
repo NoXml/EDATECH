@@ -5,7 +5,7 @@ import ru.eda.tech.base.JsonTestContext;
 
 import java.io.IOException;
 
-class EntityUpdateRequestTest extends JsonTestContext {
+class EntityUpdateJsonTest extends JsonTestContext {
 
     @Test
     public void whenDeserializingUsingJsonCreator_thenCorrect() throws IOException {
