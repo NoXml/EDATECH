@@ -1,6 +1,5 @@
 package ru.eda.tech.controller.api.entity.delete;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,7 +10,6 @@ public class EntityDeleteRequest {
     @ApiModelProperty(notes = "Entity id")
     private final Long id;
 
-    @JsonCreator
     public EntityDeleteRequest(@JsonProperty("id") Long id) {
         this.id = id;
     }
