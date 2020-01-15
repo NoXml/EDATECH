@@ -10,6 +10,9 @@ import ru.eda.tech.controller.api.entity.read.EntityReadResponse;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateRequest;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class EntityServiceImpl implements EntityService {
 
@@ -17,6 +20,11 @@ public class EntityServiceImpl implements EntityService {
     public EntityCreateResponse create(EntityCreateRequest request) {
         String name = request.getName();
         return new EntityCreateResponse(1L, name);
+    }
+
+    @Override
+    public List<EntityReadResponse> readAll() {
+        return Collections.emptyList();
     }
 
     @Override

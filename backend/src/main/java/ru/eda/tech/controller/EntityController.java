@@ -2,13 +2,7 @@ package ru.eda.tech.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
 import ru.eda.tech.controller.api.entity.delete.EntityDeleteRequest;
@@ -18,6 +12,8 @@ import ru.eda.tech.controller.api.entity.read.EntityReadResponse;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateRequest;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
 import ru.eda.tech.service.entity.EntityService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/entity")
@@ -30,23 +26,29 @@ public class EntityController {
     }
 
     @ApiOperation("Create entity")
-    @PutMapping
+    @PostMapping
     public EntityCreateResponse create(
             @ApiParam(value = "Entity create request object", required = true)
             @RequestBody EntityCreateRequest request) {
         return entityService.create(request);
     }
 
-    @ApiOperation("Read entity")
+    @ApiOperation("Read all entities")
     @GetMapping
+    public List<EntityReadResponse> readAll() {
+        return entityService.readAll();
+    }
+
+    @ApiOperation("Read entity")
+    @GetMapping("{id}")
     public EntityReadResponse read(
-            @ApiParam(value = "Entity read request object", required = true)
-            @RequestBody EntityReadRequest request) {
-        return entityService.read(request);
+            @ApiParam(value = "PathVariable id of requested Entity to read", required = true)
+            @PathVariable("id") long id) {
+        return entityService.read(new EntityReadRequest(id));
     }
 
     @ApiOperation("Update entity")
-    @PostMapping
+    @PutMapping
     public EntityUpdateResponse update(
             @ApiParam(value = "Entity update request object", required = true)
             @RequestBody EntityUpdateRequest request) {
@@ -54,11 +56,11 @@ public class EntityController {
     }
 
     @ApiOperation("Delete entity")
-    @DeleteMapping
+    @DeleteMapping("{id}")
     public EntityDeleteResponse delete(
-            @ApiParam(value = "Entity delete request object", required = true)
-            @RequestBody EntityDeleteRequest request) {
-        return entityService.delete(request);
+            @ApiParam(value = "PathVariable id of requested Entity to delete", required = true)
+            @PathVariable("id") long id) {
+        return entityService.delete(new EntityDeleteRequest(id));
     }
 }
 
