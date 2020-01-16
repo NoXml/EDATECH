@@ -4,8 +4,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public enum ResponseStatus {
-    SUCCESS("SUCCESS"),
-    FAILED("FAILED")
+    SUCCESS("Success"),
+    FAILED("Failed")
     ;
     private final String id;
 

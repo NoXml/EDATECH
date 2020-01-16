@@ -13,7 +13,7 @@ public class Response<T> {
 
     private final String errorCode;
 
-    private Response(@NotNull Builder<T> builder) {
+    private Response(Builder<T> builder) {
         status = Objects.requireNonNull(builder.status, "status");
         result = Objects.requireNonNull(builder.result, "result");
         errorCode = builder.errorCode;
