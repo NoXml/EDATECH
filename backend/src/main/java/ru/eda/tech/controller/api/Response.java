@@ -13,10 +13,12 @@ public class Response<T> {
 
     private final String errorCode;
 
-    private Response(Builder<T> builder) {
-        status = Objects.requireNonNull(builder.status, "status");
-        result = Objects.requireNonNull(builder.result, "result");
-        errorCode = builder.errorCode;
+    private Response(@NotNull ResponseStatus status,
+                     @NotNull T result,
+                     String errorCode) {
+        this.status = Objects.requireNonNull(status, "status");
+        this.result = Objects.requireNonNull(result, "result");
+        this.errorCode = errorCode;
     }
 
     @JsonGetter("status")
@@ -72,7 +74,10 @@ public class Response<T> {
         }
 
         public Response<T> build() {
-            return new Response<>(this);
+            return new Response<>(
+                    status,
+                    result,
+                    errorCode);
         }
     }
 }
