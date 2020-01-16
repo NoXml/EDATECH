@@ -10,6 +10,9 @@ import ru.eda.tech.controller.api.entity.read.EntityReadResponse;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateRequest;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class EntityServiceImpl implements EntityService {
 
@@ -20,8 +23,12 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public EntityReadResponse read(EntityReadRequest request) {
-        Long id = request.getId();
+    public List<EntityReadResponse> readAll() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public EntityReadResponse read(Long id) {
         return new EntityReadResponse(id, "name");
     }
 
@@ -33,8 +40,7 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public EntityDeleteResponse delete(EntityDeleteRequest request) {
-        Long id = request.getId();
+    public EntityDeleteResponse delete(Long id) {
         return new EntityDeleteResponse(id, "name");
     }
 }
