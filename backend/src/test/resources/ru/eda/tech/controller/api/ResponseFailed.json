@@ -1,8 +1,8 @@
 {
-  "status": "FAILED",
+  "status": "Failed",
   "result": {
     "id": 1,
     "name": "test"
   },
-  "errorCode": null
+  "errorCode": "507"
 }

@@ -29,6 +29,7 @@ class ResponseTest extends JsonTestContext {
     public void whenUseFailedAndSerializeUsingJsonGetter_ThenCorrect() {
         Response<EntityCreateResponse> response = Response
                 .failed(new EntityCreateResponse(1L, "test"))
+                .errorCode("507")
                 .build();
         shouldSerialize(response, "ResponseFailed.json");
     }

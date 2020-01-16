@@ -1,8 +1,9 @@
 package ru.eda.tech.controller.api;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class Response<T> {
@@ -10,12 +11,12 @@ public class Response<T> {
     private final ResponseStatus status;
     @NotNull
     private final T result;
-
+    @Nullable
     private final String errorCode;
 
     private Response(@NotNull ResponseStatus status,
                      @NotNull T result,
-                     String errorCode) {
+                     @Nullable String errorCode) {
         this.status = Objects.requireNonNull(status, "status");
         this.result = Objects.requireNonNull(result, "result");
         this.errorCode = errorCode;
