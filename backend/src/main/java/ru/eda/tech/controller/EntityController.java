@@ -49,7 +49,7 @@ public class EntityController {
     @GetMapping("{id}")
     @ApiOperation("Read entity")
     public EntityReadResponse read(
-            @ApiParam(value = "PathVariable id of requested Entity to read", required = true)
+            @ApiParam(value = "id of requested Entity to read", required = true)
             @PathVariable("id") Long id) {
         return entityService.read(new EntityReadRequest(id));
     }
@@ -65,7 +65,7 @@ public class EntityController {
     @DeleteMapping("{id}")
     @ApiOperation("Delete entity")
     public EntityDeleteResponse delete(
-            @ApiParam(value = "PathVariable id of requested Entity to delete", required = true)
+            @ApiParam(value = "id of requested Entity to delete", required = true)
             @PathVariable("id") Long id) {
         return entityService.delete(new EntityDeleteRequest(id));
     }
