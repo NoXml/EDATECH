@@ -1,11 +1,11 @@
-package ru.eda.tech.controller.api.wrapper;
+package ru.eda.tech.controller.api;
 
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public enum ResponseStatus {
-    SUCCESS("RESPONSE CODE 200"),
-    FAILED("RESPONSE CODE NOT 200")
+    SUCCESS("SUCCESS"),
+    FAILED("FAILED")
     ;
     private final String id;
 
