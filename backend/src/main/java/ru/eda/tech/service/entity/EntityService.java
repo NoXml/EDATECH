@@ -17,9 +17,9 @@ public interface EntityService {
 
     List<EntityReadResponse> readAll();
 
-    EntityReadResponse read(EntityReadRequest request);
+    EntityReadResponse read(Long id);
 
     EntityUpdateResponse update(EntityUpdateRequest request);
 
-    EntityDeleteResponse delete(EntityDeleteRequest request);
+    EntityDeleteResponse delete(Long id);
 }

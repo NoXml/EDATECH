@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
-import ru.eda.tech.controller.api.entity.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.api.entity.delete.EntityDeleteResponse;
-import ru.eda.tech.controller.api.entity.read.EntityReadRequest;
 import ru.eda.tech.controller.api.entity.read.EntityReadResponse;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateRequest;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
@@ -51,7 +49,7 @@ public class EntityController {
     public EntityReadResponse read(
             @ApiParam(value = "id of requested Entity to read", required = true)
             @PathVariable("id") Long id) {
-        return entityService.read(new EntityReadRequest(id));
+        return entityService.read(id);
     }
 
     @PutMapping
@@ -67,7 +65,7 @@ public class EntityController {
     public EntityDeleteResponse delete(
             @ApiParam(value = "id of requested Entity to delete", required = true)
             @PathVariable("id") Long id) {
-        return entityService.delete(new EntityDeleteRequest(id));
+        return entityService.delete(id);
     }
 }
 

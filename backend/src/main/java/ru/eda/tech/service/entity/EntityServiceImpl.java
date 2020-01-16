@@ -28,8 +28,7 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public EntityReadResponse read(EntityReadRequest request) {
-        Long id = request.getId();
+    public EntityReadResponse read(Long id) {
         return new EntityReadResponse(id, "name");
     }
 
@@ -41,8 +40,7 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public EntityDeleteResponse delete(EntityDeleteRequest request) {
-        Long id = request.getId();
+    public EntityDeleteResponse delete(Long id) {
         return new EntityDeleteResponse(id, "name");
     }
 }
