@@ -3,17 +3,17 @@ package ru.eda.tech.controller.api.wrapper;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-public enum ResponseWrapperStatus {
-    SUCCESS(0),
-    FAILED(1)
+public enum ResponseStatus {
+    SUCCESS("RESPONSE CODE 200"),
+    FAILED("RESPONSE CODE NOT 200")
     ;
-    private final Integer id;
+    private final String id;
 
-    ResponseWrapperStatus(@NotNull Integer id) {
+    ResponseStatus(@NotNull String id) {
         this.id = Objects.requireNonNull(id, "id");
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 }
