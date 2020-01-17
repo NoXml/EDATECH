@@ -19,9 +19,5 @@ jobs:
           architecture: x64
       - name: Check
         run: ls
-      - name: Check
-        run: ls && cd backend && ls
-      - name: Check
-        run: ls
       - name: Build with Gradle
         run: ./backend/gradlew build
