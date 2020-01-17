@@ -2,8 +2,6 @@ package ru.eda.tech.controller.api;
 
 import org.junit.jupiter.api.Test;
 import ru.eda.tech.base.JsonTestContext;
-import ru.eda.tech.controller.api.Response;
-import ru.eda.tech.controller.api.ResponseStatus;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
 
 class ResponseTest extends JsonTestContext {

@@ -18,6 +18,8 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Check
+        run: cd backend
+      - name: Check
         run: ls
       - name: Build with Gradle
         run: ./backend/gradlew build
