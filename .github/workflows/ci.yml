@@ -20,6 +20,6 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Check
-        run: ls
+        run: ls && cd backend && ls
       - name: Build with Gradle
         run: gradle build
