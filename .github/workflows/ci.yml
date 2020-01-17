@@ -3,9 +3,6 @@ on:
   pull_request:
     brancehs:
       - feature/*
-    paths:
-      - 'backend/**'
-      - '!frontend/**'
 
 jobs:
   build:
@@ -22,6 +19,10 @@ jobs:
           java-version: 11
           java-package: jdk
           architecture: x64
+      - name: Check
+        run: ls
+      - name: Check
+        run: ls && cd backend && ls
       - name: Check
         run: ls
       - name: Build with Gradle
