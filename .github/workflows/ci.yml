@@ -20,4 +20,4 @@ jobs:
       - name: Check
         run: ls
       - name: Build with Gradle
-        run: ./backend/gradlew build
+        run: gradle build
