@@ -6,6 +6,8 @@ plugins {
     id 'jacoco'
 }
 
+apply from: 'coverage.gradle'
+
 group = 'ru.eda'
 version = '0.1.0-SNAPSHOT'
 sourceCompatibility = JavaVersion.VERSION_11
@@ -32,41 +34,4 @@ dependencies {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
-}
-
-jacoco {
-    toolVersion = "0.8.5"
-}
-
-check.dependsOn jacocoTestCoverageVerification
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                counter = 'LINE'
-                value = 'COVEREDRATIO'
-                minimum = 0.90
-            }
-            limit {
-                counter = 'BRANCH'
-                value = 'COVEREDRATIO'
-                minimum = 0.90
-            }
-            limit {
-                counter = 'CLASS'
-                value = 'COVEREDRATIO'
-                minimum = 0.90
-            }
-            limit {
-                counter = 'INSTRUCTION'
-                value = 'COVEREDRATIO'
-                minimum = 0.90
-            }
-            limit {
-                counter = 'METHOD'
-                value = 'COVEREDRATIO'
-                minimum = 0.90
-            }
-        }
-    }
 }
