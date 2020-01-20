@@ -17,7 +17,5 @@ jobs:
           java-version: 11
           java-package: jdk
           architecture: x64
-      - name: Check
-        run: ls
       - name: Build with Gradle
         run: gradle build

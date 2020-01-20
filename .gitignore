@@ -1,3 +1,5 @@
-backend/.gradle
 build/
 out/
+.idea
+*.iml
+.gradle
