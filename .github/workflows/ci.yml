@@ -9,7 +9,8 @@ jobs:
     name: Build backend
     runs-on: ubuntu-16.04
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout directory
+        uses: actions/checkout@v2
       - name: Set up JDK 1.11
         uses: actions/setup-java@v1
         with:
@@ -17,4 +18,4 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Build with Gradle
-        run: backend/gradlew build
+        run: gradle build
