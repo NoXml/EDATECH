@@ -12,13 +12,13 @@ public class Response<T> {
     @NotNull
     private final T result;
     @Nullable
-    private final String errorCode;
+    private final ErrorCode errorCode;
 
     private Response(@NotNull ResponseStatus status,
-                     @NotNull T result,
-                     @Nullable String errorCode) {
+                     @Nullable T result,
+                     @Nullable ErrorCode errorCode) {
         this.status = Objects.requireNonNull(status, "status");
-        this.result = Objects.requireNonNull(result, "result");
+        this.result = result;
         this.errorCode = errorCode;
     }
 
@@ -33,52 +33,52 @@ public class Response<T> {
     }
 
     @JsonGetter("errorCode")
-    public String getErrorCode() {
+    public ErrorCode getErrorCode() {
         return errorCode;
     }
 
-    public static <T> Builder<T> of(@NotNull T result) {
+    public static <T> Builder<T> status(@NotNull ResponseStatus status) {
         return new Builder<T>()
-                .result(result);
+                .status(status);
     }
 
-    public static <T> Builder<T> success(@NotNull T result) {
+    public static <T> Builder<T> success() {
         return new Builder<T>()
-                .result(result)
                 .status(ResponseStatus.SUCCESS);
     }
 
-    public static <T> Builder<T> failed(@NotNull T result) {
+    public static <T> Builder<T> failed() {
         return new Builder<T>()
-                .result(result)
                 .status(ResponseStatus.FAILED);
     }
 
     public static class Builder<T> {
         private ResponseStatus status;
         private T result;
-        private String errorCode;
-
-        private Builder<T> result(T result) {
-            this.result = result;
-            return this;
-        }
+        private ErrorCode errorCode;
 
         public Builder<T> status(ResponseStatus status) {
             this.status = status;
             return this;
         }
 
-        public Builder<T> errorCode(String errorCode) {
-            this.errorCode = errorCode;
+        public Builder<T> errorCode(String value, String message) {
+            this.errorCode = new ErrorCode(value, message);
             return this;
         }
 
         public Response<T> build() {
             return new Response<>(
-                    status,
+                    this.status,
+                    this.result,
+                    this.errorCode);
+        }
+
+        public Response<T> buildWith(T result) {
+            return new Response<>(
+                    this.status,
                     result,
-                    errorCode);
+                    this.errorCode);
         }
     }
 }

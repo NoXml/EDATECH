@@ -38,8 +38,8 @@ public class EntityController {
             @RequestBody EntityCreateRequest request) {
         EntityCreateResponse entityCreateResponse = entityService.create(request);
         return Response
-                .success(entityCreateResponse)
-                .build();
+                .<EntityCreateResponse>success()
+                .buildWith(entityCreateResponse);
     }
 
     @GetMapping
@@ -47,8 +47,8 @@ public class EntityController {
     public Response<List<EntityReadResponse>> readAll() {
         List<EntityReadResponse> entityReadResponses = entityService.readAll();
         return Response
-                .success(entityReadResponses)
-                .build();
+                .<List<EntityReadResponse>>success()
+                .buildWith(entityReadResponses);
     }
 
     @GetMapping("{id}")
@@ -58,8 +58,8 @@ public class EntityController {
             @PathVariable("id") Long id) {
         EntityReadResponse entityReadResponse = entityService.read(id);
         return Response
-                .success(entityReadResponse)
-                .build();
+                .<EntityReadResponse>success()
+                .buildWith(entityReadResponse);
     }
 
     @PutMapping
@@ -69,8 +69,8 @@ public class EntityController {
             @RequestBody EntityUpdateRequest request) {
         EntityUpdateResponse entityUpdateResponse = entityService.update(request);
         return Response
-                .success(entityUpdateResponse)
-                .build();
+                .<EntityUpdateResponse>success()
+                .buildWith(entityUpdateResponse);
     }
 
     @DeleteMapping("{id}")
@@ -80,8 +80,8 @@ public class EntityController {
             @PathVariable("id") Long id) {
         EntityDeleteResponse entityDeleteResponse = entityService.delete(id);
         return Response
-                .success(entityDeleteResponse)
-                .build();
+                .<EntityDeleteResponse>success()
+                .buildWith(entityDeleteResponse);
     }
 }
 
