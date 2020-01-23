@@ -1,7 +1,6 @@
 package ru.eda.tech.service.entity;
 
 import org.springframework.stereotype.Service;
-import ru.eda.tech.controller.api.Response;
 import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
 import ru.eda.tech.controller.api.entity.delete.EntityDeleteResponse;
@@ -16,44 +15,30 @@ import java.util.List;
 public class EntityServiceImpl implements EntityService {
 
     @Override
-    public Response<EntityCreateResponse> create(EntityCreateRequest request) {
+    public EntityCreateResponse create(EntityCreateRequest request) {
         String name = request.getName();
-        EntityCreateResponse entityCreateResponse = new EntityCreateResponse(1L, name);
-        return Response
-                .success(entityCreateResponse)
-                .build();
+        return new EntityCreateResponse(1L, name);
     }
 
     @Override
-    public Response<List<EntityReadResponse>> readAll() {
-        return Response
-                .success(Collections.<EntityReadResponse>emptyList())
-                .build();
+    public List<EntityReadResponse> readAll() {
+        return Collections.emptyList();
     }
 
     @Override
-    public Response<EntityReadResponse> read(Long id) {
-        EntityReadResponse entityReadResponse = new EntityReadResponse(id, "name");
-        return Response
-                .success(entityReadResponse)
-                .build();
+    public EntityReadResponse read(Long id) {
+        return new EntityReadResponse(id, "name");
     }
 
     @Override
-    public Response<EntityUpdateResponse> update(EntityUpdateRequest request) {
+    public EntityUpdateResponse update(EntityUpdateRequest request) {
         Long id = request.getId();
         String name = request.getName();
-        EntityUpdateResponse entityUpdateResponse = new EntityUpdateResponse(id, name);
-        return Response
-                .success(entityUpdateResponse)
-                .build();
+        return new EntityUpdateResponse(id, name);
     }
 
     @Override
-    public Response<EntityDeleteResponse> delete(Long id) {
-        EntityDeleteResponse entityDeleteResponse = new EntityDeleteResponse(id, "name");
-        return Response
-                .success(entityDeleteResponse)
-                .build();
+    public EntityDeleteResponse delete(Long id) {
+        return new EntityDeleteResponse(id, "name");
     }
 }

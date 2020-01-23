@@ -36,13 +36,19 @@ public class EntityController {
     public Response<EntityCreateResponse> create(
             @ApiParam(value = "Entity create request object", required = true)
             @RequestBody EntityCreateRequest request) {
-        return entityService.create(request);
+        EntityCreateResponse entityCreateResponse = entityService.create(request);
+        return Response
+                .success(entityCreateResponse)
+                .build();
     }
 
     @GetMapping
     @ApiOperation("Read all entities")
     public Response<List<EntityReadResponse>> readAll() {
-        return entityService.readAll();
+        List<EntityReadResponse> entityReadResponses = entityService.readAll();
+        return Response
+                .success(entityReadResponses)
+                .build();
     }
 
     @GetMapping("{id}")
@@ -50,7 +56,10 @@ public class EntityController {
     public Response<EntityReadResponse> read(
             @ApiParam(value = "id of requested Entity to read", required = true)
             @PathVariable("id") Long id) {
-        return entityService.read(id);
+        EntityReadResponse entityReadResponse = entityService.read(id);
+        return Response
+                .success(entityReadResponse)
+                .build();
     }
 
     @PutMapping
@@ -58,7 +67,10 @@ public class EntityController {
     public Response<EntityUpdateResponse> update(
             @ApiParam(value = "Entity update request object", required = true)
             @RequestBody EntityUpdateRequest request) {
-        return entityService.update(request);
+        EntityUpdateResponse entityUpdateResponse = entityService.update(request);
+        return Response
+                .success(entityUpdateResponse)
+                .build();
     }
 
     @DeleteMapping("{id}")
@@ -66,7 +78,10 @@ public class EntityController {
     public Response<EntityDeleteResponse> delete(
             @ApiParam(value = "id of requested Entity to delete", required = true)
             @PathVariable("id") Long id) {
-        return entityService.delete(id);
+        EntityDeleteResponse entityDeleteResponse = entityService.delete(id);
+        return Response
+                .success(entityDeleteResponse)
+                .build();
     }
 }
 
