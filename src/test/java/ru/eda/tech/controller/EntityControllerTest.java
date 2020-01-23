@@ -36,31 +36,19 @@ class EntityControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-//    private MockMvc mockMvc;
-//
-//    @Autowired
-//    private WebApplicationContext webApplicationContext;
-
     @Autowired
     private ObjectMapper objectMapper;
 
     @Value("classpath:/ru/eda/tech/controller/EntityControllerCreateRequest.json")
-    Resource createRequest;
+    private Resource createRequest;
     @Value("classpath:/ru/eda/tech/controller/EntityControllerCreateResponse.json")
-    Resource createResponseExpected;
+    private Resource createResponseExpected;
 
     @Test
     void create() throws Exception {
-//        mockMvc = webAppContextSetup(webApplicationContext)
-//                .build();
-
         EntityCreateRequest requestObject = objectMapper.readerFor(EntityCreateRequest.class)
                 .readValue(createRequest.getFile());
         String requestString = objectMapper.writeValueAsString(requestObject);
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-//        String requestString = ow.writeValueAsString(requestObject);
 
         Response<EntityCreateResponse> responseExpected = objectMapper
                 .readerFor(new TypeReference<Response<EntityCreateResponse>>() {
@@ -69,10 +57,10 @@ class EntityControllerTest {
 
         MvcResult mvcResult = mockMvc
                 .perform(post("/entity/")
-//                        .contentType(APPLICATION_JSON)
+                        .contentType(APPLICATION_JSON)
                         .content(requestString))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isOk()) //Здесь 404, а не 200
                 .andReturn();
         String responseAsString = mvcResult.getResponse().getContentAsString();
         Response<EntityCreateResponse> response =
