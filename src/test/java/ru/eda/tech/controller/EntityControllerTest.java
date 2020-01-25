@@ -2,35 +2,28 @@ package ru.eda.tech.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.core.ResolvableType;
 import org.springframework.core.io.Resource;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.util.StreamUtils;
 import ru.eda.tech.controller.api.Response;
 import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
 import ru.eda.tech.service.entity.EntityService;
 
+import java.nio.charset.StandardCharsets;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@WebMvcTest(EntityController.class)
-@ContextConfiguration(classes = {EntityService.class})
+@WebMvcTest({EntityController.class, EntityService.class})
 class EntityControllerTest {
 
     @Autowired
@@ -55,10 +48,14 @@ class EntityControllerTest {
                 })
                 .readValue(createResponseExpected.getFile());
 
+        // Тесты интеграционные. Тут мы не знаем про объекты. Оперируем только строками
+
+        String msg = StreamUtils.copyToString(createRequest.getInputStream(), StandardCharsets.UTF_8);
+
         MvcResult mvcResult = mockMvc
-                .perform(post("/entity/")
+                .perform(post("/entity")
                         .contentType(APPLICATION_JSON)
-                        .content(requestString))
+                        .content(msg))
                 .andDo(print())
                 .andExpect(status().isOk()) //Здесь 404, а не 200
                 .andReturn();

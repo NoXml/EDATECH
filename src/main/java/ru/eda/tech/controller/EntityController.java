@@ -22,7 +22,7 @@ import ru.eda.tech.service.entity.EntityService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/entity/")
+@RequestMapping("/entity")
 public class EntityController {
 
     private final EntityService entityService;
