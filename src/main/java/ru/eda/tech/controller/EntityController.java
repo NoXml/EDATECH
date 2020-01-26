@@ -51,7 +51,7 @@ public class EntityController {
                 .buildWith(entityReadResponses);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     @ApiOperation("Read entity")
     public Response<EntityReadResponse> read(
             @ApiParam(value = "id of requested Entity to read", required = true)
@@ -73,7 +73,7 @@ public class EntityController {
                 .buildWith(entityUpdateResponse);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation("Delete entity")
     public Response<EntityDeleteResponse> delete(
             @ApiParam(value = "id of requested Entity to delete", required = true)
