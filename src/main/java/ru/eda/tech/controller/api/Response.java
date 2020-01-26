@@ -69,16 +69,16 @@ public class Response<T> {
 
         public Response<T> build() {
             return new Response<>(
-                    this.status,
-                    this.result,
-                    this.errorCode);
+                    status,
+                    result,
+                    errorCode);
         }
 
         public Response<T> buildWith(T result) {
             return new Response<>(
-                    this.status,
+                    status,
                     result,
-                    this.errorCode);
+                    errorCode);
         }
     }
 }
