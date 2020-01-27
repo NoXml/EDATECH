@@ -39,20 +39,17 @@ public abstract class EntityControllerTestContext {
     protected Resource deleteById1ResponseContentExpected;
 
     protected String getResponseContent(RequestBuilder requestBuilder) {
-        MvcResult mvcResult = null;
-        String responseContent = null;
         try {
-            mvcResult = mockMvc
-                    .perform(requestBuilder)
+            return mockMvc.perform(requestBuilder)
                     .andDo(print())
                     .andExpect(status().isOk())
-                    .andReturn();
-            responseContent = mvcResult.getResponse().getContentAsString();
+                    .andReturn()
+                    .getResponse()
+                    .getContentAsString();
         } catch (Exception e) {
             throw new IllegalArgumentException(
                     "Error while performing a request with: " + requestBuilder.toString(), e);
         }
-        return responseContent;
     }
 
     protected String copyToStringFromResource(Resource resource) {
