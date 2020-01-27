@@ -9,25 +9,24 @@ class ResponseTest extends JsonTestContext {
     @Test
     public void whenUseOfAndSerializeUsingJsonGetter_ThenCorrect() {
         Response<EntityCreateResponse> response = Response
-                        .of(new EntityCreateResponse(1L, "test"))
-                        .status(ResponseStatus.SUCCESS)
-                        .build();
+                .<EntityCreateResponse>status(ResponseStatus.SUCCESS)
+                .buildWith(new EntityCreateResponse(1L, "test"));
         shouldSerialize(response, "ResponseSuccess.json");
     }
 
     @Test
     public void whenUseSuccessAndSerializeUsingJsonGetter_ThenCorrect() {
         Response<EntityCreateResponse> response = Response
-                .success(new EntityCreateResponse(1L, "test"))
-                .build();
+                .<EntityCreateResponse>success()
+                .buildWith(new EntityCreateResponse(1L, "test"));
         shouldSerialize(response, "ResponseSuccess.json");
     }
 
     @Test
     public void whenUseFailedAndSerializeUsingJsonGetter_ThenCorrect() {
         Response<EntityCreateResponse> response = Response
-                .failed(new EntityCreateResponse(1L, "test"))
-                .errorCode("507")
+                .<EntityCreateResponse>failed()
+                .errorCode("507","Message 507")
                 .build();
         shouldSerialize(response, "ResponseFailed.json");
     }
