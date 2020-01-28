@@ -6,24 +6,24 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class Response<T> {
+public class ResponseBody<T> {
     @NotNull
-    private final ResponseStatus status;
+    private final Status status;
     @NotNull
     private final T result;
     @Nullable
     private final ErrorCode errorCode;
 
-    private Response(@NotNull ResponseStatus status,
-                     @Nullable T result,
-                     @Nullable ErrorCode errorCode) {
+    private ResponseBody(@NotNull Status status,
+                         @Nullable T result,
+                         @Nullable ErrorCode errorCode) {
         this.status = Objects.requireNonNull(status, "status");
         this.result = result;
         this.errorCode = errorCode;
     }
 
     @JsonGetter("status")
-    public ResponseStatus getStatus() {
+    public Status getStatus() {
         return status;
     }
 
@@ -37,27 +37,27 @@ public class Response<T> {
         return errorCode;
     }
 
-    public static <T> Builder<T> status(@NotNull ResponseStatus status) {
+    public static <T> Builder<T> status(@NotNull Status status) {
         return new Builder<T>()
                 .status(status);
     }
 
     public static <T> Builder<T> success() {
         return new Builder<T>()
-                .status(ResponseStatus.SUCCESS);
+                .status(Status.SUCCESS);
     }
 
     public static <T> Builder<T> failed() {
         return new Builder<T>()
-                .status(ResponseStatus.FAILED);
+                .status(Status.FAILED);
     }
 
     public static class Builder<T> {
-        private ResponseStatus status;
+        private Status status;
         private T result;
         private ErrorCode errorCode;
 
-        public Builder<T> status(ResponseStatus status) {
+        public Builder<T> status(Status status) {
             this.status = status;
             return this;
         }
@@ -67,15 +67,15 @@ public class Response<T> {
             return this;
         }
 
-        public Response<T> build() {
-            return new Response<>(
+        public ResponseBody<T> build() {
+            return new ResponseBody<>(
                     status,
                     result,
                     errorCode);
         }
 
-        public Response<T> buildWith(T result) {
-            return new Response<>(
+        public ResponseBody<T> buildWith(T result) {
+            return new ResponseBody<>(
                     status,
                     result,
                     errorCode);
