@@ -15,10 +15,10 @@ class EntityControllerTest extends EntityControllerTestContext {
 
     @Test
     void create() {
-        String requestContent = copyToStringFromResource(createRequestContent);
-        String responseContentExpected = copyToStringFromResource(createResponseContentExpected);
+        String requestContent = copyRequestOrResponseContentToStringFromResource(createRequestContent);
+        String responseContentExpected = copyRequestOrResponseContentToStringFromResource(createResponseContentExpected);
 
-        String responseContent = getResponseContent(post("/entity")
+        String responseContent = getResponseContentStatusIsOk(post("/entity")
                 .contentType(APPLICATION_JSON)
                 .content(requestContent));
 
@@ -27,28 +27,28 @@ class EntityControllerTest extends EntityControllerTestContext {
 
     @Test
     void readAll() {
-        String responseContentExpected = copyToStringFromResource(readAllResponseContentExpected);
+        String responseContentExpected = copyRequestOrResponseContentToStringFromResource(readAllResponseContentExpected);
 
-        String responseContent = getResponseContent(get("/entity"));
+        String responseContent = getResponseContentStatusIsOk(get("/entity"));
 
         assertThat(responseContent).isEqualTo(responseContentExpected);
     }
 
     @Test
     void read() {
-        String responseContentExpected = copyToStringFromResource(readById1ResponseContentExpected);
+        String responseContentExpected = copyRequestOrResponseContentToStringFromResource(readById1ResponseContentExpected);
 
-        String responseContent = getResponseContent(get("/entity/1"));
+        String responseContent = getResponseContentStatusIsOk(get("/entity/1"));
 
         assertThat(responseContent).isEqualTo(responseContentExpected);
     }
 
     @Test
     void update() {
-        String requestContent = copyToStringFromResource(updateRequestContent);
-        String responseContentExpected = copyToStringFromResource(updateResponseContentExpected);
+        String requestContent = copyRequestOrResponseContentToStringFromResource(updateRequestContent);
+        String responseContentExpected = copyRequestOrResponseContentToStringFromResource(updateResponseContentExpected);
 
-        String responseContent = getResponseContent(put("/entity")
+        String responseContent = getResponseContentStatusIsOk(put("/entity")
                 .contentType(APPLICATION_JSON)
                 .content(requestContent));
 
@@ -57,9 +57,9 @@ class EntityControllerTest extends EntityControllerTestContext {
 
     @Test
     void delete() {
-        String responseContentExpected = copyToStringFromResource(deleteById1ResponseContentExpected);
+        String responseContentExpected = copyRequestOrResponseContentToStringFromResource(deleteById1ResponseContentExpected);
 
-        String responseContent = getResponseContent(MockMvcRequestBuilders.delete("/entity/1"));
+        String responseContent = getResponseContentStatusIsOk(MockMvcRequestBuilders.delete("/entity/1"));
 
         assertThat(responseContent).isEqualTo(responseContentExpected);
     }

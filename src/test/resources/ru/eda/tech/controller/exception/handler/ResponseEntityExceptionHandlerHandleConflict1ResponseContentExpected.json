@@ -1,0 +1,8 @@
+{
+  "status": "Failed",
+  "result": null,
+  "errorCode": {
+    "value": "TechnicalError",
+    "message": "Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: \"qwe\""
+  }
+}

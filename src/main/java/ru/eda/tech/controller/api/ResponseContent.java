@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class ResponseBody<T> {
+public class ResponseContent<T> {
     @NotNull
     private final Status status;
     @NotNull
@@ -14,9 +14,9 @@ public class ResponseBody<T> {
     @Nullable
     private final ErrorCode errorCode;
 
-    private ResponseBody(@NotNull Status status,
-                         @Nullable T result,
-                         @Nullable ErrorCode errorCode) {
+    private ResponseContent(@NotNull Status status,
+                            @Nullable T result,
+                            @Nullable ErrorCode errorCode) {
         this.status = Objects.requireNonNull(status, "status");
         this.result = result;
         this.errorCode = errorCode;
@@ -67,15 +67,15 @@ public class ResponseBody<T> {
             return this;
         }
 
-        public ResponseBody<T> build() {
-            return new ResponseBody<>(
+        public ResponseContent<T> build() {
+            return new ResponseContent<>(
                     status,
                     result,
                     errorCode);
         }
 
-        public ResponseBody<T> buildWith(T result) {
-            return new ResponseBody<>(
+        public ResponseContent<T> buildWith(T result) {
+            return new ResponseContent<>(
                     status,
                     result,
                     errorCode);
