@@ -1,4 +1,4 @@
-package ru.eda.tech.controller.exception.handler;
+package ru.eda.tech.exception.handler;
 
 import org.junit.jupiter.api.Test;
 import ru.eda.tech.base.ResponseEntityExceptionHandlerTestContext;
@@ -13,7 +13,7 @@ class ResponseEntityExceptionHandlerTest extends ResponseEntityExceptionHandlerT
 
     @Test
     void handleConflict1EntityControllerReadIdNotANumber() {
-        String responseContentExpected = copyResponseContentToStringFromResourceIfMessageExpected(handleConflict1ResponseContentExpected);
+        String responseContentExpected = copyResponseContentToStringFromResourceIfNotNullErrorCodeAndNotNullMessageExpected(handleConflict1ResponseContentExpected);
 
         String responseContent = getResponseContentWithExpectedStatus(
                 get("/entity/qwe"),
@@ -26,7 +26,7 @@ class ResponseEntityExceptionHandlerTest extends ResponseEntityExceptionHandlerT
     @Test
     void handleConflict2EntityControllerUpdateIdNotANumberInEntityUpdateRequest() {
         String requestContent = copyRequestOrResponseContentToStringFromResource(handleConflict2RequestContent);
-        String responseContentExpected = copyResponseContentToStringFromResourceIfMessageExpected(handleConflict2ResponseContentExpected);
+        String responseContentExpected = copyResponseContentToStringFromResourceIfNotNullErrorCodeAndNotNullMessageExpected(handleConflict2ResponseContentExpected);
 
         String responseContent = getResponseContentWithExpectedStatus(
                 put("/entity")
@@ -34,7 +34,7 @@ class ResponseEntityExceptionHandlerTest extends ResponseEntityExceptionHandlerT
                         .content(requestContent),
                 status().isInternalServerError()
         );
-        System.out.println(responseContent);
+
         assertThat(responseContent).isEqualTo(responseContentExpected);
     }
 }

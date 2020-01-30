@@ -53,9 +53,10 @@ public abstract class WebMvcTestContext {
         return deleteAllWhiteSpaces(requestContent);
     }
 
-    public String copyResponseContentToStringFromResourceIfMessageExpected(Resource resource) {
+    public String copyResponseContentToStringFromResourceIfNotNullErrorCodeAndNotNullMessageExpected(Resource resource) {
         String responseContent = copyToStringFromResource(resource);
         return deleteAllWhiteSpacesExceptMessage(responseContent);
+
     }
 
     private String copyToStringFromResource(Resource resource) {
@@ -76,8 +77,13 @@ public abstract class WebMvcTestContext {
     }
 
     private String deleteAllWhiteSpacesExceptMessage(String responseContent) {
-        String template = "\"message\": ";
-        int startIndexOfMessageContent = responseContent.indexOf(template) + template.length();
+        String template = "\"message\": \"";
+        int startIndexOfTemplate = responseContent.indexOf(template);
+        boolean templateNotFound = (startIndexOfTemplate == -1);
+        if (templateNotFound) {
+            throw new RuntimeException("Message template: '\"message\": \"' was not found in Response's errorCode!");
+        }
+        int startIndexOfMessageContent = startIndexOfTemplate + template.length();
         int endIndexOfMessageContent = responseContent.lastIndexOf("\"");
         String messageContent = responseContent.substring(startIndexOfMessageContent, endIndexOfMessageContent);
         String responseContentWithoutMessageContentAndEndingAndWhiteSpaces = responseContent
