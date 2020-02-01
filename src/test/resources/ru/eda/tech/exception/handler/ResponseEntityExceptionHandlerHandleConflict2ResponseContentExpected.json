@@ -1,0 +1,8 @@
+{
+  "status": "Failed",
+  "result": null,
+  "errorCode": {
+    "value": "TechnicalError",
+    "message": "JSON parse error: Cannot deserialize value of type `java.lang.Long` from String \"qwe\": not a valid Long value; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.lang.Long` from String \"qwe\": not a valid Long value\n at [Source: (PushbackInputStream); line: 1, column: 7] (through reference chain: ru.eda.tech.controller.api.entity.update.EntityUpdateRequest[\"id\"])"
+  }
+}
