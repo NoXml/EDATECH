@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.boot.test.json.JsonContent;
 import org.springframework.core.ResolvableType;
 
 import java.io.IOException;
@@ -20,26 +19,22 @@ public abstract class JsonTestContext {
     protected void shouldDeserialize(String srcJsonFilename, Object expectedObject) {
         JacksonTester<Object> tester = new JacksonTester<>(
                 getClass(), ResolvableType.forClass(expectedObject.getClass()), objectMapper);
-        Object objectDeserialized = null;
         try {
-            objectDeserialized = tester.readObject(srcJsonFilename);
+            assertThat(tester.readObject(srcJsonFilename)).isEqualToComparingFieldByField(expectedObject);
         } catch (IOException e) {
             throw new IllegalArgumentException(
                     "Error while reading from: " + srcJsonFilename, e);
         }
-        assertThat(objectDeserialized).isEqualToComparingFieldByField(expectedObject);
     }
 
     protected void shouldSerialize(Object srcObject, String expectedJsonFilename) {
         JacksonTester<Object> tester = new JacksonTester<>(
                 getClass(), ResolvableType.forClass(srcObject.getClass()), objectMapper);
-        JsonContent<Object> srcJson = null;
         try {
-            srcJson = tester.write(srcObject);
+            assertThat(tester.write(srcObject)).isEqualToJson(expectedJsonFilename);
         } catch (IOException e) {
             throw new IllegalArgumentException(
                     "Error while getting JsonContent from input object", e);
         }
-        assertThat(srcJson).isEqualToJson(expectedJsonFilename);
     }
 }
