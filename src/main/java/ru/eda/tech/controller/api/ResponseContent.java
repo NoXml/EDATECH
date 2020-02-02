@@ -23,6 +23,7 @@ public class ResponseContent<T> {
         this.error = error;
     }
 
+    @NotNull
     @JsonGetter("status")
     public Status getStatus() {
         return status;
@@ -42,16 +43,16 @@ public class ResponseContent<T> {
         return new Builder().status(status);
     }
 
-    public static <T> ResponseContent<T> success() {
-        return success(null);
-    }
-
-    public static <T> ResponseContent<T> success(T result) {
+    public static <T> ResponseContent<T> success(@Nullable T result) {
         return new Builder().status(Status.SUCCESS)
                 .build(result);
     }
 
-    public static <T> ResponseContent<T> failed(Error error) {
+    public static <T> ResponseContent<T> success() {
+        return success(null);
+    }
+
+    public static <T> ResponseContent<T> failed(@Nullable Error error) {
         return new Builder().status(Status.FAILED)
                 .errorCode(error)
                 .build();
@@ -75,15 +76,15 @@ public class ResponseContent<T> {
             return this;
         }
 
-        public <T> ResponseContent<T> build() {
-            return build(null);
-        }
-
         public <T> ResponseContent<T> build(T result) {
             return new ResponseContent<>(
                     status,
                     result,
                     error);
+        }
+
+        public <T> ResponseContent<T> build() {
+            return build(null);
         }
     }
 }

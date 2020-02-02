@@ -2,18 +2,21 @@ package ru.eda.tech.domain.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.jetbrains.annotations.NotNull;
 
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @ApiModel(description = "All details about entity")
 public class Entity {
+    @NotNull
     @ApiModelProperty(notes = "Entity id")
     private final Long id;
 
+    @NotNull
     @ApiModelProperty(notes = "Entity name")
     private final String name;
 
+    @NotNull
     @ApiModelProperty(notes = "Entity status")
     private final Status status;
 
@@ -23,14 +26,17 @@ public class Entity {
         this.status = Objects.requireNonNull(status, "status");
     }
 
+    @NotNull
     public Long getId() {
         return id;
     }
 
+    @NotNull
     public String getName() {
         return name;
     }
 
+    @NotNull
     public Status getStatus() {
         return status;
     }
