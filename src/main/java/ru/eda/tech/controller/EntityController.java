@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.eda.tech.controller.api.Error;
 import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
@@ -37,6 +38,9 @@ public class EntityController {
             @ApiParam(value = "Entity create request object", required = true)
             @RequestBody EntityCreateRequest request) {
         EntityCreateResponse entityCreateResponse = entityService.create(request);
+        if (entityCreateResponse == null) {
+            return ResponseContent.failed(Error.of("Error", "Error Message"));
+        }
         return ResponseContent.success(entityCreateResponse);
     }
 
@@ -53,6 +57,9 @@ public class EntityController {
             @ApiParam(value = "id of requested Entity to read", required = true)
             @PathVariable("id") Long id) {
         EntityReadResponse entityReadResponse = entityService.read(id);
+        if (entityReadResponse == null) {
+            return ResponseContent.failed(Error.of("Error", "Error Message"));
+        }
         return ResponseContent.success(entityReadResponse);
     }
 
@@ -62,6 +69,9 @@ public class EntityController {
             @ApiParam(value = "Entity update request object", required = true)
             @RequestBody EntityUpdateRequest request) {
         EntityUpdateResponse entityUpdateResponse = entityService.update(request);
+        if (entityUpdateResponse == null) {
+            return ResponseContent.failed(Error.of("Error", "Error Message"));
+        }
         return ResponseContent.success(entityUpdateResponse);
     }
 
@@ -71,6 +81,9 @@ public class EntityController {
             @ApiParam(value = "id of requested Entity to delete", required = true)
             @PathVariable("id") Long id) {
         EntityDeleteResponse entityDeleteResponse = entityService.delete(id);
+        if (entityDeleteResponse == null) {
+            return ResponseContent.failed(Error.of("Error", "Error Message"));
+        }
         return ResponseContent.success(entityDeleteResponse);
     }
 }

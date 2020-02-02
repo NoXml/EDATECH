@@ -13,9 +13,9 @@ public interface EntityService {
 
     EntityCreateResponse create(EntityCreateRequest request);
 
-    List<EntityReadResponse> readAll();
-
     EntityReadResponse read(Long id);
+
+    List<EntityReadResponse> readAll();
 
     EntityUpdateResponse update(EntityUpdateRequest request);
 
