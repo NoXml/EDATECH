@@ -6,6 +6,7 @@ import org.springframework.core.io.Resource;
 import ru.eda.tech.base.IntegrationTest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ControllerExceptionHandlerTest extends IntegrationTest {
 
@@ -14,6 +15,6 @@ class ControllerExceptionHandlerTest extends IntegrationTest {
 
     @Test
     void handleException() {
-        assertRestRequest(get("/entity/qwe"), failedWithException);
+        assertRestRequest(get("/entity/qwe"), failedWithException, status().isInternalServerError());
     }
 }

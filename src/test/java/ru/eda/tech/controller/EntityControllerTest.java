@@ -41,17 +41,16 @@ class EntityControllerTest extends IntegrationTest {
                         .content(requestContent),
                 createResponseExpected,
                 status().isOk());
-
     }
 
     @Test
     void readAll() {
-        assertRestRequest(get("/entity"), readAllResponseExpected);
+        assertRestRequest(get("/entity"), readAllResponseExpected, status().isOk());
     }
 
     @Test
     void read() {
-        assertRestRequest(get("/entity/1"), readResponseExpected);
+        assertRestRequest(get("/entity/1"), readResponseExpected, status().isOk());
     }
 
     @Test
@@ -61,11 +60,12 @@ class EntityControllerTest extends IntegrationTest {
         assertRestRequest(put("/entity")
                         .contentType(APPLICATION_JSON)
                         .content(requestContent),
-                updateResponseExpected);
+                updateResponseExpected,
+                status().isOk());
     }
 
     @Test
     void delete() {
-        assertRestRequest(MockMvcRequestBuilders.delete("/entity/1"), deleteResponseExpected);
+        assertRestRequest(MockMvcRequestBuilders.delete("/entity/1"), deleteResponseExpected, status().isOk());
     }
 }
