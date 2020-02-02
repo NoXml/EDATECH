@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.eda.tech.controller.api.Response;
+import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
 import ru.eda.tech.controller.api.entity.delete.EntityDeleteResponse;
@@ -33,45 +33,45 @@ public class EntityController {
 
     @PostMapping
     @ApiOperation("Create entity")
-    public Response<EntityCreateResponse> create(
+    public ResponseContent<EntityCreateResponse> create(
             @ApiParam(value = "Entity create request object", required = true)
             @RequestBody EntityCreateRequest request) {
         EntityCreateResponse entityCreateResponse = entityService.create(request);
-        return Response.success(entityCreateResponse);
+        return ResponseContent.success(entityCreateResponse);
     }
 
     @GetMapping
     @ApiOperation("Read all entities")
-    public Response<List<EntityReadResponse>> readAll() {
+    public ResponseContent<List<EntityReadResponse>> readAll() {
         List<EntityReadResponse> entityReadResponses = entityService.readAll();
-        return Response.success(entityReadResponses);
+        return ResponseContent.success(entityReadResponses);
     }
 
     @GetMapping("/{id}")
     @ApiOperation("Read entity")
-    public Response<EntityReadResponse> read(
+    public ResponseContent<EntityReadResponse> read(
             @ApiParam(value = "id of requested Entity to read", required = true)
             @PathVariable("id") Long id) {
         EntityReadResponse entityReadResponse = entityService.read(id);
-        return Response.success(entityReadResponse);
+        return ResponseContent.success(entityReadResponse);
     }
 
     @PutMapping
     @ApiOperation("Update entity")
-    public Response<EntityUpdateResponse> update(
+    public ResponseContent<EntityUpdateResponse> update(
             @ApiParam(value = "Entity update request object", required = true)
             @RequestBody EntityUpdateRequest request) {
         EntityUpdateResponse entityUpdateResponse = entityService.update(request);
-        return Response.success(entityUpdateResponse);
+        return ResponseContent.success(entityUpdateResponse);
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation("Delete entity")
-    public Response<EntityDeleteResponse> delete(
+    public ResponseContent<EntityDeleteResponse> delete(
             @ApiParam(value = "id of requested Entity to delete", required = true)
             @PathVariable("id") Long id) {
         EntityDeleteResponse entityDeleteResponse = entityService.delete(id);
-        return Response.success(entityDeleteResponse);
+        return ResponseContent.success(entityDeleteResponse);
     }
 }
 

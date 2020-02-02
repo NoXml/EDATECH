@@ -6,80 +6,66 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.eda.tech.base.IntegrationTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class EntityControllerTest extends IntegrationTest {
 
-    @Value("classpath:/ru/eda/tech/controller/EntityControllerCreateRequestContent.json")
-    private Resource createRequestContent;
-    @Value("classpath:/ru/eda/tech/controller/EntityControllerCreateResponseContentExpected.json")
-    private Resource createResponseContentExpected;
+    @Value("classpath:/ru/eda/tech/controller/CreateRequest.json")
+    private Resource createRequest;
+    @Value("classpath:/ru/eda/tech/controller/CreateResponseExpected.json")
+    private Resource createResponseExpected;
 
-    @Value("classpath:/ru/eda/tech/controller/EntityControllerReadAllResponseContentExpected.json")
-    private Resource readAllResponseContentExpected;
-    @Value("classpath:/ru/eda/tech/controller/EntityControllerReadById1ResponseContentExpected.json")
-    private Resource readById1ResponseContentExpected;
+    @Value("classpath:/ru/eda/tech/controller/ReadAllResponseExpected.json")
+    private Resource readAllResponseExpected;
+    @Value("classpath:/ru/eda/tech/controller/ReadResponseExpected.json")
+    private Resource readResponseExpected;
 
-    @Value("classpath:/ru/eda/tech/controller/EntityControllerUpdateRequestContent.json")
-    private Resource updateRequestContent;
-    @Value("classpath:/ru/eda/tech/controller/EntityControllerUpdateResponseContentExpected.json")
-    private Resource updateResponseContentExpected;
+    @Value("classpath:/ru/eda/tech/controller/UpdateRequest.json")
+    private Resource updateRequest;
+    @Value("classpath:/ru/eda/tech/controller/UpdateResponseExpected.json")
+    private Resource updateResponseExpected;
 
-    @Value("classpath:/ru/eda/tech/controller/EntityControllerDeleteById1ResponseContentExpected.json")
-    private Resource deleteResponseContentExpected;
+    @Value("classpath:/ru/eda/tech/controller/DeleteResponseExpected.json")
+    private Resource deleteResponseExpected;
 
     @Test
     void create() {
-        String requestContent = copyToStringFromResource(createRequestContent);
-        String responseContentExpected = copyToStringFromResource(createResponseContentExpected);
+        String requestContent = getContentFromResource(createRequest);
 
-        String responseContent = getResponseContent(post("/entity")
-                .contentType(APPLICATION_JSON)
-                .content(requestContent));
+        assertRestRequest(post("/entity")
+                        .contentType(APPLICATION_JSON)
+                        .content(requestContent),
+                createResponseExpected,
+                status().isOk());
 
-        assertThat(responseContent).isEqualTo(responseContentExpected);
     }
 
     @Test
     void readAll() {
-        String responseContentExpected = copyToStringFromResource(readAllResponseContentExpected);
-
-        String responseContent = getResponseContent(get("/entity"));
-
-        assertThat(responseContent).isEqualTo(responseContentExpected);
+        assertRestRequest(get("/entity"), readAllResponseExpected);
     }
 
     @Test
     void read() {
-        String responseContentExpected = copyToStringFromResource(readById1ResponseContentExpected);
-
-        String responseContent = getResponseContent(get("/entity/1"));
-
-        assertThat(responseContent).isEqualTo(responseContentExpected);
+        assertRestRequest(get("/entity/1"), readResponseExpected);
     }
 
     @Test
     void update() {
-        String requestContent = copyToStringFromResource(updateRequestContent);
-        String responseContentExpected = copyToStringFromResource(updateResponseContentExpected);
+        String requestContent = getContentFromResource(updateRequest);
 
-        String responseContent = getResponseContent(put("/entity")
-                .contentType(APPLICATION_JSON)
-                .content(requestContent));
-
-        assertThat(responseContent).isEqualTo(responseContentExpected);
+        assertRestRequest(put("/entity")
+                        .contentType(APPLICATION_JSON)
+                        .content(requestContent),
+                updateResponseExpected);
     }
 
     @Test
     void delete() {
-        String responseContentExpected = copyToStringFromResource(deleteResponseContentExpected);
-
-        String responseContent = getResponseContent(MockMvcRequestBuilders.delete("/entity/1"));
-
-        assertThat(responseContent).isEqualTo(responseContentExpected);
+        assertRestRequest(MockMvcRequestBuilders.delete("/entity/1"), deleteResponseExpected);
     }
 }

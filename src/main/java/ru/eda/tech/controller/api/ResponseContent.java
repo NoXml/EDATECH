@@ -7,24 +7,24 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class Response<T> {
+public class ResponseContent<T> {
     @NotNull
-    private final ResponseStatus status;
+    private final Status status;
     @Nullable
     private final T result;
     @Nullable
     private final Error error;
 
-    private Response(@NotNull ResponseStatus status,
-                     @Nullable T result,
-                     @Nullable Error error) {
+    private ResponseContent(@NotNull Status status,
+                            @Nullable T result,
+                            @Nullable Error error) {
         this.status = Objects.requireNonNull(status, "status");
         this.result = result;
         this.error = error;
     }
 
     @JsonGetter("status")
-    public ResponseStatus getStatus() {
+    public Status getStatus() {
         return status;
     }
 
@@ -38,37 +38,34 @@ public class Response<T> {
         return Optional.ofNullable(error);
     }
 
-    public static Builder status(@NotNull ResponseStatus status) {
-        return new Builder()
-                .status(status);
+    public static Builder status(@NotNull Status status) {
+        return new Builder().status(status);
     }
 
-    public static <T> Response<T> success() {
+    public static <T> ResponseContent<T> success() {
         return success(null);
     }
 
-    public static <T> Response<T> success(T result) {
-        return new Builder()
-                .status(ResponseStatus.SUCCESS)
+    public static <T> ResponseContent<T> success(T result) {
+        return new Builder().status(Status.SUCCESS)
                 .build(result);
     }
 
-    public static <T> Response<T> failed(Error error) {
-        return new Builder()
-                .status(ResponseStatus.FAILED)
+    public static <T> ResponseContent<T> failed(Error error) {
+        return new Builder().status(Status.FAILED)
                 .errorCode(error)
                 .build();
     }
 
-    public static <T> Response<T> failed() {
+    public static <T> ResponseContent<T> failed() {
         return failed(null);
     }
 
     public static class Builder {
-        private ResponseStatus status;
+        private Status status;
         private Error error;
 
-        public Builder status(ResponseStatus status) {
+        public Builder status(Status status) {
             this.status = status;
             return this;
         }
@@ -78,15 +75,15 @@ public class Response<T> {
             return this;
         }
 
-        public <T> Response<T> build() {
-            return new Response<>(
+        public <T> ResponseContent<T> build() {
+            return new ResponseContent<>(
                     status,
                     null,
                     error);
         }
 
-        public <T> Response<T> build(T result) {
-            return new Response<>(
+        public <T> ResponseContent<T> build(T result) {
+            return new ResponseContent<>(
                     status,
                     result,
                     error);

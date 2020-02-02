@@ -5,44 +5,42 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.core.io.Resource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.util.StreamUtils;
 import ru.eda.tech.controller.EntityController;
-import ru.eda.tech.service.entity.EntityService;
+import ru.eda.tech.controller.InfoController;
+import ru.eda.tech.service.entity.EntityServiceImpl;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.regex.Pattern;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-@WebMvcTest({EntityController.class, EntityService.class})
+@WebMvcTest({EntityController.class, InfoController.class, EntityServiceImpl.class})
 public abstract class IntegrationTest {
 
-    private static final Pattern WHITESPACES = Pattern.compile("\\s++");
-
     @Autowired
-    private MockMvc mockMvc;
+    protected MockMvc mockMvc;
 
-    protected String getResponseContent(RequestBuilder requestBuilder) {
+    protected void assertRestRequest(RequestBuilder requestBuilder,
+                                     Resource body,
+                                     ResultMatcher... matchers) {
         try {
-            return mockMvc.perform(requestBuilder)
+            mockMvc.perform(requestBuilder)
                     .andDo(print())
-                    .andExpect(status().isOk())
-                    .andReturn()
-                    .getResponse()
-                    .getContentAsString();
+                    .andExpect(ResultMatcher.matchAll(matchers))
+                    .andExpect(content().json(getContentFromResource(body), true));
         } catch (Exception e) {
             throw new IllegalArgumentException(
-                    String.format("Error while performing a request with: %s", requestBuilder), e);
+                    "Error while performing a request with: " + requestBuilder, e);
         }
     }
 
-    protected static String copyToStringFromResource(Resource resource) {
+    protected static String getContentFromResource(Resource resource) {
         try (InputStream inputResourceContent = resource.getInputStream()) {
-            return WHITESPACES.matcher(StreamUtils.copyToString(inputResourceContent, StandardCharsets.UTF_8))
-                    .replaceAll("");
+            return StreamUtils.copyToString(inputResourceContent, StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new IllegalArgumentException(
                     "Error while copying from: " + resource.getDescription(), e);
