@@ -1,33 +1,31 @@
 package ru.eda.tech.controller.api;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import ru.eda.tech.base.JsonTestContext;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
 
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.params.provider.Arguments.of;
+
 class ResponseContentTest extends JsonTestContext {
 
-    @Test
-    public void whenUseOfAndSerializeUsingJsonGetter_ThenCorrect() {
-        ResponseContent<EntityCreateResponse> responseContent = ResponseContent
-                .<EntityCreateResponse>status(Status.SUCCESS)
-                .buildWith(new EntityCreateResponse(1L, "test"));
-        shouldSerialize(responseContent, "ResponseSuccess.json");
+    private static Stream<Arguments> serializeData() {
+        return Stream.of(
+                of(ResponseContent.status(Status.SUCCESS)
+                        .build(new EntityCreateResponse(1L, "test")), "ResponseSuccess.json"),
+                of(ResponseContent.success(new EntityCreateResponse(1L, "test")), "ResponseSuccess.json"),
+                of(ResponseContent.success(), "EmptyResponseSuccess.json"),
+                of(ResponseContent.failed(Error.of("507", "Message 507")), "ResponseFailed.json"),
+                of(ResponseContent.failed(), "EmptyResponseFailed.json")
+        );
     }
 
-    @Test
-    public void whenUseSuccessAndSerializeUsingJsonGetter_ThenCorrect() {
-        ResponseContent<EntityCreateResponse> responseContent = ResponseContent
-                .<EntityCreateResponse>success()
-                .buildWith(new EntityCreateResponse(1L, "test"));
-        shouldSerialize(responseContent, "ResponseSuccess.json");
-    }
-
-    @Test
-    public void whenUseFailedAndSerializeUsingJsonGetter_ThenCorrect() {
-        ResponseContent<EntityCreateResponse> responseContent = ResponseContent
-                .<EntityCreateResponse>failed()
-                .errorCode("507","Message 507")
-                .build();
-        shouldSerialize(responseContent, "ResponseFailed.json");
+    @ParameterizedTest
+    @MethodSource("serializeData")
+    public void shouldSerializeObjectToJson(Object srcObject, String expectedJsonFilename) {
+        shouldSerialize(srcObject, expectedJsonFilename);
     }
 }

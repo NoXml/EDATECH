@@ -1,0 +1,8 @@
+{
+  "status": "Failed",
+  "result": null,
+  "error": {
+    "code": "TechnicalError",
+    "message": "Request was failed with exception"
+  }
+}

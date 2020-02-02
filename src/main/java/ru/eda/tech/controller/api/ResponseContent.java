@@ -5,80 +5,86 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class ResponseContent<T> {
     @NotNull
     private final Status status;
-    @NotNull
+    @Nullable
     private final T result;
     @Nullable
-    private final ErrorCode errorCode;
+    private final Error error;
 
     private ResponseContent(@NotNull Status status,
                             @Nullable T result,
-                            @Nullable ErrorCode errorCode) {
+                            @Nullable Error error) {
         this.status = Objects.requireNonNull(status, "status");
         this.result = result;
-        this.errorCode = errorCode;
+        this.error = error;
     }
 
+    @NotNull
     @JsonGetter("status")
     public Status getStatus() {
         return status;
     }
 
     @JsonGetter("result")
-    public T getResult() {
-        return result;
+    public Optional<T> getResult() {
+        return Optional.ofNullable(result);
     }
 
-    @JsonGetter("errorCode")
-    public ErrorCode getErrorCode() {
-        return errorCode;
+    @JsonGetter("error")
+    public Optional<Error> getError() {
+        return Optional.ofNullable(error);
     }
 
-    public static <T> Builder<T> status(@NotNull Status status) {
-        return new Builder<T>()
-                .status(status);
+    public static Builder status(@NotNull Status status) {
+        return new Builder().status(status);
     }
 
-    public static <T> Builder<T> success() {
-        return new Builder<T>()
-                .status(Status.SUCCESS);
+    public static <T> ResponseContent<T> success(@Nullable T result) {
+        return new Builder().status(Status.SUCCESS)
+                .build(result);
     }
 
-    public static <T> Builder<T> failed() {
-        return new Builder<T>()
-                .status(Status.FAILED);
+    public static <T> ResponseContent<T> success() {
+        return success(null);
     }
 
-    public static class Builder<T> {
+    public static <T> ResponseContent<T> failed(@Nullable Error error) {
+        return new Builder().status(Status.FAILED)
+                .errorCode(error)
+                .build();
+    }
+
+    public static <T> ResponseContent<T> failed() {
+        return failed(null);
+    }
+
+    public static class Builder {
         private Status status;
-        private T result;
-        private ErrorCode errorCode;
+        private Error error;
 
-        public Builder<T> status(Status status) {
+        public Builder status(Status status) {
             this.status = status;
             return this;
         }
 
-        public Builder<T> errorCode(String value, String message) {
-            this.errorCode = new ErrorCode(value, message);
+        public Builder errorCode(Error error) {
+            this.error = error;
             return this;
         }
 
-        public ResponseContent<T> build() {
+        public <T> ResponseContent<T> build(T result) {
             return new ResponseContent<>(
                     status,
                     result,
-                    errorCode);
+                    error);
         }
 
-        public ResponseContent<T> buildWith(T result) {
-            return new ResponseContent<>(
-                    status,
-                    result,
-                    errorCode);
+        public <T> ResponseContent<T> build() {
+            return build(null);
         }
     }
 }

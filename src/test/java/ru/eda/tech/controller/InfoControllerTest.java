@@ -19,7 +19,7 @@ class InfoControllerTest {
 
     @Test
     void getStatus() throws Exception {
-        this.mockMvc.perform(get("/status"))
+        mockMvc.perform(get("/status"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("")));
