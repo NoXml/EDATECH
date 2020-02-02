@@ -76,10 +76,7 @@ public class ResponseContent<T> {
         }
 
         public <T> ResponseContent<T> build() {
-            return new ResponseContent<>(
-                    status,
-                    null,
-                    error);
+            return build(null);
         }
 
         public <T> ResponseContent<T> build(T result) {
