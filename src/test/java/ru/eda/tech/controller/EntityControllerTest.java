@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.eda.tech.base.IntegrationTest;
+import ru.eda.tech.domain.entity.Entity;
+import ru.eda.tech.domain.entity.Status;
 import ru.eda.tech.repository.entity.EntityRepository;
 import ru.eda.tech.repository.entity.EntityRepositoryImpl;
 
@@ -37,7 +39,7 @@ class EntityControllerTest extends IntegrationTest {
     private Resource deleteResponseExpected;
 
     @BeforeEach
-    void clearStorage(){
+    void clearStorage() {
         EntityRepositoryImpl.STORAGE.clear();
     }
 
@@ -59,11 +61,15 @@ class EntityControllerTest extends IntegrationTest {
 
     @Test
     void read() {
+        putEntityToSTORAGE(1L, "name");
+        
         assertRestRequest(get("/entity/1"), readResponseExpected, status().isOk());
     }
 
     @Test
     void update() {
+        putEntityToSTORAGE(1L, "name");
+
         String requestContent = getContentFromResource(updateRequest);
 
         assertRestRequest(put("/entity")
@@ -75,6 +81,13 @@ class EntityControllerTest extends IntegrationTest {
 
     @Test
     void delete() {
+        putEntityToSTORAGE(1L, "name");
+
         assertRestRequest(MockMvcRequestBuilders.delete("/entity/1"), deleteResponseExpected, status().isOk());
+    }
+
+    void putEntityToSTORAGE(Long id, String name) {
+        Entity entity = new Entity(id, name, Status.CREATED);
+        EntityRepositoryImpl.STORAGE.put(entity.getId().toString(), entity);
     }
 }
