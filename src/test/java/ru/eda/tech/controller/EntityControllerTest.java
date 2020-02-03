@@ -2,14 +2,12 @@ package ru.eda.tech.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.eda.tech.base.IntegrationTest;
 import ru.eda.tech.domain.entity.Entity;
 import ru.eda.tech.domain.entity.Status;
-import ru.eda.tech.repository.entity.EntityRepository;
 import ru.eda.tech.repository.entity.EntityRepositoryImpl;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -62,7 +60,7 @@ class EntityControllerTest extends IntegrationTest {
     @Test
     void read() {
         putEntityToSTORAGE(1L, "name");
-        
+
         assertRestRequest(get("/entity/1"), readResponseExpected, status().isOk());
     }
 

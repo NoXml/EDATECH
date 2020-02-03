@@ -32,13 +32,20 @@ public class EntityRepositoryImpl implements EntityRepository {
 
     @Override
     public Optional<Entity> findById(Long id) {
-        return Optional.ofNullable(STORAGE.get(id.toString()));
+        return Optional.ofNullable(STORAGE.get(id.toString()))
+                .flatMap(entity -> {
+                    if (Status.DELETED.equals(entity.getStatus())) {
+                        return Optional.empty();
+                    }
+                    return Optional.of(entity);
+                });
     }
 
     @Override
     public List<Entity> findAll() {
         return STORAGE.values()
                 .stream()
+                .filter(entity -> !Status.DELETED.equals(entity.getStatus()))
                 .collect(Collectors.toList());
     }
 
@@ -46,14 +53,19 @@ public class EntityRepositoryImpl implements EntityRepository {
     public Optional<Entity> update(Long id, String name) {
         return Optional.ofNullable(STORAGE.get(id.toString()))
                 .flatMap(entity -> {
-                    Entity newEntity = new Entity(entity.getId(), name, Status.CHANGED); //надо сделать походу сеттеры для name и для Status
-                    STORAGE.put(newEntity.getId().toString(), newEntity);
-                    return Optional.of(newEntity);
+                    Entity updatedEntity = new Entity(entity.getId(), name, Status.CHANGED);
+                    STORAGE.put(updatedEntity.getId().toString(), updatedEntity);
+                    return Optional.of(updatedEntity);
                 });
     }
 
     @Override
     public Optional<Entity> delete(Long id) {
-        return Optional.ofNullable(STORAGE.remove(id.toString()));
+        return Optional.ofNullable(STORAGE.get(id.toString()))
+                .flatMap(entity -> {
+                    Entity deletedEntity = new Entity(entity.getId(), entity.getName(), Status.DELETED);
+                    STORAGE.put(deletedEntity.getId().toString(), deletedEntity);
+                    return Optional.of(deletedEntity);
+                });
     }
 }
