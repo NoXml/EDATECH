@@ -1,4 +1,4 @@
-package ru.eda.tech.repo.entity;
+package ru.eda.tech.repository.entity;
 
 import org.springframework.stereotype.Repository;
 import ru.eda.tech.domain.entity.Entity;
@@ -8,13 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Repository
-public class EntityRepoImpl implements EntityRepo {
+public class EntityRepositoryImpl implements EntityRepository {
     private static final AtomicLong COMMON_ID = new AtomicLong(0L);
-    private static final Map<String, Entity> STORAGE = new HashMap<>();
+    private static final ConcurrentMap<String, Entity> STORAGE = new ConcurrentHashMap<>();
 
     private Long generateId() {
         return COMMON_ID.incrementAndGet();
@@ -30,35 +32,28 @@ public class EntityRepoImpl implements EntityRepo {
 
     @Override
     public Optional<Entity> findById(Long id) {
-        Entity entity = STORAGE.get(id.toString());
-        return Optional.ofNullable(entity);
+        return Optional.ofNullable(STORAGE.get(id.toString()));
     }
 
     @Override
     public List<Entity> findAll() {
-        return STORAGE
-                .values()
+        return STORAGE.values()
                 .stream()
                 .collect(Collectors.toList());
     }
 
     @Override
     public Optional<Entity> update(Long id, String name) {
-        Entity entity = STORAGE.get(id.toString());
-        if (entity == null) {
-            return Optional.empty();
-        }
-        Entity newEntity = new Entity(entity.getId(), name, Status.CHANGED); //надо сделать походу сеттеры для name и для Status
-        STORAGE.put(newEntity.getId().toString(), newEntity);
-        return Optional.of(newEntity);
+        return Optional.ofNullable(STORAGE.get(id.toString()))
+                .flatMap(entity -> {
+                    Entity newEntity = new Entity(entity.getId(), name, Status.CHANGED); //надо сделать походу сеттеры для name и для Status
+                    STORAGE.put(newEntity.getId().toString(), newEntity);
+                    return Optional.of(newEntity);
+                });
     }
 
     @Override
     public Optional<Entity> delete(Long id) {
-        Entity entity = STORAGE.remove(id.toString());
-        if (entity == null) {
-            return Optional.empty();
-        }
-        return Optional.of(entity);
+        return Optional.ofNullable(STORAGE.remove(id.toString()));
     }
 }
