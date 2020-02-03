@@ -1,5 +1,6 @@
 package ru.eda.tech.service.entity;
 
+import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
 import ru.eda.tech.controller.api.entity.delete.EntityDeleteResponse;
@@ -11,13 +12,13 @@ import java.util.List;
 
 public interface EntityService {
 
-    EntityCreateResponse create(EntityCreateRequest request);
+    ResponseContent<EntityCreateResponse> create(EntityCreateRequest request);
 
-    EntityReadResponse read(Long id);
+    ResponseContent<EntityReadResponse> read(Long id);
 
-    List<EntityReadResponse> readAll();
+    ResponseContent<List<EntityReadResponse>> readAll();
 
-    EntityUpdateResponse update(EntityUpdateRequest request);
+    ResponseContent<EntityUpdateResponse> update(EntityUpdateRequest request);
 
-    EntityDeleteResponse delete(Long id);
+    ResponseContent<EntityDeleteResponse> delete(Long id);
 }

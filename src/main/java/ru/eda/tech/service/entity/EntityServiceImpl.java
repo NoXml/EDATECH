@@ -1,6 +1,8 @@
 package ru.eda.tech.service.entity;
 
 import org.springframework.stereotype.Service;
+import ru.eda.tech.controller.api.Error;
+import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
 import ru.eda.tech.controller.api.entity.delete.EntityDeleteResponse;
@@ -23,38 +25,42 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public EntityCreateResponse create(EntityCreateRequest request) {
+    public ResponseContent<EntityCreateResponse> create(EntityCreateRequest request) {
         String name = request.getName();
         Entity entity = entityRepository.save(name);
-        return new EntityCreateResponse(entity.getId(), entity.getName());
+        if (entity == null) {
+            return ResponseContent.failed(Error.of("EntityNotSaved", "Entity was not saved!"));
+        }
+        return ResponseContent.success(new EntityCreateResponse(entity.getId(), entity.getName()));
     }
 
     @Override
-    public EntityReadResponse read(Long id) {
+    public ResponseContent<EntityReadResponse> read(Long id) {
         return entityRepository.findById(id)
-                .map(entity -> new EntityReadResponse(entity.getId(), entity.getName()))
-                .orElse(null);
+                .map(entity -> ResponseContent.success(new EntityReadResponse(entity.getId(), entity.getName())))
+                .orElse(ResponseContent.failed(Error.of("EntityNotFound", "Entity was not found!")));
     }
 
     @Override
-    public List<EntityReadResponse> readAll() {
-        return entityRepository.findAll()
+    public ResponseContent<List<EntityReadResponse>> readAll() {
+        List<EntityReadResponse> entityReadResponses = entityRepository.findAll()
                 .stream()
                 .map(entity -> new EntityReadResponse(entity.getId(), entity.getName()))
                 .collect(Collectors.toList());
+        return ResponseContent.success(entityReadResponses);
     }
 
     @Override
-    public EntityUpdateResponse update(EntityUpdateRequest request) {
+    public ResponseContent<EntityUpdateResponse> update(EntityUpdateRequest request) {
         return entityRepository.update(request.getId(), request.getName())
-                .map(entity -> new EntityUpdateResponse(entity.getId(), entity.getName()))
-                .orElse(null);
+                .map(entity -> ResponseContent.success(new EntityUpdateResponse(entity.getId(), entity.getName())))
+                .orElse(ResponseContent.failed(Error.of("EntityNotUpdated", "Entity was not update!")));
     }
 
     @Override
-    public EntityDeleteResponse delete(Long id) {
+    public ResponseContent<EntityDeleteResponse> delete(Long id) {
         return entityRepository.delete(id)
-                .map(entity -> new EntityDeleteResponse(entity.getId(), entity.getName()))
-                .orElse(null);
+                .map(entity -> ResponseContent.success(new EntityDeleteResponse(entity.getId(), entity.getName())))
+                .orElse(ResponseContent.failed(Error.of("EntityNotDeleted", "Entity was not delete!")));
     }
 }
