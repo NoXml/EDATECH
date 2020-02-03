@@ -1,10 +1,14 @@
 package ru.eda.tech.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.eda.tech.base.IntegrationTest;
+import ru.eda.tech.repository.entity.EntityRepository;
+import ru.eda.tech.repository.entity.EntityRepositoryImpl;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -31,6 +35,11 @@ class EntityControllerTest extends IntegrationTest {
 
     @Value("classpath:/ru/eda/tech/controller/DeleteResponseExpected.json")
     private Resource deleteResponseExpected;
+
+    @BeforeEach
+    void clearStorage(){
+        EntityRepositoryImpl.STORAGE.clear();
+    }
 
     @Test
     void create() {

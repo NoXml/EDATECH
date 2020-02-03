@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class EntityRepositoryImpl implements EntityRepository {
-    private static final AtomicLong COMMON_ID = new AtomicLong(0L);
-    private static final ConcurrentMap<String, Entity> STORAGE = new ConcurrentHashMap<>();
+    public static final AtomicLong COMMON_ID = new AtomicLong(0L);
+    public static final ConcurrentMap<String, Entity> STORAGE = new ConcurrentHashMap<>();
 
     private Long generateId() {
         return COMMON_ID.incrementAndGet();
