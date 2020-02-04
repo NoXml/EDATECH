@@ -1,0 +1,8 @@
+{
+  "status": "Failed",
+  "result": null,
+  "error": {
+    "code": "EntityNotFound",
+    "message": "Entity with id: '1' was not found"
+  }
+}

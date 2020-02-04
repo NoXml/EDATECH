@@ -23,10 +23,10 @@ class EntityControllerTest extends IntegrationTest {
     @Value("classpath:/ru/eda/tech/controller/CreateResponseExpected.json")
     private Resource createResponseExpected;
 
-    @Value("classpath:/ru/eda/tech/controller/ReadAllResponseExpected.json")
-    private Resource readAllResponseExpected;
     @Value("classpath:/ru/eda/tech/controller/ReadResponseExpected.json")
     private Resource readResponseExpected;
+    @Value("classpath:/ru/eda/tech/controller/ReadAllResponseExpected.json")
+    private Resource readAllResponseExpected;
 
     @Value("classpath:/ru/eda/tech/controller/UpdateRequest.json")
     private Resource updateRequest;
@@ -35,6 +35,9 @@ class EntityControllerTest extends IntegrationTest {
 
     @Value("classpath:/ru/eda/tech/controller/DeleteResponseExpected.json")
     private Resource deleteResponseExpected;
+
+    @Value("classpath:/ru/eda/tech/controller/NotFoundWithId1ResponseExpected.json")
+    private Resource notFoundWithId1ResponseExpected;
 
     @BeforeEach
     void clearStorage() {
@@ -53,20 +56,25 @@ class EntityControllerTest extends IntegrationTest {
     }
 
     @Test
-    void readAll() {
-        assertRestRequest(get("/entity"), readAllResponseExpected, status().isOk());
-    }
-
-    @Test
     void read() {
-        putEntityToSTORAGE(1L, "name");
+        putEntityToStorage(1L, "name");
 
         assertRestRequest(get("/entity/1"), readResponseExpected, status().isOk());
     }
 
     @Test
+    void readNotFound() {
+        assertRestRequest(get("/entity/1"), notFoundWithId1ResponseExpected, status().isOk());
+    }
+
+    @Test
+    void readAll() {
+        assertRestRequest(get("/entity"), readAllResponseExpected, status().isOk());
+    }
+
+    @Test
     void update() {
-        putEntityToSTORAGE(1L, "name");
+        putEntityToStorage(1L, "name");
 
         String requestContent = getContentFromResource(updateRequest);
 
@@ -78,14 +86,31 @@ class EntityControllerTest extends IntegrationTest {
     }
 
     @Test
+    void updateNotFound() {
+        String requestContent = getContentFromResource(updateRequest);
+
+        assertRestRequest(put("/entity")
+                        .contentType(APPLICATION_JSON)
+                        .content(requestContent),
+                notFoundWithId1ResponseExpected,
+                status().isOk());
+    }
+
+    @Test
     void delete() {
-        putEntityToSTORAGE(1L, "name");
+        putEntityToStorage(1L, "name");
 
         assertRestRequest(MockMvcRequestBuilders.delete("/entity/1"), deleteResponseExpected, status().isOk());
     }
 
-    void putEntityToSTORAGE(Long id, String name) {
+    @Test
+    void deleteNotFound() {
+        assertRestRequest(MockMvcRequestBuilders.delete("/entity/1"),
+                notFoundWithId1ResponseExpected, status().isOk());
+    }
+
+    void putEntityToStorage(Long id, String name) {
         Entity entity = new Entity(id, name, Status.CREATED);
-        EntityRepositoryImpl.STORAGE.put(entity.getId().toString(), entity);
+        EntityRepositoryImpl.STORAGE.put(entity.getId(), entity);
     }
 }

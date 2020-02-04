@@ -28,17 +28,16 @@ public class EntityServiceImpl implements EntityService {
     public ResponseContent<EntityCreateResponse> create(EntityCreateRequest request) {
         String name = request.getName();
         Entity entity = entityRepository.save(name);
-        if (entity == null) {
-            return ResponseContent.failed(Error.of("EntityNotSaved", "Entity was not saved!"));
-        }
         return ResponseContent.success(new EntityCreateResponse(entity.getId(), entity.getName()));
     }
 
     @Override
     public ResponseContent<EntityReadResponse> read(Long id) {
         return entityRepository.findById(id)
-                .map(entity -> ResponseContent.success(new EntityReadResponse(entity.getId(), entity.getName())))
-                .orElse(ResponseContent.failed(Error.of("EntityNotFound", "Entity was not found!")));
+                .map(entity -> new EntityReadResponse(entity.getId(), entity.getName()))
+                .map(entityReadResponse -> ResponseContent.success(entityReadResponse))
+                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
+                        String.format("Entity with id: '%d' was not found", id))));
     }
 
     @Override
@@ -53,14 +52,18 @@ public class EntityServiceImpl implements EntityService {
     @Override
     public ResponseContent<EntityUpdateResponse> update(EntityUpdateRequest request) {
         return entityRepository.update(request.getId(), request.getName())
-                .map(entity -> ResponseContent.success(new EntityUpdateResponse(entity.getId(), entity.getName())))
-                .orElse(ResponseContent.failed(Error.of("EntityNotUpdated", "Entity was not update!")));
+                .map(entity -> new EntityUpdateResponse(entity.getId(), entity.getName()))
+                .map(entityUpdateResponse -> ResponseContent.success(entityUpdateResponse))
+                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
+                        String.format("Entity with id: '%d' was not found", request.getId()))));
     }
 
     @Override
     public ResponseContent<EntityDeleteResponse> delete(Long id) {
         return entityRepository.delete(id)
-                .map(entity -> ResponseContent.success(new EntityDeleteResponse(entity.getId(), entity.getName())))
-                .orElse(ResponseContent.failed(Error.of("EntityNotDeleted", "Entity was not delete!")));
+                .map(entity -> new EntityDeleteResponse(entity.getId(), entity.getName()))
+                .map(entityDeleteResponse -> ResponseContent.success(entityDeleteResponse))
+                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
+                        String.format("Entity with id: '%d' was not found", id))));
     }
 }

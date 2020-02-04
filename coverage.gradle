@@ -14,7 +14,7 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'BRANCH'
                 value = 'COVEREDRATIO'
-                minimum = 0.33
+                minimum = 1.0
             }
             limit {
                 counter = 'CLASS'
