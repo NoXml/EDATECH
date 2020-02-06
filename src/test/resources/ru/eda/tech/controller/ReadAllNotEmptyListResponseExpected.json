@@ -1,0 +1,10 @@
+{
+  "status": "Success",
+  "result": [
+    {
+      "id": 1,
+      "name": "name"
+    }
+  ],
+  "error": null
+}
