@@ -25,8 +25,10 @@ class EntityControllerTest extends IntegrationTest {
 
     @Value("classpath:/ru/eda/tech/controller/ReadResponseExpected.json")
     private Resource readResponseExpected;
-    @Value("classpath:/ru/eda/tech/controller/ReadAllResponseExpected.json")
-    private Resource readAllResponseExpected;
+    @Value("classpath:/ru/eda/tech/controller/ReadAllNotEmptyListResponseExpected.json")
+    private Resource readAllNotEmptyListResponseExpected;
+    @Value("classpath:/ru/eda/tech/controller/ReadAllEmptyListResponseExpected.json")
+    private Resource readAllEmptyListResponseExpected;
 
     @Value("classpath:/ru/eda/tech/controller/UpdateRequest.json")
     private Resource updateRequest;
@@ -68,8 +70,15 @@ class EntityControllerTest extends IntegrationTest {
     }
 
     @Test
-    void readAll() {
-        assertRestRequest(get("/entity"), readAllResponseExpected, status().isOk());
+    void readAllNotEmptyList() {
+        putEntityToStorage(1L, "name");
+
+        assertRestRequest(get("/entity"), readAllNotEmptyListResponseExpected, status().isOk());
+    }
+
+    @Test
+    void readAllEmptyList() {
+        assertRestRequest(get("/entity"), readAllEmptyListResponseExpected, status().isOk());
     }
 
     @Test

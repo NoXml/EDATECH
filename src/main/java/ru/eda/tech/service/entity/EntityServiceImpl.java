@@ -39,7 +39,7 @@ public class EntityServiceImpl implements EntityService {
                 .map(entity -> new EntityReadResponse(entity.getId(), entity.getName()))
                 .map(ResponseContent::success)
                 .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id={%d} was not found", request.getId()))));
+                        String.format("Entity with id was not found: id=%d", request.getId()))));
     }
 
     @Override
@@ -56,7 +56,7 @@ public class EntityServiceImpl implements EntityService {
                 .map(entity -> new EntityUpdateResponse(entity.getId(), entity.getName()))
                 .map(ResponseContent::success)
                 .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id={%d} was not found", request.getId()))));
+                        String.format("Entity with id was not found: id=%d", request.getId()))));
     }
 
     @Override
@@ -65,6 +65,6 @@ public class EntityServiceImpl implements EntityService {
                 .map(entity -> new EntityDeleteResponse(entity.getId(), entity.getName()))
                 .map(ResponseContent::success)
                 .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id={%d} was not found", request.getId()))));
+                        String.format("Entity with id was not found: id=%d", request.getId()))));
     }
 }

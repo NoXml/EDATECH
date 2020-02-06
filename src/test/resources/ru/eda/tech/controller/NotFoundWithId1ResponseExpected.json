@@ -3,6 +3,6 @@
   "result": null,
   "error": {
     "code": "EntityNotFound",
-    "message": "Entity with id={1} was not found"
+    "message": "Entity with id was not found: id=1"
   }
 }
