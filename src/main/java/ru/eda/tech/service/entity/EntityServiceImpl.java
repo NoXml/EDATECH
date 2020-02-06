@@ -5,7 +5,9 @@ import ru.eda.tech.controller.api.Error;
 import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
+import ru.eda.tech.controller.api.entity.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.api.entity.delete.EntityDeleteResponse;
+import ru.eda.tech.controller.api.entity.read.EntityReadRequest;
 import ru.eda.tech.controller.api.entity.read.EntityReadResponse;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateRequest;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
@@ -32,18 +34,17 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public ResponseContent<EntityReadResponse> read(Long id) {
-        return entityRepository.findById(id)
+    public ResponseContent<EntityReadResponse> read(EntityReadRequest request) {
+        return entityRepository.findById(request.getId())
                 .map(entity -> new EntityReadResponse(entity.getId(), entity.getName()))
-                .map(entityReadResponse -> ResponseContent.success(entityReadResponse))
+                .map(ResponseContent::success)
                 .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id: '%d' was not found", id))));
+                        String.format("Entity with id={%d} was not found", request.getId()))));
     }
 
     @Override
     public ResponseContent<List<EntityReadResponse>> readAll() {
-        List<EntityReadResponse> entityReadResponses = entityRepository.findAll()
-                .stream()
+        List<EntityReadResponse> entityReadResponses = entityRepository.findAll().stream()
                 .map(entity -> new EntityReadResponse(entity.getId(), entity.getName()))
                 .collect(Collectors.toList());
         return ResponseContent.success(entityReadResponses);
@@ -53,17 +54,17 @@ public class EntityServiceImpl implements EntityService {
     public ResponseContent<EntityUpdateResponse> update(EntityUpdateRequest request) {
         return entityRepository.update(request.getId(), request.getName())
                 .map(entity -> new EntityUpdateResponse(entity.getId(), entity.getName()))
-                .map(entityUpdateResponse -> ResponseContent.success(entityUpdateResponse))
+                .map(ResponseContent::success)
                 .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id: '%d' was not found", request.getId()))));
+                        String.format("Entity with id={%d} was not found", request.getId()))));
     }
 
     @Override
-    public ResponseContent<EntityDeleteResponse> delete(Long id) {
-        return entityRepository.delete(id)
+    public ResponseContent<EntityDeleteResponse> delete(EntityDeleteRequest request) {
+        return entityRepository.delete(request.getId())
                 .map(entity -> new EntityDeleteResponse(entity.getId(), entity.getName()))
-                .map(entityDeleteResponse -> ResponseContent.success(entityDeleteResponse))
+                .map(ResponseContent::success)
                 .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id: '%d' was not found", id))));
+                        String.format("Entity with id={%d} was not found", request.getId()))));
     }
 }

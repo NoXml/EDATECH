@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.api.entity.create.EntityCreateRequest;
 import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
+import ru.eda.tech.controller.api.entity.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.api.entity.delete.EntityDeleteResponse;
+import ru.eda.tech.controller.api.entity.read.EntityReadRequest;
 import ru.eda.tech.controller.api.entity.read.EntityReadResponse;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateRequest;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
@@ -44,7 +46,7 @@ public class EntityController {
     public ResponseContent<EntityReadResponse> read(
             @ApiParam(value = "id of requested Entity to read", required = true)
             @PathVariable("id") Long id) {
-        return entityService.read(id);
+        return entityService.read(new EntityReadRequest(id));
     }
 
     @GetMapping
@@ -66,7 +68,7 @@ public class EntityController {
     public ResponseContent<EntityDeleteResponse> delete(
             @ApiParam(value = "id of requested Entity to delete", required = true)
             @PathVariable("id") Long id) {
-        return entityService.delete(id);
+        return entityService.delete(new EntityDeleteRequest(id));
     }
 }
 
