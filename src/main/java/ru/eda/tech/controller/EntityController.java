@@ -21,6 +21,7 @@ import ru.eda.tech.controller.api.entity.update.EntityUpdateRequest;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
 import ru.eda.tech.service.entity.EntityService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,7 @@ public class EntityController {
     @ApiOperation("Create entity")
     public ResponseContent<EntityCreateResponse> create(
             @ApiParam(value = "Entity create request object", required = true)
-            @RequestBody EntityCreateRequest request) {
+            @Valid @RequestBody EntityCreateRequest request) {
         return entityService.create(request);
     }
 
@@ -59,7 +60,7 @@ public class EntityController {
     @ApiOperation("Update entity")
     public ResponseContent<EntityUpdateResponse> update(
             @ApiParam(value = "Entity update request object", required = true)
-            @RequestBody EntityUpdateRequest request) {
+            @Valid @RequestBody EntityUpdateRequest request) {
         return entityService.update(request);
     }
 
