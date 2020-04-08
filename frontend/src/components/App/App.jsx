@@ -2,9 +2,7 @@ import React from 'react';
 
 const App = () => {
 	return (
-		<div>
-			NORMA
-		</div>
+		<h1>NORMA</h1>
 	);
 };
 
