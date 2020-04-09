@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import config from 'config';
 
 const App = () => {
 	const [status, setStatus] = useState({
@@ -14,7 +15,7 @@ const App = () => {
 			isFetching: true
 		});
 
-		const response = await fetch('http://localhost:8090/status');
+		const response = await fetch(`${config.backendUrl}/status`);
 		const data = await response.text();
 
 		setStatus({
