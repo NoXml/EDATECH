@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "*")  // TODO: For development and testing only. Remove for production.
 public class InfoController {
 
     @ApiOperation(value = "Get backend status state")
     @GetMapping("/status")
-    @CrossOrigin(origins = "*")  // TODO: For development and testing only. Remove for production.
     public String getStatus() {
         return "";
     }
