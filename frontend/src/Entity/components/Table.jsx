@@ -1,9 +1,12 @@
 import React from 'react';
 import {Table} from 'react-bootstrap';
+
 import Entity from './Entity';
 import {StyledCenterRow, StyledThActions} from './styledComponents';
 
-const EntityTable = () => {
+const EntityTable = ({entities, onUpdateEntity, onDeleteEntity}) => {
+    const renderedEntities = entities.map(entity => <Entity key={entity.id} entity={entity} onUpdate={onUpdateEntity} onDelete={onDeleteEntity} />);
+
     return (
         <StyledCenterRow>
             <Table striped bordered hover responsive>
@@ -15,12 +18,7 @@ const EntityTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <Entity />
-                    <Entity />
-                    <Entity />
-                    <Entity />
-                    <Entity />
-                    <Entity />
+                    {renderedEntities}
                 </tbody>
             </Table>
         </StyledCenterRow>

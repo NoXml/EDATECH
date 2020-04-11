@@ -1,0 +1,1 @@
+export {default as removeProperty} from './removeProperty';

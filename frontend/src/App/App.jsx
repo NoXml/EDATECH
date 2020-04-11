@@ -2,11 +2,11 @@ import React from 'react';
 import {Provider} from 'react-redux';
 
 import store from 'App/store';
-import Entity from 'Entity';
+import EntityContainer from 'Entity';
 
 const App = () => (
 	<Provider store={store}>
-		<Entity />
+		<EntityContainer />
 	</Provider>
 );
 

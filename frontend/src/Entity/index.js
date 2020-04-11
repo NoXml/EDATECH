@@ -1,1 +1,1 @@
-export {default} from './EntityPage';
+export {default} from './EntityContainer';
