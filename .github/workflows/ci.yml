@@ -1,7 +1,7 @@
 name: EDATECH CI
 on:
   pull_request:
-    branches:
+    branche:
       - feature/*
 
 jobs:
