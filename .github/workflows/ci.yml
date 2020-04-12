@@ -1,8 +1,5 @@
 name: EDATECH CI
 on:
-  push:
-    branches:
-      - 'feature/**'
   pull_request:
     branches:
       - dev
@@ -10,6 +7,7 @@ on:
 jobs:
   buildBackend:
     name: Build backend
+    if: startsWith(github.head_ref, 'feature/') == true
     runs-on: ubuntu-16.04
     steps:
       - name: Checkout directory
@@ -24,6 +22,7 @@ jobs:
         run: gradle build
   buildFrontend:
     name: Build frontend
+    if: startsWith(github.head_ref, 'feature/') == true
     runs-on: ubuntu-16.04
     steps:
       - name: Checkout directory
