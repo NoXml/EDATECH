@@ -1,8 +1,5 @@
 name: EDATECH CI
-on: 
-  pull_request:
-    branches:
-      - feature/*
+on: [push]
 
 jobs:
   buildBackend:
