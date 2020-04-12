@@ -10,9 +10,9 @@ public interface EntityRepository {
 
     Optional<Entity> findById(Long id);
 
-    List<Entity> findAll();
+    List<Entity> getAll();
 
     Optional<Entity> update(Long id, String name);
 
-    Optional<Entity> delete(Long id);
+    Optional<Entity> deleteById(Long id);
 }

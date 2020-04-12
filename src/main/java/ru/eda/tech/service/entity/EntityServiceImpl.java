@@ -44,7 +44,7 @@ public class EntityServiceImpl implements EntityService {
 
     @Override
     public ResponseContent<List<EntityReadResponse>> readAll() {
-        List<EntityReadResponse> entityReadResponses = entityRepository.findAll().stream()
+        List<EntityReadResponse> entityReadResponses = entityRepository.getAll().stream()
                 .map(entity -> new EntityReadResponse(entity.getId(), entity.getName()))
                 .collect(Collectors.toList());
         return ResponseContent.success(entityReadResponses);
@@ -61,7 +61,7 @@ public class EntityServiceImpl implements EntityService {
 
     @Override
     public ResponseContent<EntityDeleteResponse> delete(EntityDeleteRequest request) {
-        return entityRepository.delete(request.getId())
+        return entityRepository.deleteById(request.getId())
                 .map(entity -> new EntityDeleteResponse(entity.getId(), entity.getName()))
                 .map(ResponseContent::success)
                 .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
