@@ -27,4 +27,12 @@ public class EntityCreateResponse {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "EntityCreateResponse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -87,4 +87,13 @@ public class ResponseContent<T> {
             return build(null);
         }
     }
+
+    @Override
+    public String toString() {
+        return "ResponseContent{" +
+                "status=" + status +
+                ", result=" + result +
+                ", error=" + error +
+                '}';
+    }
 }
