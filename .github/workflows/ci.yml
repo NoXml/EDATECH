@@ -1,8 +1,8 @@
 name: EDATECH CI
 on:
   pull_request:
-    ranches:
-      - feature/*
+    branches:
+      - 'feature/*'
 
 jobs:
   buildBackend:
