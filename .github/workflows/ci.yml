@@ -7,7 +7,7 @@ on:
 jobs:
   buildBackend:
     name: Build backend
-    if: startsWith(github.head_ref, 'wwwfeature/') == true
+    if: startsWith(github.head_ref, 'feature/') == true
     runs-on: ubuntu-16.04
     steps:
       - name: Checkout directory
@@ -22,7 +22,7 @@ jobs:
         run: gradle build
   buildFrontend:
     name: Build frontend
-    if: startsWith(github.head_ref, 'wwwfeature/') == true
+    if: startsWith(github.head_ref, 'feature/') == true
     runs-on: ubuntu-16.04
     steps:
       - name: Checkout directory
