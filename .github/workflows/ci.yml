@@ -1,11 +1,8 @@
 name: EDATECH CI
-on:
-  pull_request:
-    brancehs:
-      - feature/*
+on: [push]
 
 jobs:
-  build:
+  buildBackend:
     name: Build backend
     runs-on: ubuntu-16.04
     steps:
@@ -19,3 +16,19 @@ jobs:
           architecture: x64
       - name: Build with Gradle
         run: gradle build
+  buildFrontend:
+    name: Build frontend
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Checkout directory
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Install, build and test with NPM
+        run: |
+          cd frontend
+          npm install
+          npm run build
+          npm test
