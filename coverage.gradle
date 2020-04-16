@@ -9,7 +9,7 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 0.99
+                minimum = 0.98
             }
             limit {
                 counter = 'BRANCH'
@@ -24,12 +24,12 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'INSTRUCTION'
                 value = 'COVEREDRATIO'
-                minimum = 0.99
+                minimum = 0.98
             }
             limit {
                 counter = 'METHOD'
                 value = 'COVEREDRATIO'
-                minimum = 0.98
+                minimum = 0.97
             }
         }
     }

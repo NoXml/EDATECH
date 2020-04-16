@@ -1,8 +1,0 @@
-{
-  "status": "Failed",
-  "result": null,
-  "error": {
-    "code": "ValidationFailure",
-    "message": "Request Validation failed with exception"
-  }
-}

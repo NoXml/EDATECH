@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 public class EntityCreateRequest {
 
     @NotBlank
-    @Size(min = 1, max = 32)
+    @Size(max = 32)
     @ApiModelProperty(notes = "Entity name")
     private final String name;
 

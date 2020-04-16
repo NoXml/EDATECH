@@ -10,7 +10,6 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import ru.eda.tech.base.IntegrationTest;
 
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -25,56 +24,83 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class EntityControllerValidationTest extends IntegrationTest {
 
-    @Value("classpath:/ru/eda/tech/controller/validation/EntityCreateRequestWhichNameIsNull.json")
-    private Resource createRequestNameIsNull;
+    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityCreateRequestNameIsNull.json")
+    private Resource createNameIsNull;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/EntityCreateRequestWhichNameIsEmpty.json")
-    private Resource createRequestNameIsEmpty;
+    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityCreateRequestNameIsEmpty.json")
+    private Resource createNameIsEmpty;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/EntityCreateRequestWhichNameIsOutOfBounds.json")
-    private Resource createRequestNameIsOutOfBounds;
+    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityCreateRequestNameIsOutOfBounds.json")
+    private Resource createNameIsOutOfBounds;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/EntityUpdateRequestWhichIdIsNull.json")
-    private Resource updateRequestIdIsNull;
+    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityUpdateRequestIdIsNull.json")
+    private Resource updateIdIsNull;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/EntityUpdateRequestWhichIdIsNotPositive.json")
-    private Resource updateRequestIdIsNotPositive;
+    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityUpdateRequestIdIsNotPositive.json")
+    private Resource updateIdIsNotPositive;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/EntityUpdateRequestWhichNameIsNull.json")
-    private Resource updateRequestNameIsNull;
+    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityUpdateRequestNameIsNull.json")
+    private Resource updateNameIsNull;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/EntityUpdateRequestWhichNameIsEmpty.json")
-    private Resource updateRequestNameIsEmpty;
+    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityUpdateRequestNameIsEmpty.json")
+    private Resource updateNameIsEmpty;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/EntityUpdateRequestWhichNameIsOutOfBounds.json")
-    private Resource updateRequestNameIsOutOfBounds;
+    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityUpdateRequestNameIsOutOfBounds.json")
+    private Resource updateNameIsOutOfBounds;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/ResponseContentFailedWithTechnicalError.json")
-    private Resource responseContentFailedWithValidationFailure;
+    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400NameNotBlank.json")
+    private Resource failed400NameNotBlank;
 
-    private BiFunction<MockHttpServletRequestBuilder, Resource, RequestBuilder> buildRequest = (requestBuilder, resource) ->
-            requestBuilder.characterEncoding(UTF_8.name())
-                    .contentType(APPLICATION_JSON)
-                    .content(getContentFromResource(resource));
+    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400NameSize.json")
+    private Resource failed400NameSize;
+
+    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400IdNotNull.json")
+    private Resource failed400IdNotNull;
+
+    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400IdPositive.json")
+    private Resource failed400IdPositive;
+
+    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400ReadIdPositive.json")
+    private Resource failed400ReadIdPositive;
+
+    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400DeleteIdPositive.json")
+    private Resource failed400DeleteIdPositive;
+
+    private RequestBuilder requestOf(MockHttpServletRequestBuilder requestBuilder, Resource resource){
+        return requestBuilder.characterEncoding(UTF_8.name())
+                .contentType(APPLICATION_JSON)
+                .content(getContentFromResource(resource));
+    }
 
     private Stream<Arguments> dataForTestingRequestValidation() {
         return Stream.of(
-                of(buildRequest.apply(post("/entity"), createRequestNameIsNull)),
-                of(buildRequest.apply(post("/entity"), createRequestNameIsEmpty)),
-                of(buildRequest.apply(post("/entity"), createRequestNameIsOutOfBounds)),
-                of(get("/entity/-1")),
-                of(buildRequest.apply(put("/entity"), updateRequestIdIsNull)),
-                of(buildRequest.apply(put("/entity"), updateRequestIdIsNotPositive)),
-                of(buildRequest.apply(put("/entity"), updateRequestNameIsNull)),
-                of(buildRequest.apply(put("/entity"), updateRequestNameIsEmpty)),
-                of(buildRequest.apply(put("/entity"), updateRequestNameIsOutOfBounds)),
-                of(delete("/entity/-1"))
+                of(requestOf(post("/entity"), createNameIsNull),
+                        failed400NameNotBlank),
+                of(requestOf(post("/entity"), createNameIsEmpty),
+                        failed400NameNotBlank),
+                of(requestOf(post("/entity"), createNameIsOutOfBounds),
+                        failed400NameSize),
+                of(get("/entity/-1"),
+                        failed400ReadIdPositive),
+                of(requestOf(put("/entity"), updateIdIsNull),
+                        failed400IdNotNull),
+                of(requestOf(put("/entity"), updateIdIsNotPositive),
+                        failed400IdPositive),
+                of(requestOf(put("/entity"), updateNameIsNull),
+                        failed400NameNotBlank),
+                of(requestOf(put("/entity"), updateNameIsEmpty),
+                        failed400NameNotBlank),
+                of(requestOf(put("/entity"), updateNameIsOutOfBounds),
+                        failed400NameSize),
+                of(delete("/entity/-1"),
+                        failed400DeleteIdPositive)
         );
     }
 
     @ParameterizedTest
     @MethodSource("dataForTestingRequestValidation")
-    public void assertThatResponseWithHttpStatusCode400AndBodyStatusFailed(RequestBuilder requestBuilder) {
-        assertRestRequest(requestBuilder, responseContentFailedWithValidationFailure, status().isBadRequest());
+    public void assertBadRequestWithFailedContent(RequestBuilder requestBuilder,
+                                                  Resource contentFailed) {
+        assertRestRequest(requestBuilder, contentFailed, status().isBadRequest());
     }
 }

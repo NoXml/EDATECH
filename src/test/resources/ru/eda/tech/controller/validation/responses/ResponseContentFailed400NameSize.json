@@ -1,0 +1,8 @@
+{
+  "status": "Failed",
+  "result": null,
+  "error": {
+    "code": "400",
+    "message": "name : size must be between 0 and 32"
+  }
+}

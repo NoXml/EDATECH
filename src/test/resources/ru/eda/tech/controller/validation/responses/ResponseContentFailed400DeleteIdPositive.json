@@ -1,0 +1,8 @@
+{
+"status": "Failed",
+"result": null,
+"error": {
+"code": "400",
+"message": "delete.id: must be greater than 0"
+}
+}

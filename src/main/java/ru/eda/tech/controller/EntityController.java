@@ -23,7 +23,6 @@ import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
 import ru.eda.tech.service.entity.EntityService;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -43,7 +42,7 @@ public class EntityController {
     public ResponseContent<EntityCreateResponse> create(
             @ApiParam(value = "Entity create request object", required = true)
             @RequestBody
-            @Valid @NotNull EntityCreateRequest request) {
+            @Valid EntityCreateRequest request) {
         return entityService.create(request);
     }
 
@@ -52,7 +51,7 @@ public class EntityController {
     public ResponseContent<EntityReadResponse> read(
             @ApiParam(value = "id of requested Entity to read", required = true)
             @PathVariable("id")
-            @NotNull @Positive Long id) {
+            @Positive Long id) {
         return entityService.read(new EntityReadRequest(id));
     }
 
@@ -67,7 +66,7 @@ public class EntityController {
     public ResponseContent<EntityUpdateResponse> update(
             @ApiParam(value = "Entity update request object", required = true)
             @RequestBody
-            @Valid @NotNull EntityUpdateRequest request) {
+            @Valid EntityUpdateRequest request) {
         return entityService.update(request);
     }
 
@@ -76,7 +75,7 @@ public class EntityController {
     public ResponseContent<EntityDeleteResponse> delete(
             @ApiParam(value = "id of requested Entity to delete", required = true)
             @PathVariable("id")
-            @NotNull @Positive Long id) {
+            @Positive Long id) {
         return entityService.delete(new EntityDeleteRequest(id));
     }
 }
