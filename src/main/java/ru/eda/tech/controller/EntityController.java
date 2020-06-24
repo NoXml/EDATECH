@@ -2,6 +2,7 @@ package ru.eda.tech.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,11 @@ import ru.eda.tech.controller.api.entity.update.EntityUpdateRequest;
 import ru.eda.tech.controller.api.entity.update.EntityUpdateResponse;
 import ru.eda.tech.service.entity.EntityService;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/entity")
 public class EntityController {
@@ -37,7 +41,8 @@ public class EntityController {
     @ApiOperation("Create entity")
     public ResponseContent<EntityCreateResponse> create(
             @ApiParam(value = "Entity create request object", required = true)
-            @RequestBody EntityCreateRequest request) {
+            @RequestBody
+            @Valid EntityCreateRequest request) {
         return entityService.create(request);
     }
 
@@ -45,7 +50,8 @@ public class EntityController {
     @ApiOperation("Read entity")
     public ResponseContent<EntityReadResponse> read(
             @ApiParam(value = "id of requested Entity to read", required = true)
-            @PathVariable("id") Long id) {
+            @PathVariable("id")
+            @Positive Long id) {
         return entityService.read(new EntityReadRequest(id));
     }
 
@@ -59,7 +65,8 @@ public class EntityController {
     @ApiOperation("Update entity")
     public ResponseContent<EntityUpdateResponse> update(
             @ApiParam(value = "Entity update request object", required = true)
-            @RequestBody EntityUpdateRequest request) {
+            @RequestBody
+            @Valid EntityUpdateRequest request) {
         return entityService.update(request);
     }
 
@@ -67,7 +74,8 @@ public class EntityController {
     @ApiOperation("Delete entity")
     public ResponseContent<EntityDeleteResponse> delete(
             @ApiParam(value = "id of requested Entity to delete", required = true)
-            @PathVariable("id") Long id) {
+            @PathVariable("id")
+            @Positive Long id) {
         return entityService.delete(new EntityDeleteRequest(id));
     }
 }

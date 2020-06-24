@@ -2,7 +2,7 @@
   "status": "Failed",
   "result": null,
   "error": {
-    "code": "TechnicalError",
+    "code": "500",
     "message": "Request was failed with exception"
   }
 }

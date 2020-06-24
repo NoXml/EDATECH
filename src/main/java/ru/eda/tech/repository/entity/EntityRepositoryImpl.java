@@ -37,7 +37,7 @@ public class EntityRepositoryImpl implements EntityRepository {
     }
 
     @Override
-    public List<Entity> findAll() {
+    public List<Entity> getAll() {
         return STORAGE.values()
                 .stream()
                 .filter(not(entity -> Status.DELETED.equals(entity.getStatus())))
@@ -56,7 +56,7 @@ public class EntityRepositoryImpl implements EntityRepository {
     }
 
     @Override
-    public Optional<Entity> delete(Long id) {
+    public Optional<Entity> deleteById(Long id) {
         return Optional.ofNullable(STORAGE.get(id))
                 .filter(not(entity -> Status.DELETED.equals(entity.getStatus())))
                 .map(entity -> {
