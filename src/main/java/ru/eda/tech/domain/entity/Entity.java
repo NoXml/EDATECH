@@ -2,41 +2,41 @@ package ru.eda.tech.domain.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.jetbrains.annotations.NotNull;
+import org.springframework.lang.NonNull;
 
 import java.util.Objects;
 
 @ApiModel(description = "All details about entity")
 public class Entity {
-    @NotNull
+    @NonNull
     @ApiModelProperty(notes = "Entity id")
     private final Long id;
 
-    @NotNull
+    @NonNull
     @ApiModelProperty(notes = "Entity name")
     private final String name;
 
-    @NotNull
+    @NonNull
     @ApiModelProperty(notes = "Entity status")
     private final Status status;
 
-    public Entity(@NotNull Long id, @NotNull String name, @NotNull Status status) {
+    public Entity(@NonNull Long id, @NonNull String name, @NonNull Status status) {
         this.id = Objects.requireNonNull(id, "id");
         this.name = Objects.requireNonNull(name, "name");
         this.status = Objects.requireNonNull(status, "status");
     }
 
-    @NotNull
+    @NonNull
     public Long getId() {
         return id;
     }
 
-    @NotNull
+    @NonNull
     public String getName() {
         return name;
     }
 
-    @NotNull
+    @NonNull
     public Status getStatus() {
         return status;
     }
