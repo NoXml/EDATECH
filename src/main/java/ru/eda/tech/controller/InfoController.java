@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InfoController {
 
-    @ApiOperation(value = "Get backend status state")
+    @ApiOperation("Get backend status state")
     @GetMapping("/status")
     @CrossOrigin(origins = "*")  // TODO: For development and testing only. Remove for production.
     public String getStatus() {

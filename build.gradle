@@ -2,9 +2,11 @@ plugins {
     id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id 'scala'
     id 'idea'
     id 'jacoco'
     id 'com.github.spotbugs' version '4.4.4'
+    id "com.github.lkishalmi.gatling" version "3.0.0"
 }
 
 apply from: 'coverage.gradle'
@@ -32,4 +34,10 @@ dependencies {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
+}
+
+gatling {
+    toolVersion = '3.0.0-RC4'
+    logLevel = 'INFO'
+    jvmArgs = ['-server', '-Xms512M', '-Xmx512M']
 }

@@ -22,4 +22,11 @@ public class EntityCreateRequest {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "EntityCreateRequest{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
