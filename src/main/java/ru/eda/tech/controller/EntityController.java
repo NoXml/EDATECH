@@ -43,6 +43,7 @@ public class EntityController {
             @ApiParam(value = "Entity create request object", required = true)
             @RequestBody
             @Valid EntityCreateRequest request) {
+
         return entityService.create(request);
     }
 
