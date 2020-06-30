@@ -15,7 +15,7 @@ import static java.util.function.Predicate.not;
 
 @Repository
 public class EntityRepositoryImpl implements EntityRepository {
-    public static final AtomicLong COMMON_ID = new AtomicLong(0L);
+    public static final AtomicLong COMMON_ID = new AtomicLong(1L);
     public static final ConcurrentMap<Long, Entity> STORAGE = new ConcurrentHashMap<>();
 
     private Long generateId() {

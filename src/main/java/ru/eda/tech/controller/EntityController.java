@@ -2,6 +2,8 @@ package ru.eda.tech.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,8 @@ import java.util.List;
 @RequestMapping("/entity")
 public class EntityController {
 
+    private static final Logger log = LoggerFactory.getLogger(EntityController.class);
+
     private final EntityService entityService;
 
     public EntityController(EntityService entityService) {
@@ -41,43 +45,52 @@ public class EntityController {
     @ApiOperation("Create entity")
     public ResponseContent<EntityCreateResponse> create(
             @ApiParam(value = "Entity create request object", required = true)
-            @RequestBody
-            @Valid EntityCreateRequest request) {
-        return entityService.create(request);
+            @RequestBody @Valid EntityCreateRequest request) {
+        log.info("create(): request={}", request);
+        ResponseContent<EntityCreateResponse> response = entityService.create(request);
+        log.info("create(): response={}", response);
+        return response;
     }
 
     @GetMapping("/{id}")
     @ApiOperation("Read entity")
     public ResponseContent<EntityReadResponse> read(
             @ApiParam(value = "id of requested Entity to read", required = true)
-            @PathVariable("id")
-            @Positive Long id) {
-        return entityService.read(new EntityReadRequest(id));
+            @PathVariable("id") @Positive Long id) {
+        log.info("read(): id={}", id);
+        ResponseContent<EntityReadResponse> response = entityService.read(new EntityReadRequest(id));
+        log.info("read(): response={}", response);
+        return response;
     }
 
     @GetMapping
     @ApiOperation("Read all entities")
     public ResponseContent<List<EntityReadResponse>> readAll() {
-        return entityService.readAll();
+        log.info("readAll()");
+        ResponseContent<List<EntityReadResponse>> response = entityService.readAll();
+        log.info("readAll(): response={}", response);
+        return response;
     }
 
     @PutMapping
     @ApiOperation("Update entity")
     public ResponseContent<EntityUpdateResponse> update(
             @ApiParam(value = "Entity update request object", required = true)
-            @RequestBody
-            @Valid EntityUpdateRequest request) {
-        return entityService.update(request);
+            @RequestBody @Valid EntityUpdateRequest request) {
+        log.info("update(): request={}", request);
+        ResponseContent<EntityUpdateResponse> response = entityService.update(request);
+        log.info("update(): response={}", response);
+        return response;
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation("Delete entity")
     public ResponseContent<EntityDeleteResponse> delete(
             @ApiParam(value = "id of requested Entity to delete", required = true)
-            @PathVariable("id")
-            @Positive Long id) {
-        return entityService.delete(new EntityDeleteRequest(id));
+            @PathVariable("id") @Positive Long id) {
+        log.info("delete(): id={}", id);
+        ResponseContent<EntityDeleteResponse> response = entityService.delete(new EntityDeleteRequest(id));
+        log.info("delete(): response={}", response);
+        return response;
     }
 }
-
-
