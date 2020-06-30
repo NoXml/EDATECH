@@ -1,33 +1,33 @@
 package ru.eda.tech.controller.api;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import org.jetbrains.annotations.NotNull;
+import org.springframework.lang.NonNull;
 
 import java.util.Objects;
 
 public final class Error {
-    @NotNull
+    @NonNull
     private final String code;
-    @NotNull
+    @NonNull
     private final String message;
 
-    private Error(@NotNull String code, @NotNull String message) {
+    private Error(@NonNull String code, @NonNull String message) {
         this.code = Objects.requireNonNull(code, "code");
         this.message = Objects.requireNonNull(message, "message");
     }
 
-    @NotNull
-    public static Error of(@NotNull String code, @NotNull String message) {
+    @NonNull
+    public static Error of(@NonNull String code, @NonNull String message) {
         return new Error(code, message);
     }
 
-    @NotNull
+    @NonNull
     @JsonGetter("code")
     public String getCode() {
         return code;
     }
 
-    @NotNull
+    @NonNull
     @JsonGetter("message")
     public String getMessage() {
         return message;
