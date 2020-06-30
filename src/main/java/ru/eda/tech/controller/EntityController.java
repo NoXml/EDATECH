@@ -45,8 +45,7 @@ public class EntityController {
     @ApiOperation("Create entity")
     public ResponseContent<EntityCreateResponse> create(
             @ApiParam(value = "Entity create request object", required = true)
-            @RequestBody
-            @Valid EntityCreateRequest request) {
+            @RequestBody @Valid EntityCreateRequest request) {
         log.info("create(): request={}", request);
         ResponseContent<EntityCreateResponse> response = entityService.create(request);
         log.info("create(): response={}", response);
@@ -57,8 +56,7 @@ public class EntityController {
     @ApiOperation("Read entity")
     public ResponseContent<EntityReadResponse> read(
             @ApiParam(value = "id of requested Entity to read", required = true)
-            @PathVariable("id")
-            @Positive Long id) {
+            @PathVariable("id") @Positive Long id) {
         log.info("read(): id={}", id);
         ResponseContent<EntityReadResponse> response = entityService.read(new EntityReadRequest(id));
         log.info("read(): response={}", response);
@@ -78,8 +76,7 @@ public class EntityController {
     @ApiOperation("Update entity")
     public ResponseContent<EntityUpdateResponse> update(
             @ApiParam(value = "Entity update request object", required = true)
-            @RequestBody
-            @Valid EntityUpdateRequest request) {
+            @RequestBody @Valid EntityUpdateRequest request) {
         log.info("update(): request={}", request);
         ResponseContent<EntityUpdateResponse> response = entityService.update(request);
         log.info("update(): response={}", response);
@@ -90,13 +87,10 @@ public class EntityController {
     @ApiOperation("Delete entity")
     public ResponseContent<EntityDeleteResponse> delete(
             @ApiParam(value = "id of requested Entity to delete", required = true)
-            @PathVariable("id")
-            @Positive Long id) {
+            @PathVariable("id") @Positive Long id) {
         log.info("delete(): id={}", id);
         ResponseContent<EntityDeleteResponse> response = entityService.delete(new EntityDeleteRequest(id));
         log.info("delete(): response={}", response);
         return response;
     }
 }
-
-
