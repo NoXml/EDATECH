@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.eda.tech.controller.api.Error;
 import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.entity.dto.EntityFactory;
 import ru.eda.tech.controller.entity.dto.create.EntityCreateRequest;
 import ru.eda.tech.controller.entity.dto.create.EntityCreateResponse;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteResponse;
-import ru.eda.tech.controller.entity.dto.read.EntityReadRequest;
 import ru.eda.tech.controller.entity.dto.read.EntityReadResponse;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateRequest;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateResponse;
@@ -65,7 +65,11 @@ public class EntityController {
             @ApiParam(value = "id of requested Entity to read", required = true)
             @PathVariable("id") @Positive Long id) {
         log.info("read(): id={}", id);
-        ResponseContent<EntityReadResponse> response = entityService.read(new EntityReadRequest(id));
+        var response = entityService.read(id)
+                .map(EntityReadResponse::of)
+                .map(ResponseContent::success)
+                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
+                        String.format("Entity with id was not found: id=%d", id))));
         log.info("read(): response={}", response);
         return response;
     }

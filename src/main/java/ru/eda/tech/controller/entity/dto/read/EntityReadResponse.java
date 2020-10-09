@@ -3,6 +3,7 @@ package ru.eda.tech.controller.entity.dto.read;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import ru.eda.tech.domain.entity.Entity;
 
 @ApiModel(description = "Entity read response object, which contains response information")
 public class EntityReadResponse {
@@ -16,6 +17,10 @@ public class EntityReadResponse {
     public EntityReadResponse(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public static EntityReadResponse of(Entity entity) {
+        return new EntityReadResponse(entity.getId(), entity.getName());
     }
 
     @JsonGetter("id")

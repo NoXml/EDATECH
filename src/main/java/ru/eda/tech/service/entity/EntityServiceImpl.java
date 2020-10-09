@@ -5,7 +5,6 @@ import ru.eda.tech.controller.api.Error;
 import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteResponse;
-import ru.eda.tech.controller.entity.dto.read.EntityReadRequest;
 import ru.eda.tech.controller.entity.dto.read.EntityReadResponse;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateRequest;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateResponse;
@@ -13,6 +12,7 @@ import ru.eda.tech.domain.entity.Entity;
 import ru.eda.tech.repository.entity.EntityRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,12 +30,8 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public ResponseContent<EntityReadResponse> read(EntityReadRequest request) {
-        return entityRepository.findById(request.getId())
-                .map(entity -> new EntityReadResponse(entity.getId(), entity.getName()))
-                .map(ResponseContent::success)
-                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id was not found: id=%d", request.getId()))));
+    public Optional<Entity> read(Long id) {
+        return entityRepository.findById(id);
     }
 
     @Override

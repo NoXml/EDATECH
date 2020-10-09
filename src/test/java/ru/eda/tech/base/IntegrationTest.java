@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.util.StreamUtils;
 import ru.eda.tech.configuration.handler.ControllerExceptionHandler;
 import ru.eda.tech.controller.entity.EntityController;
+import ru.eda.tech.controller.entity.dto.EntityFactory;
 import ru.eda.tech.controller.info.InfoController;
 import ru.eda.tech.repository.entity.EntityRepositoryImpl;
 import ru.eda.tech.service.entity.EntityServiceImpl;
@@ -20,7 +21,8 @@ import java.nio.charset.StandardCharsets;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-@WebMvcTest({EntityController.class, InfoController.class, EntityServiceImpl.class, EntityRepositoryImpl.class, ControllerExceptionHandler.class})
+@WebMvcTest({EntityController.class, InfoController.class, EntityServiceImpl.class, EntityRepositoryImpl.class,
+        ControllerExceptionHandler.class, EntityFactory.class})
 public abstract class IntegrationTest {
 
     @Autowired
