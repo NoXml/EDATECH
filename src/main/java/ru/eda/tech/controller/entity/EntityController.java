@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.eda.tech.controller.api.ResponseContent;
-import ru.eda.tech.controller.entity.dto.create.EntityCreateRequest;
-import ru.eda.tech.controller.entity.dto.create.EntityCreateResponse;
+import ru.eda.tech.controller.entity.dto.EntityDTOFactory;
+import ru.eda.tech.controller.entity.dto.EntityDomainFactory;
+import ru.eda.tech.controller.entity.dto.create.EntityCreateRequestDTO;
+import ru.eda.tech.controller.entity.dto.create.EntityCreateResponseDTO;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteResponse;
 import ru.eda.tech.controller.entity.dto.read.EntityReadRequest;
@@ -43,11 +45,12 @@ public class EntityController {
 
     @PostMapping
     @ApiOperation("Create entity")
-    public ResponseContent<EntityCreateResponse> create(
+    public ResponseContent<EntityCreateResponseDTO> create(
             @ApiParam(value = "Entity create request object", required = true)
-            @RequestBody @Valid EntityCreateRequest request) {
+            @RequestBody @Valid EntityCreateRequestDTO request) {
         log.info("create(): request={}", request);
-        ResponseContent<EntityCreateResponse> response = entityService.create(request);
+        var responseDto = EntityDTOFactory.of(entityService.create(EntityDomainFactory.of(request)));
+        var response = ResponseContent.success(responseDto);
         log.info("create(): response={}", response);
         return response;
     }
@@ -93,4 +96,5 @@ public class EntityController {
         log.info("delete(): response={}", response);
         return response;
     }
+
 }
