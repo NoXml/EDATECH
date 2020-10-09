@@ -8,8 +8,8 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.util.StreamUtils;
 import ru.eda.tech.configuration.handler.ControllerExceptionHandler;
-import ru.eda.tech.controller.EntityController;
-import ru.eda.tech.controller.InfoController;
+import ru.eda.tech.controller.entity.EntityController;
+import ru.eda.tech.controller.info.InfoController;
 import ru.eda.tech.repository.entity.EntityRepositoryImpl;
 import ru.eda.tech.service.entity.EntityServiceImpl;
 

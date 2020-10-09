@@ -1,11 +1,11 @@
-package ru.eda.tech.controller.api.entity.create;
+package ru.eda.tech.controller.entity.dto.update;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "Entity create response object, which contains response information")
-public class EntityCreateResponse {
+@ApiModel(description = "Entity update response object, which contains response information")
+public class EntityUpdateResponse {
 
     @ApiModelProperty(notes = "Entity id")
     private final Long id;
@@ -13,7 +13,7 @@ public class EntityCreateResponse {
     @ApiModelProperty(notes = "Entity name")
     private final String name;
 
-    public EntityCreateResponse(Long id, String name) {
+    public EntityUpdateResponse(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -26,13 +26,5 @@ public class EntityCreateResponse {
     @JsonGetter("name")
     public String getName() {
         return name;
-    }
-
-    @Override
-    public String toString() {
-        return "EntityCreateResponse{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 }

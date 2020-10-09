@@ -1,4 +1,4 @@
-package ru.eda.tech.controller.api.entity.update;
+package ru.eda.tech.controller.entity.dto.update;
 
 import org.junit.jupiter.api.Test;
 import ru.eda.tech.base.JsonTestContext;

@@ -1,4 +1,4 @@
-package ru.eda.tech.controller.api.entity.create;
+package ru.eda.tech.controller.entity.dto.create;
 
 import org.junit.jupiter.api.Test;
 import ru.eda.tech.base.JsonTestContext;
