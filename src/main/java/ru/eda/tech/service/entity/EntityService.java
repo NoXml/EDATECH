@@ -7,14 +7,13 @@ import ru.eda.tech.controller.entity.dto.read.EntityReadRequest;
 import ru.eda.tech.controller.entity.dto.read.EntityReadResponse;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateRequest;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateResponse;
-import ru.eda.tech.domain.entity.create.EntityCreateRequest;
-import ru.eda.tech.domain.entity.create.EntityCreateResponse;
+import ru.eda.tech.domain.entity.Entity;
 
 import java.util.List;
 
 public interface EntityService {
 
-    EntityCreateResponse create(EntityCreateRequest request);
+    Entity create(String name);
 
     ResponseContent<EntityReadResponse> read(EntityReadRequest request);
 

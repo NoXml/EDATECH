@@ -7,13 +7,13 @@ public class EntityCreateJsonTest extends JsonTestContext {
 
     @Test
     public void whenDeserializingUsingJsonCreator_thenCorrect() {
-        EntityCreateRequestDTO entityCreateRequest = new EntityCreateRequestDTO("test");
+        EntityCreateRequest entityCreateRequest = new EntityCreateRequest("test");
         shouldDeserialize("EntityCreateRequest.json", entityCreateRequest);
     }
 
     @Test
     void whenSerializingUsingJsonGetter_thenCorrect() {
-        EntityCreateResponseDTO entityCreateResponse = new EntityCreateResponseDTO(1L, "test");
+        EntityCreateResponse entityCreateResponse = new EntityCreateResponse(1L, "test");
         shouldSerialize(entityCreateResponse, "EntityCreateResponse.json");
     }
 }

@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.eda.tech.controller.api.ResponseContent;
-import ru.eda.tech.controller.entity.dto.EntityDTOFactory;
-import ru.eda.tech.controller.entity.dto.EntityDomainFactory;
-import ru.eda.tech.controller.entity.dto.create.EntityCreateRequestDTO;
-import ru.eda.tech.controller.entity.dto.create.EntityCreateResponseDTO;
+import ru.eda.tech.controller.entity.dto.EntityFactory;
+import ru.eda.tech.controller.entity.dto.create.EntityCreateRequest;
+import ru.eda.tech.controller.entity.dto.create.EntityCreateResponse;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteResponse;
 import ru.eda.tech.controller.entity.dto.read.EntityReadRequest;
@@ -39,18 +38,23 @@ public class EntityController {
 
     private final EntityService entityService;
 
-    public EntityController(EntityService entityService) {
+    private final EntityFactory entityFactory;
+
+    public EntityController(EntityService entityService,
+                            EntityFactory entityFactory) {
         this.entityService = entityService;
+        this.entityFactory = entityFactory;
     }
 
     @PostMapping
     @ApiOperation("Create entity")
-    public ResponseContent<EntityCreateResponseDTO> create(
+    public ResponseContent<EntityCreateResponse> create(
             @ApiParam(value = "Entity create request object", required = true)
-            @RequestBody @Valid EntityCreateRequestDTO request) {
+            @RequestBody @Valid EntityCreateRequest request) {
         log.info("create(): request={}", request);
-        var responseDto = EntityDTOFactory.of(entityService.create(EntityDomainFactory.of(request)));
-        var response = ResponseContent.success(responseDto);
+        var response = ResponseContent.success(
+                EntityCreateResponse.of(
+                        entityService.create(request.getName())));
         log.info("create(): response={}", response);
         return response;
     }

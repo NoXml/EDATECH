@@ -9,8 +9,7 @@ import ru.eda.tech.controller.entity.dto.read.EntityReadRequest;
 import ru.eda.tech.controller.entity.dto.read.EntityReadResponse;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateRequest;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateResponse;
-import ru.eda.tech.domain.entity.create.EntityCreateRequest;
-import ru.eda.tech.domain.entity.create.EntityCreateResponse;
+import ru.eda.tech.domain.entity.Entity;
 import ru.eda.tech.repository.entity.EntityRepository;
 
 import java.util.List;
@@ -26,10 +25,8 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public EntityCreateResponse create(EntityCreateRequest request) {
-        var name = request.getName();
-        var entity = entityRepository.save(name);
-        return new EntityCreateResponse(entity.getId(), entity.getName());
+    public Entity create(String name) {
+        return entityRepository.save(name);
     }
 
     @Override
