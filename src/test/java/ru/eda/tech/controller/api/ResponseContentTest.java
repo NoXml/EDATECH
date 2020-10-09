@@ -4,7 +4,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.eda.tech.base.JsonTestContext;
-import ru.eda.tech.controller.api.entity.create.EntityCreateResponse;
+import ru.eda.tech.controller.entity.dto.create.EntityCreateResponse;
 
 import java.util.stream.Stream;
 

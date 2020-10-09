@@ -1,4 +1,4 @@
-package ru.eda.tech.controller.api.entity.create;
+package ru.eda.tech.controller.entity.dto.create;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;

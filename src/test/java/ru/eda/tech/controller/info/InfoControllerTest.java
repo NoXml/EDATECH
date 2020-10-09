@@ -1,4 +1,4 @@
-package ru.eda.tech.controller;
+package ru.eda.tech.controller.info;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

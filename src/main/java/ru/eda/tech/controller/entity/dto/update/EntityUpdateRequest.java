@@ -1,4 +1,4 @@
-package ru.eda.tech.controller.api.entity.update;
+package ru.eda.tech.controller.entity.dto.update;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;

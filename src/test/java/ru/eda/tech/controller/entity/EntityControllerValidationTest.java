@@ -1,4 +1,4 @@
-package ru.eda.tech.controller;
+package ru.eda.tech.controller.entity;
 
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,46 +24,46 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class EntityControllerValidationTest extends IntegrationTest {
 
-    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityCreateRequestNameIsNull.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/requests/EntityCreateRequestNameIsNull.json")
     private Resource createNameIsNull;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityCreateRequestNameIsEmpty.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/requests/EntityCreateRequestNameIsEmpty.json")
     private Resource createNameIsEmpty;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityCreateRequestNameIsOutOfBounds.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/requests/EntityCreateRequestNameIsOutOfBounds.json")
     private Resource createNameIsOutOfBounds;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityUpdateRequestIdIsNull.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/requests/EntityUpdateRequestIdIsNull.json")
     private Resource updateIdIsNull;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityUpdateRequestIdIsNotPositive.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/requests/EntityUpdateRequestIdIsNotPositive.json")
     private Resource updateIdIsNotPositive;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityUpdateRequestNameIsNull.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/requests/EntityUpdateRequestNameIsNull.json")
     private Resource updateNameIsNull;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityUpdateRequestNameIsEmpty.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/requests/EntityUpdateRequestNameIsEmpty.json")
     private Resource updateNameIsEmpty;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/requests/EntityUpdateRequestNameIsOutOfBounds.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/requests/EntityUpdateRequestNameIsOutOfBounds.json")
     private Resource updateNameIsOutOfBounds;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400NameNotBlank.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/responses/ResponseContentFailed400NameNotBlank.json")
     private Resource failed400NameNotBlank;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400NameSize.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/responses/ResponseContentFailed400NameSize.json")
     private Resource failed400NameSize;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400IdNotNull.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/responses/ResponseContentFailed400IdNotNull.json")
     private Resource failed400IdNotNull;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400IdPositive.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/responses/ResponseContentFailed400IdPositive.json")
     private Resource failed400IdPositive;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400ReadIdPositive.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/responses/ResponseContentFailed400ReadIdPositive.json")
     private Resource failed400ReadIdPositive;
 
-    @Value("classpath:/ru/eda/tech/controller/validation/responses/ResponseContentFailed400DeleteIdPositive.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/responses/ResponseContentFailed400DeleteIdPositive.json")
     private Resource failed400DeleteIdPositive;
 
     private RequestBuilder requestOf(MockHttpServletRequestBuilder requestBuilder, Resource resource){

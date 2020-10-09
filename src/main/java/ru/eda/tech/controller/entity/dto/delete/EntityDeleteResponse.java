@@ -1,4 +1,4 @@
-package ru.eda.tech.controller.api.entity.delete;
+package ru.eda.tech.controller.entity.dto.delete;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import io.swagger.annotations.ApiModel;

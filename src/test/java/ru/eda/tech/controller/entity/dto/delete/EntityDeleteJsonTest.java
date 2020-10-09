@@ -1,4 +1,4 @@
-package ru.eda.tech.controller.api.entity.delete;
+package ru.eda.tech.controller.entity.dto.delete;
 
 import org.junit.jupiter.api.Test;
 import ru.eda.tech.base.JsonTestContext;

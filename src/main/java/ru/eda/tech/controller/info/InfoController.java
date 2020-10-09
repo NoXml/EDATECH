@@ -1,4 +1,4 @@
-package ru.eda.tech.controller;
+package ru.eda.tech.controller.info;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.CrossOrigin;

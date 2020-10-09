@@ -1,4 +1,4 @@
-package ru.eda.tech.controller;
+package ru.eda.tech.controller.entity;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,27 +18,27 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class EntityControllerTest extends IntegrationTest {
 
-    @Value("classpath:/ru/eda/tech/controller/CreateRequest.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityController/CreateRequest.json")
     private Resource createRequest;
-    @Value("classpath:/ru/eda/tech/controller/CreateResponseExpected.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityController/CreateResponseExpected.json")
     private Resource createResponseExpected;
 
-    @Value("classpath:/ru/eda/tech/controller/ReadResponseExpected.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityController/ReadResponseExpected.json")
     private Resource readResponseExpected;
-    @Value("classpath:/ru/eda/tech/controller/ReadAllNotEmptyListResponseExpected.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityController/ReadAllNotEmptyListResponseExpected.json")
     private Resource readAllNotEmptyListResponseExpected;
-    @Value("classpath:/ru/eda/tech/controller/ReadAllEmptyListResponseExpected.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityController/ReadAllEmptyListResponseExpected.json")
     private Resource readAllEmptyListResponseExpected;
 
-    @Value("classpath:/ru/eda/tech/controller/UpdateRequest.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityController/UpdateRequest.json")
     private Resource updateRequest;
-    @Value("classpath:/ru/eda/tech/controller/UpdateResponseExpected.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityController/UpdateResponseExpected.json")
     private Resource updateResponseExpected;
 
-    @Value("classpath:/ru/eda/tech/controller/DeleteResponseExpected.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityController/DeleteResponseExpected.json")
     private Resource deleteResponseExpected;
 
-    @Value("classpath:/ru/eda/tech/controller/NotFoundWithId1ResponseExpected.json")
+    @Value("classpath:/ru/eda/tech/controller/entity/entityController/NotFoundWithId1ResponseExpected.json")
     private Resource notFoundWithId1ResponseExpected;
 
     @BeforeEach
