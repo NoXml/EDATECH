@@ -24,6 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class EntityControllerValidationTest extends IntegrationTest {
 
+    private static final String BASE_MAPPING = "/entities";
+
     @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/requests/EntityCreateRequestNameIsNull.json")
     private Resource createNameIsNull;
 
@@ -66,7 +68,7 @@ class EntityControllerValidationTest extends IntegrationTest {
     @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/responses/ResponseContentFailed400DeleteIdPositive.json")
     private Resource failed400DeleteIdPositive;
 
-    private RequestBuilder requestOf(MockHttpServletRequestBuilder requestBuilder, Resource resource){
+    private RequestBuilder requestOf(MockHttpServletRequestBuilder requestBuilder, Resource resource) {
         return requestBuilder.characterEncoding(UTF_8.name())
                 .contentType(APPLICATION_JSON)
                 .content(getContentFromResource(resource));
@@ -74,25 +76,25 @@ class EntityControllerValidationTest extends IntegrationTest {
 
     private Stream<Arguments> dataForTestingRequestValidation() {
         return Stream.of(
-                of(requestOf(post("/entity"), createNameIsNull),
+                of(requestOf(post(BASE_MAPPING), createNameIsNull),
                         failed400NameNotBlank),
-                of(requestOf(post("/entity"), createNameIsEmpty),
+                of(requestOf(post(BASE_MAPPING), createNameIsEmpty),
                         failed400NameNotBlank),
-                of(requestOf(post("/entity"), createNameIsOutOfBounds),
+                of(requestOf(post(BASE_MAPPING), createNameIsOutOfBounds),
                         failed400NameSize),
-                of(get("/entity/-1"),
+                of(get(BASE_MAPPING.concat("/-1")),
                         failed400ReadIdPositive),
-                of(requestOf(put("/entity"), updateIdIsNull),
+                of(requestOf(put(BASE_MAPPING), updateIdIsNull),
                         failed400IdNotNull),
-                of(requestOf(put("/entity"), updateIdIsNotPositive),
+                of(requestOf(put(BASE_MAPPING), updateIdIsNotPositive),
                         failed400IdPositive),
-                of(requestOf(put("/entity"), updateNameIsNull),
+                of(requestOf(put(BASE_MAPPING), updateNameIsNull),
                         failed400NameNotBlank),
-                of(requestOf(put("/entity"), updateNameIsEmpty),
+                of(requestOf(put(BASE_MAPPING), updateNameIsEmpty),
                         failed400NameNotBlank),
-                of(requestOf(put("/entity"), updateNameIsOutOfBounds),
+                of(requestOf(put(BASE_MAPPING), updateNameIsOutOfBounds),
                         failed400NameSize),
-                of(delete("/entity/-1"),
+                of(delete(BASE_MAPPING.concat("/-1")),
                         failed400DeleteIdPositive)
         );
     }

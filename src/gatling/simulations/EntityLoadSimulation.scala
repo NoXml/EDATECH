@@ -24,7 +24,7 @@ class EntityLoadSimulation extends Simulation {
     val id = ThreadLocalRandom.current().nextInt(users)
     exec(
       http("Create entity")
-        .post("/entity")
+        .post("/entities")
         .header(HttpHeaderNames.ContentType, HttpHeaderValues.ApplicationJson)
         .body(StringBody(
           s"""{"name": "name$id"}"""))
@@ -33,7 +33,7 @@ class EntityLoadSimulation extends Simulation {
         .check(jsonPath("$.result.id").saveAs("generatedId")))
       .exec(
         http("Get entity")
-          .get("/entity/${generatedId}")
+          .get("/entities/${generatedId}")
           .header(HttpHeaderNames.ContentType, HttpHeaderValues.ApplicationJson)
           .check(status.is(200))
           .check(jsonPath("$.status").is("Success")))
