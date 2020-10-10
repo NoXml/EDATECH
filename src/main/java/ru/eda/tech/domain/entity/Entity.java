@@ -2,42 +2,44 @@ package ru.eda.tech.domain.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.lang.NonNull;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 @ApiModel(description = "All details about entity")
 public class Entity {
-    @NonNull
+
+    @Nonnull
     @ApiModelProperty(notes = "Entity id")
     private final Long id;
 
-    @NonNull
+    @Nonnull
     @ApiModelProperty(notes = "Entity name")
     private final String name;
 
-    @NonNull
+    @Nonnull
     @ApiModelProperty(notes = "Entity status")
     private final Status status;
 
-    public Entity(@NonNull Long id, @NonNull String name, @NonNull Status status) {
+    public Entity(@Nonnull Long id, @Nonnull String name, @Nonnull Status status) {
         this.id = Objects.requireNonNull(id, "id");
         this.name = Objects.requireNonNull(name, "name");
         this.status = Objects.requireNonNull(status, "status");
     }
 
-    @NonNull
+    @Nonnull
     public Long getId() {
         return id;
     }
 
-    @NonNull
+    @Nonnull
     public String getName() {
         return name;
     }
 
-    @NonNull
+    @Nonnull
     public Status getStatus() {
         return status;
     }
+
 }
