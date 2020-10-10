@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EntityRepository {
+
     Entity save(String name);
 
     Optional<Entity> findById(Long id);
@@ -15,4 +16,5 @@ public interface EntityRepository {
     Optional<Entity> update(Long id, String name);
 
     Optional<Entity> deleteById(Long id);
+
 }

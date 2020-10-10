@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.eda.tech.controller.api.Error;
 import ru.eda.tech.controller.api.ResponseContent;
-import ru.eda.tech.controller.entity.dto.EntityFactory;
 import ru.eda.tech.controller.entity.dto.create.EntityCreateRequest;
 import ru.eda.tech.controller.entity.dto.create.EntityCreateResponse;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteRequest;
@@ -38,12 +37,8 @@ public class EntityController {
 
     private final EntityService entityService;
 
-    private final EntityFactory entityFactory;
-
-    public EntityController(EntityService entityService,
-                            EntityFactory entityFactory) {
+    public EntityController(EntityService entityService) {
         this.entityService = entityService;
-        this.entityFactory = entityFactory;
     }
 
     @PostMapping
@@ -87,7 +82,11 @@ public class EntityController {
             @ApiParam(value = "Entity update request object", required = true)
             @RequestBody @Valid EntityUpdateRequest request) {
         log.info("update(): request={}", request);
-        ResponseContent<EntityUpdateResponse> response = entityService.update(request);
+        var response = entityService.update(request.getId(), request.getName())
+                .map(EntityUpdateResponse::of)
+                .map(ResponseContent::success)
+                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
+                        String.format("Entity with id was not found: id=%d", request.getId()))));
         log.info("update(): response={}", response);
         return response;
     }

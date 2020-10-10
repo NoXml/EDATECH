@@ -5,8 +5,6 @@ import ru.eda.tech.controller.api.Error;
 import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteResponse;
-import ru.eda.tech.controller.entity.dto.update.EntityUpdateRequest;
-import ru.eda.tech.controller.entity.dto.update.EntityUpdateResponse;
 import ru.eda.tech.domain.entity.Entity;
 import ru.eda.tech.repository.entity.EntityRepository;
 
@@ -38,12 +36,8 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public ResponseContent<EntityUpdateResponse> update(EntityUpdateRequest request) {
-        return entityRepository.update(request.getId(), request.getName())
-                .map(entity -> new EntityUpdateResponse(entity.getId(), entity.getName()))
-                .map(ResponseContent::success)
-                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id was not found: id=%d", request.getId()))));
+    public Optional<Entity> update(Long id, String name) {
+        return entityRepository.update(id, name);
     }
 
     @Override

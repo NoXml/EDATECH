@@ -65,4 +65,5 @@ public class EntityRepositoryImpl implements EntityRepository {
                     return deletedEntity;
                 });
     }
+
 }

@@ -3,8 +3,6 @@ package ru.eda.tech.service.entity;
 import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteResponse;
-import ru.eda.tech.controller.entity.dto.update.EntityUpdateRequest;
-import ru.eda.tech.controller.entity.dto.update.EntityUpdateResponse;
 import ru.eda.tech.domain.entity.Entity;
 
 import java.util.List;
@@ -18,7 +16,7 @@ public interface EntityService {
 
     List<Entity> readAll();
 
-    ResponseContent<EntityUpdateResponse> update(EntityUpdateRequest request);
+    Optional<Entity> update(Long id, String name);
 
     ResponseContent<EntityDeleteResponse> delete(EntityDeleteRequest request);
 }
