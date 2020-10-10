@@ -1,11 +1,10 @@
-DROP TABLE IF EXISTS entities;
+CREATE sequence IF NOT EXISTS entities_id_seq;
 
-CREATE TABLE entities
+CREATE TABLE IF NOT EXISTS entities
 (
-    id     bigint AUTO_INCREMENT,
-    name   varchar(32) NOT NULL,
-    status integer     NOT NULL
+    id      bigint      NOT NULL DEFAULT entities_id_seq.nextval,
+    name    varchar(32) NOT NULL,
+    status  integer     NOT NULL
 );
 
-ALTER TABLE entities
-    ADD CONSTRAINT entities_pkey PRIMARY KEY (id);
+ALTER TABLE IF EXISTS entities ADD CONSTRAINT IF NOT EXISTS entities_pkey PRIMARY KEY (id);
