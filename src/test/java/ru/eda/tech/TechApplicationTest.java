@@ -18,4 +18,9 @@ class TechApplicationTest {
         assertThat(applicationContext).isNotNull();
     }
 
+    @Test
+    void main() {
+        TechApplication.main(new String[0]);
+    }
+
 }
