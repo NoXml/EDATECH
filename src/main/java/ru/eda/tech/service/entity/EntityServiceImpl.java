@@ -1,10 +1,6 @@
 package ru.eda.tech.service.entity;
 
 import org.springframework.stereotype.Service;
-import ru.eda.tech.controller.api.Error;
-import ru.eda.tech.controller.api.ResponseContent;
-import ru.eda.tech.controller.entity.dto.delete.EntityDeleteRequest;
-import ru.eda.tech.controller.entity.dto.delete.EntityDeleteResponse;
 import ru.eda.tech.domain.entity.Entity;
 import ru.eda.tech.repository.entity.EntityRepository;
 
@@ -41,12 +37,8 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public ResponseContent<EntityDeleteResponse> delete(EntityDeleteRequest request) {
-        return entityRepository.deleteById(request.getId())
-                .map(entity -> new EntityDeleteResponse(entity.getId(), entity.getName()))
-                .map(ResponseContent::success)
-                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id was not found: id=%d", request.getId()))));
+    public Optional<Entity> delete(Long id) {
+        return entityRepository.deleteById(id);
     }
 
 }

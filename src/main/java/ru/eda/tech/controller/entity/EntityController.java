@@ -17,7 +17,6 @@ import ru.eda.tech.controller.api.Error;
 import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.entity.dto.create.EntityCreateRequest;
 import ru.eda.tech.controller.entity.dto.create.EntityCreateResponse;
-import ru.eda.tech.controller.entity.dto.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteResponse;
 import ru.eda.tech.controller.entity.dto.read.EntityReadResponse;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateRequest;
@@ -97,7 +96,11 @@ public class EntityController {
             @ApiParam(value = "id of requested Entity to delete", required = true)
             @PathVariable("id") @Positive Long id) {
         log.info("delete(): id={}", id);
-        ResponseContent<EntityDeleteResponse> response = entityService.delete(new EntityDeleteRequest(id));
+        var response = entityService.delete(id)
+                .map(entity -> new EntityDeleteResponse(entity.getId(), entity.getName()))
+                .map(ResponseContent::success)
+                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
+                        String.format("Entity with id was not found: id=%d", id))));
         log.info("delete(): response={}", response);
         return response;
     }
