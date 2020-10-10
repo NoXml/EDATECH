@@ -30,7 +30,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/entity")
+@RequestMapping("/entities")
 public class EntityController {
 
     private static final Logger log = LoggerFactory.getLogger(EntityController.class);
