@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import ru.eda.tech.domain.entity.Entity;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @ApiModel(description = "Entity read response object, which contains response information")
 public class EntityReadResponse {
 
@@ -21,6 +24,12 @@ public class EntityReadResponse {
 
     public static EntityReadResponse of(Entity entity) {
         return new EntityReadResponse(entity.getId(), entity.getName());
+    }
+
+    public static List<EntityReadResponse> ofList(List<Entity> entities) {
+        return entities.stream()
+                .map(EntityReadResponse::of)
+                .collect(Collectors.toList());
     }
 
     @JsonGetter("id")

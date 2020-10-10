@@ -52,9 +52,7 @@ public class EntityController {
             @ApiParam(value = "Entity create request object", required = true)
             @RequestBody @Valid EntityCreateRequest request) {
         log.info("create(): request={}", request);
-        var response = ResponseContent.success(
-                EntityCreateResponse.of(
-                        entityService.create(request.getName())));
+        var response = ResponseContent.success(EntityCreateResponse.of(entityService.create(request.getName())));
         log.info("create(): response={}", response);
         return response;
     }
@@ -78,7 +76,7 @@ public class EntityController {
     @ApiOperation("Read all entities")
     public ResponseContent<List<EntityReadResponse>> readAll() {
         log.info("readAll()");
-        ResponseContent<List<EntityReadResponse>> response = entityService.readAll();
+        var response = ResponseContent.success(EntityReadResponse.ofList(entityService.readAll()));
         log.info("readAll(): response={}", response);
         return response;
     }

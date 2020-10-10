@@ -5,7 +5,6 @@ import ru.eda.tech.controller.api.Error;
 import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteResponse;
-import ru.eda.tech.controller.entity.dto.read.EntityReadResponse;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateRequest;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateResponse;
 import ru.eda.tech.domain.entity.Entity;
@@ -13,7 +12,6 @@ import ru.eda.tech.repository.entity.EntityRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class EntityServiceImpl implements EntityService {
@@ -35,11 +33,8 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public ResponseContent<List<EntityReadResponse>> readAll() {
-        List<EntityReadResponse> entityReadResponses = entityRepository.getAll().stream()
-                .map(entity -> new EntityReadResponse(entity.getId(), entity.getName()))
-                .collect(Collectors.toList());
-        return ResponseContent.success(entityReadResponses);
+    public List<Entity> readAll() {
+        return entityRepository.getAll();
     }
 
     @Override
