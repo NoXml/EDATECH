@@ -6,9 +6,10 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public enum Status {
+
     SUCCESS("Success"),
-    FAILED("Failed")
-    ;
+    FAILED("Failed");
+
     private final String id;
 
     Status(@NotNull String id) {
@@ -19,4 +20,5 @@ public enum Status {
     public String getId() {
         return id;
     }
+
 }

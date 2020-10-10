@@ -27,6 +27,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
+import static ru.eda.tech.controller.entity.Errors.ENTITY_NOT_FOUND;
+
 @Validated
 @RestController
 @RequestMapping("/entity")
@@ -60,8 +62,8 @@ public class EntityController {
         var response = entityService.read(id)
                 .map(EntityReadResponse::of)
                 .map(ResponseContent::success)
-                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id was not found: id=%d", id))));
+                .orElseGet(() -> ResponseContent.failed(Error.of(ENTITY_NOT_FOUND.getCode(),
+                        String.format(ENTITY_NOT_FOUND.getMsgTemplate(), id))));
         log.info("read(): response={}", response);
         return response;
     }
@@ -84,8 +86,8 @@ public class EntityController {
         var response = entityService.update(request.getId(), request.getName())
                 .map(EntityUpdateResponse::of)
                 .map(ResponseContent::success)
-                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id was not found: id=%d", request.getId()))));
+                .orElseGet(() -> ResponseContent.failed(Error.of(ENTITY_NOT_FOUND.getCode(),
+                        String.format(ENTITY_NOT_FOUND.getMsgTemplate(), request.getId()))));
         log.info("update(): response={}", response);
         return response;
     }
@@ -99,8 +101,8 @@ public class EntityController {
         var response = entityService.delete(id)
                 .map(entity -> new EntityDeleteResponse(entity.getId(), entity.getName()))
                 .map(ResponseContent::success)
-                .orElseGet(() -> ResponseContent.failed(Error.of("EntityNotFound",
-                        String.format("Entity with id was not found: id=%d", id))));
+                .orElseGet(() -> ResponseContent.failed(Error.of(ENTITY_NOT_FOUND.getCode(),
+                        String.format(ENTITY_NOT_FOUND.getMsgTemplate(), id))));
         log.info("delete(): response={}", response);
         return response;
     }
