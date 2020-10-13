@@ -21,7 +21,6 @@ spring:
     username: user
     password: password
     platform: h2
-    data: classpath:data.sql
     schema: classpath:schema.sql
   h2:
     console:

@@ -1,17 +1,12 @@
 package ru.eda.tech.base;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.core.io.Resource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.util.StreamUtils;
-import ru.eda.tech.configuration.handler.ControllerExceptionHandler;
-import ru.eda.tech.controller.entity.EntityController;
-import ru.eda.tech.controller.info.InfoController;
-import ru.eda.tech.repository.entity.EntityRepositoryImpl;
-import ru.eda.tech.service.entity.EntityServiceImpl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,9 +15,8 @@ import java.nio.charset.StandardCharsets;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-@WebMvcTest({EntityController.class, InfoController.class, EntityServiceImpl.class, EntityRepositoryImpl.class,
-        ControllerExceptionHandler.class})
-public abstract class IntegrationTest {
+@AutoConfigureMockMvc
+public abstract class IntegrationTest extends DbAwareTest {
 
     @Autowired
     protected MockMvc mockMvc;
@@ -49,4 +43,5 @@ public abstract class IntegrationTest {
                     "Error while copying from: " + resource.getDescription(), e);
         }
     }
+
 }
