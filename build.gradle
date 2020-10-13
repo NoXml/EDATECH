@@ -13,6 +13,13 @@ spotbugs {
     toolVersion = '4.1.3'
 }
 
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
 apply from: 'coverage.gradle'
 
 group = 'ru.eda'
