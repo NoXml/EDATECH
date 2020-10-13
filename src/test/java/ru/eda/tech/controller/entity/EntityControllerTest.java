@@ -18,8 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class EntityControllerTest extends IntegrationTest {
 
-    private static final String BASE_MAPPING = "/entities";
-
     @Value("classpath:/ru/eda/tech/controller/entity/entityController/CreateRequest.json")
     private Resource createRequest;
     @Value("classpath:/ru/eda/tech/controller/entity/entityController/CreateResponseExpected.json")
@@ -52,7 +50,7 @@ class EntityControllerTest extends IntegrationTest {
     void create() {
         String requestContent = getContentFromResource(createRequest);
 
-        assertRestRequest(post(BASE_MAPPING)
+        assertRestRequest(post("/entities")
                         .contentType(APPLICATION_JSON)
                         .content(requestContent),
                 createResponseExpected,
@@ -63,24 +61,24 @@ class EntityControllerTest extends IntegrationTest {
     void read() {
         putEntityToStorage(1L, "name");
 
-        assertRestRequest(get(BASE_MAPPING.concat("/1")), readResponseExpected, status().isOk());
+        assertRestRequest(get("/entities/1"), readResponseExpected, status().isOk());
     }
 
     @Test
     void readNotFound() {
-        assertRestRequest(get(BASE_MAPPING.concat("/1")), notFoundWithId1ResponseExpected, status().isOk());
+        assertRestRequest(get("/entities/1"), notFoundWithId1ResponseExpected, status().isOk());
     }
 
     @Test
     void readAllNotEmptyList() {
         putEntityToStorage(1L, "name");
 
-        assertRestRequest(get(BASE_MAPPING), readAllNotEmptyListResponseExpected, status().isOk());
+        assertRestRequest(get("/entities"), readAllNotEmptyListResponseExpected, status().isOk());
     }
 
     @Test
     void readAllEmptyList() {
-        assertRestRequest(get(BASE_MAPPING), readAllEmptyListResponseExpected, status().isOk());
+        assertRestRequest(get("/entities"), readAllEmptyListResponseExpected, status().isOk());
     }
 
     @Test
@@ -89,7 +87,7 @@ class EntityControllerTest extends IntegrationTest {
 
         String requestContent = getContentFromResource(updateRequest);
 
-        assertRestRequest(put(BASE_MAPPING)
+        assertRestRequest(put("/entities")
                         .contentType(APPLICATION_JSON)
                         .content(requestContent),
                 updateResponseExpected,
@@ -100,7 +98,7 @@ class EntityControllerTest extends IntegrationTest {
     void updateNotFound() {
         String requestContent = getContentFromResource(updateRequest);
 
-        assertRestRequest(put(BASE_MAPPING)
+        assertRestRequest(put("/entities")
                         .contentType(APPLICATION_JSON)
                         .content(requestContent),
                 notFoundWithId1ResponseExpected,
@@ -111,12 +109,12 @@ class EntityControllerTest extends IntegrationTest {
     void delete() {
         putEntityToStorage(1L, "name");
 
-        assertRestRequest(MockMvcRequestBuilders.delete(BASE_MAPPING.concat("/1")), deleteResponseExpected, status().isOk());
+        assertRestRequest(MockMvcRequestBuilders.delete("/entities/1"), deleteResponseExpected, status().isOk());
     }
 
     @Test
     void deleteNotFound() {
-        assertRestRequest(MockMvcRequestBuilders.delete(BASE_MAPPING.concat("/1")),
+        assertRestRequest(MockMvcRequestBuilders.delete("/entities/1"),
                 notFoundWithId1ResponseExpected, status().isOk());
     }
 
