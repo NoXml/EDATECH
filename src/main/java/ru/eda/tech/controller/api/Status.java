@@ -8,7 +8,8 @@ import java.util.Objects;
 public enum Status {
 
     SUCCESS("Success"),
-    FAILED("Failed");
+    FAILED("Failed"),
+    ;
 
     private final String id;
 

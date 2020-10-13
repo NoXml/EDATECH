@@ -5,7 +5,8 @@ import java.util.Objects;
 
 public enum Errors {
 
-    ENTITY_NOT_FOUND("EntityNotFound", "Entity with id was not found: id=%d");
+    ENTITY_NOT_FOUND("EntityNotFound", "Entity with id was not found: id=%d"),
+    ;
 
     private final String code;
     private final String msgTemplate;

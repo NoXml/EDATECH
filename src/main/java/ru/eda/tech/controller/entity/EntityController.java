@@ -72,7 +72,7 @@ public class EntityController {
     @ApiOperation("Read all entities")
     public ResponseContent<List<EntityReadResponse>> readAll() {
         log.info("readAll()");
-        var response = ResponseContent.success(EntityReadResponse.ofList(entityService.readAll()));
+        var response = ResponseContent.success(EntityReadResponse.of(entityService.readAll()));
         log.info("readAll(): response={}", response);
         return response;
     }
