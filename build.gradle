@@ -9,6 +9,13 @@ plugins {
     id "com.github.lkishalmi.gatling" version "3.0.0"
 }
 
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
 apply from: 'coverage.gradle'
 
 group = 'ru.eda'
