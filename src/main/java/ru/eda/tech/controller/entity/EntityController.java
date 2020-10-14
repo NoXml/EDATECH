@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.eda.tech.controller.api.Error;
 import ru.eda.tech.controller.api.ResponseContent;
 import ru.eda.tech.controller.entity.dto.create.EntityCreateRequest;
 import ru.eda.tech.controller.entity.dto.create.EntityCreateResponse;
-import ru.eda.tech.controller.entity.dto.delete.EntityDeleteRequest;
 import ru.eda.tech.controller.entity.dto.delete.EntityDeleteResponse;
-import ru.eda.tech.controller.entity.dto.read.EntityReadRequest;
 import ru.eda.tech.controller.entity.dto.read.EntityReadResponse;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateRequest;
 import ru.eda.tech.controller.entity.dto.update.EntityUpdateResponse;
@@ -27,6 +26,8 @@ import ru.eda.tech.service.entity.EntityService;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
+
+import static ru.eda.tech.controller.entity.Errors.ENTITY_NOT_FOUND;
 
 @Validated
 @RestController
@@ -47,7 +48,7 @@ public class EntityController {
             @ApiParam(value = "Entity create request object", required = true)
             @RequestBody @Valid EntityCreateRequest request) {
         log.info("create(): request={}", request);
-        ResponseContent<EntityCreateResponse> response = entityService.create(request);
+        var response = ResponseContent.success(EntityCreateResponse.of(entityService.create(request.getName())));
         log.info("create(): response={}", response);
         return response;
     }
@@ -58,7 +59,11 @@ public class EntityController {
             @ApiParam(value = "id of requested Entity to read", required = true)
             @PathVariable("id") @Positive Long id) {
         log.info("read(): id={}", id);
-        ResponseContent<EntityReadResponse> response = entityService.read(new EntityReadRequest(id));
+        var response = entityService.read(id)
+                .map(EntityReadResponse::of)
+                .map(ResponseContent::success)
+                .orElseGet(() -> ResponseContent.failed(Error.of(ENTITY_NOT_FOUND.getCode(),
+                        String.format(ENTITY_NOT_FOUND.getMsgTemplate(), id))));
         log.info("read(): response={}", response);
         return response;
     }
@@ -67,7 +72,7 @@ public class EntityController {
     @ApiOperation("Read all entities")
     public ResponseContent<List<EntityReadResponse>> readAll() {
         log.info("readAll()");
-        ResponseContent<List<EntityReadResponse>> response = entityService.readAll();
+        var response = ResponseContent.success(EntityReadResponse.of(entityService.readAll()));
         log.info("readAll(): response={}", response);
         return response;
     }
@@ -78,7 +83,11 @@ public class EntityController {
             @ApiParam(value = "Entity update request object", required = true)
             @RequestBody @Valid EntityUpdateRequest request) {
         log.info("update(): request={}", request);
-        ResponseContent<EntityUpdateResponse> response = entityService.update(request);
+        var response = entityService.update(request.getId(), request.getName())
+                .map(EntityUpdateResponse::of)
+                .map(ResponseContent::success)
+                .orElseGet(() -> ResponseContent.failed(Error.of(ENTITY_NOT_FOUND.getCode(),
+                        String.format(ENTITY_NOT_FOUND.getMsgTemplate(), request.getId()))));
         log.info("update(): response={}", response);
         return response;
     }
@@ -89,8 +98,13 @@ public class EntityController {
             @ApiParam(value = "id of requested Entity to delete", required = true)
             @PathVariable("id") @Positive Long id) {
         log.info("delete(): id={}", id);
-        ResponseContent<EntityDeleteResponse> response = entityService.delete(new EntityDeleteRequest(id));
+        var response = entityService.delete(id)
+                .map(entity -> new EntityDeleteResponse(entity.getId(), entity.getName()))
+                .map(ResponseContent::success)
+                .orElseGet(() -> ResponseContent.failed(Error.of(ENTITY_NOT_FOUND.getCode(),
+                        String.format(ENTITY_NOT_FOUND.getMsgTemplate(), id))));
         log.info("delete(): response={}", response);
         return response;
     }
+
 }

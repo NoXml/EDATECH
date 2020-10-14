@@ -20,7 +20,8 @@ import java.nio.charset.StandardCharsets;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-@WebMvcTest({EntityController.class, InfoController.class, EntityServiceImpl.class, EntityRepositoryImpl.class, ControllerExceptionHandler.class})
+@WebMvcTest({EntityController.class, InfoController.class, EntityServiceImpl.class, EntityRepositoryImpl.class,
+        ControllerExceptionHandler.class})
 public abstract class IntegrationTest {
 
     @Autowired
