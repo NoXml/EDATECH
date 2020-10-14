@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.annotation.Nonnull;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @ApiModel(description = "Entity create request object, which contains request information")
 public class EntityCreateRequest {
@@ -19,8 +21,9 @@ public class EntityCreateRequest {
         this.name = name;
     }
 
+    @Nonnull
     public String getName() {
-        return name;
+        return Objects.requireNonNull(name, "name");
     }
 
     @Override

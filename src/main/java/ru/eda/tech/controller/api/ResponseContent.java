@@ -30,35 +30,42 @@ public class ResponseContent<T> {
         return status;
     }
 
+    @Nonnull
     @JsonGetter("result")
     public Optional<T> getResult() {
         return Optional.ofNullable(result);
     }
 
+    @Nonnull
     @JsonGetter("error")
     public Optional<Error> getError() {
         return Optional.ofNullable(error);
     }
 
+    @Nonnull
     public static Builder status(@Nonnull Status status) {
         return new Builder().status(status);
     }
 
+    @Nonnull
     public static <T> ResponseContent<T> success(@Nullable T result) {
         return new Builder().status(Status.SUCCESS)
                 .build(result);
     }
 
+    @Nonnull
     public static <T> ResponseContent<T> success() {
         return success(null);
     }
 
+    @Nonnull
     public static <T> ResponseContent<T> failed(@Nullable Error error) {
         return new Builder().status(Status.FAILED)
                 .errorCode(error)
                 .build();
     }
 
+    @Nonnull
     public static <T> ResponseContent<T> failed() {
         return failed(null);
     }
@@ -67,16 +74,19 @@ public class ResponseContent<T> {
         private Status status;
         private Error error;
 
+        @Nonnull
         public Builder status(Status status) {
             this.status = status;
             return this;
         }
 
+        @Nonnull
         public Builder errorCode(Error error) {
             this.error = error;
             return this;
         }
 
+        @Nonnull
         public <T> ResponseContent<T> build(T result) {
             return new ResponseContent<>(
                     status,
@@ -84,6 +94,7 @@ public class ResponseContent<T> {
                     error);
         }
 
+        @Nonnull
         public <T> ResponseContent<T> build() {
             return build(null);
         }

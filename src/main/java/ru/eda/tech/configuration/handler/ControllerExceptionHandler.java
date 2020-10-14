@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.eda.tech.controller.api.ResponseContent;
 
+import javax.annotation.Nonnull;
 import javax.validation.ConstraintViolationException;
 
 import static java.lang.String.valueOf;
@@ -23,24 +24,28 @@ public class ControllerExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
+    @Nonnull
     @ExceptionHandler(value = {RuntimeException.class})
     ResponseEntity<ResponseContent<?>> handleBaseExceptions(RuntimeException e) {
         log.error("Can't finished request", e);
         return responseEntityWith(INTERNAL_SERVER_ERROR, "Request was failed with exception");
     }
 
+    @Nonnull
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     ResponseEntity<ResponseContent<?>> handleValidationExceptions(MethodArgumentNotValidException e) {
         log.error("Can't finished request", e);
         return responseEntityWith(BAD_REQUEST, stringFromAllErrorsOf(e));
     }
 
+    @Nonnull
     @ExceptionHandler(value = {ConstraintViolationException.class})
     ResponseEntity<ResponseContent<?>> handleValidationExceptions(ConstraintViolationException e) {
         log.error("Can't finished request", e);
         return responseEntityWith(BAD_REQUEST, e.getLocalizedMessage());
     }
 
+    @Nonnull
     private ResponseEntity<ResponseContent<?>> responseEntityWith(HttpStatus httpStatus, String errorMessage) {
         return ResponseEntity
                 .status(httpStatus)

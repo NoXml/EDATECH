@@ -1,7 +1,9 @@
 package ru.eda.tech.domain.entity;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 
 public enum Status {
 
@@ -16,6 +18,16 @@ public enum Status {
         this.id = Objects.requireNonNull(id, "id");
     }
 
+    @Nonnull
+    public static Status of(Integer id) {
+        return Optional.ofNullable(id)
+                .flatMap(requestedId -> Arrays.stream(Status.values())
+                        .filter(statusEnum -> statusEnum.getId().equals(requestedId))
+                        .findFirst())
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Status with id was not found: id=%d", id)));
+    }
+
+    @Nonnull
     public Integer getId() {
         return id;
     }

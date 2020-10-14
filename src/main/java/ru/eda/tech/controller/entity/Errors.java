@@ -16,10 +16,12 @@ public enum Errors {
         this.msgTemplate = Objects.requireNonNull(msgTemplate, "msgTemplate");
     }
 
+    @Nonnull
     public String getCode() {
         return code;
     }
 
+    @Nonnull
     public String getMsgTemplate() {
         return msgTemplate;
     }

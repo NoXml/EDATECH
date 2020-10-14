@@ -4,6 +4,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
+import javax.annotation.Nonnull;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -21,6 +22,7 @@ public final class ExceptionUtils {
     private ExceptionUtils() {
     }
 
+    @Nonnull
     public static String stringFromAllErrorsOf(MethodArgumentNotValidException e) {
         final BiFunction<ObjectError, Supplier<String>, String> objectErrorToString =
                 (objectError, nameSupplier) -> nameSupplier.get()

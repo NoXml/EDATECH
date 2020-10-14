@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.annotation.Nonnull;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @ApiModel(description = "Entity update request object, which contains request information")
 public class EntityUpdateRequest {
@@ -27,11 +29,14 @@ public class EntityUpdateRequest {
         this.name = name;
     }
 
+    @Nonnull
     public Long getId() {
-        return id;
+        return Objects.requireNonNull(id, "id");
     }
 
+    @Nonnull
     public String getName() {
-        return name;
+        return Objects.requireNonNull(name, "name");
     }
+
 }

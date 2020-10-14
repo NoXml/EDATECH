@@ -1,0 +1,32 @@
+server:
+  port: 8090
+  tomcat:
+    connection-timeout: 4s
+    min-spare-threads: 10
+    max-threads: 200
+    max-connections: 10000
+    accept-count: 100
+
+logging:
+  level:
+    root: info
+    ru:
+      eda:
+        tech: info
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: user
+    password: password
+    platform: h2
+    schema: classpath:schema.sql
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate

@@ -2,13 +2,16 @@ package ru.eda.tech.controller.entity;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.eda.tech.base.IntegrationTest;
-import ru.eda.tech.domain.entity.Entity;
 import ru.eda.tech.domain.entity.Status;
-import ru.eda.tech.repository.entity.EntityRepositoryImpl;
+import ru.eda.tech.repository.entity.EntityRepository;
+import ru.eda.tech.repository.entity.dao.EntityDAO;
+import ru.eda.tech.repository.entity.db.EntityRepositoryDbImpl;
+import ru.eda.tech.repository.entity.ram.EntityRepositoryRamImpl;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,9 +44,17 @@ class EntityControllerTest extends IntegrationTest {
     @Value("classpath:/ru/eda/tech/controller/entity/entityController/NotFoundWithId1ResponseExpected.json")
     private Resource notFoundWithId1ResponseExpected;
 
+    @Autowired
+    private EntityRepository entityRepository;
+
     @BeforeEach
     void clearStorage() {
-        EntityRepositoryImpl.STORAGE.clear();
+        if (entityRepository instanceof EntityRepositoryRamImpl) {
+            EntityRepositoryRamImpl.STORAGE.clear();
+        }
+        if (entityRepository instanceof EntityRepositoryDbImpl) {
+            clearEntitiesTable();
+        }
     }
 
     @Test
@@ -118,8 +129,29 @@ class EntityControllerTest extends IntegrationTest {
                 notFoundWithId1ResponseExpected, status().isOk());
     }
 
-    void putEntityToStorage(Long id, String name) {
-        Entity entity = new Entity(id, name, Status.CREATED);
-        EntityRepositoryImpl.STORAGE.put(entity.getId(), entity);
+    private void clearEntitiesTable() {
+        var sql = "DELETE FROM entities;";
+        executeSql(sql);
     }
+
+    private void putEntityToStorage(Long id, String name) {
+        if (entityRepository instanceof EntityRepositoryRamImpl) {
+            putEntityInMemoryStorage(id, name);
+        }
+        if (entityRepository instanceof EntityRepositoryDbImpl) {
+            putEntityDBStorage(id, name);
+        }
+    }
+
+    private void putEntityInMemoryStorage(Long id, String name) {
+        var dao = new EntityDAO(id, name, Status.CREATED.getId());
+        EntityRepositoryRamImpl.STORAGE.put(dao.getId(), dao);
+    }
+
+    private void putEntityDBStorage(Long id, String name) {
+        var sql = "INSERT INTO entities (id, name, status) VALUES (%d, '%s', %d);";
+        sql = String.format(sql, id, name, Status.CREATED.getId());
+        executeSql(sql);
+    }
+
 }

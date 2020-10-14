@@ -74,24 +74,34 @@ class EntityControllerValidationTest extends IntegrationTest {
 
     private Stream<Arguments> dataForTestingRequestValidation() {
         return Stream.of(
+                //[1]
                 of(requestOf(post("/entities"), createNameIsNull),
                         failed400NameNotBlank),
+                //[2]
                 of(requestOf(post("/entities"), createNameIsEmpty),
                         failed400NameNotBlank),
+                //[3]
                 of(requestOf(post("/entities"), createNameIsOutOfBounds),
                         failed400NameSize),
+                //[4]
                 of(get("/entities/-1"),
                         failed400ReadIdPositive),
+                //[5]
                 of(requestOf(put("/entities"), updateIdIsNull),
                         failed400IdNotNull),
+                //[6]
                 of(requestOf(put("/entities"), updateIdIsNotPositive),
                         failed400IdPositive),
+                //[7]
                 of(requestOf(put("/entities"), updateNameIsNull),
                         failed400NameNotBlank),
+                //[8]
                 of(requestOf(put("/entities"), updateNameIsEmpty),
                         failed400NameNotBlank),
+                //[9]
                 of(requestOf(put("/entities"), updateNameIsOutOfBounds),
                         failed400NameSize),
+                //[10]
                 of(delete("/entities/-1"),
                         failed400DeleteIdPositive)
         );
@@ -103,4 +113,5 @@ class EntityControllerValidationTest extends IntegrationTest {
                                                   Resource contentFailed) {
         assertRestRequest(requestBuilder, contentFailed, status().isBadRequest());
     }
+
 }
