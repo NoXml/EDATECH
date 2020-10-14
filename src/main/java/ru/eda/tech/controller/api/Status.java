@@ -17,6 +17,7 @@ public enum Status {
         this.id = Objects.requireNonNull(id, "id");
     }
 
+    @Nonnull
     @JsonValue
     public String getId() {
         return id;

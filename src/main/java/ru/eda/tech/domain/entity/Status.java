@@ -18,6 +18,7 @@ public enum Status {
         this.id = Objects.requireNonNull(id, "id");
     }
 
+    @Nonnull
     public static Status of(Integer id) {
         return Optional.ofNullable(id)
                 .flatMap(requestedId -> Arrays.stream(Status.values())
@@ -26,6 +27,7 @@ public enum Status {
                 .orElseThrow(() -> new IllegalArgumentException(String.format("Status with id was not found: id=%d", id)));
     }
 
+    @Nonnull
     public Integer getId() {
         return id;
     }
