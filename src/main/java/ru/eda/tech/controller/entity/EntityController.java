@@ -31,7 +31,7 @@ import static ru.eda.tech.controller.entity.Errors.ENTITY_NOT_FOUND;
 
 @Validated
 @RestController
-@RequestMapping("/entity")
+@RequestMapping("/entities")
 public class EntityController {
 
     private static final Logger log = LoggerFactory.getLogger(EntityController.class);

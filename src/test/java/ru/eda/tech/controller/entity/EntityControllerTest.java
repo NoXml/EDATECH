@@ -50,7 +50,7 @@ class EntityControllerTest extends IntegrationTest {
     void create() {
         String requestContent = getContentFromResource(createRequest);
 
-        assertRestRequest(post("/entity")
+        assertRestRequest(post("/entities")
                         .contentType(APPLICATION_JSON)
                         .content(requestContent),
                 createResponseExpected,
@@ -61,24 +61,24 @@ class EntityControllerTest extends IntegrationTest {
     void read() {
         putEntityToStorage(1L, "name");
 
-        assertRestRequest(get("/entity/1"), readResponseExpected, status().isOk());
+        assertRestRequest(get("/entities/1"), readResponseExpected, status().isOk());
     }
 
     @Test
     void readNotFound() {
-        assertRestRequest(get("/entity/1"), notFoundWithId1ResponseExpected, status().isOk());
+        assertRestRequest(get("/entities/1"), notFoundWithId1ResponseExpected, status().isOk());
     }
 
     @Test
     void readAllNotEmptyList() {
         putEntityToStorage(1L, "name");
 
-        assertRestRequest(get("/entity"), readAllNotEmptyListResponseExpected, status().isOk());
+        assertRestRequest(get("/entities"), readAllNotEmptyListResponseExpected, status().isOk());
     }
 
     @Test
     void readAllEmptyList() {
-        assertRestRequest(get("/entity"), readAllEmptyListResponseExpected, status().isOk());
+        assertRestRequest(get("/entities"), readAllEmptyListResponseExpected, status().isOk());
     }
 
     @Test
@@ -87,7 +87,7 @@ class EntityControllerTest extends IntegrationTest {
 
         String requestContent = getContentFromResource(updateRequest);
 
-        assertRestRequest(put("/entity")
+        assertRestRequest(put("/entities")
                         .contentType(APPLICATION_JSON)
                         .content(requestContent),
                 updateResponseExpected,
@@ -98,7 +98,7 @@ class EntityControllerTest extends IntegrationTest {
     void updateNotFound() {
         String requestContent = getContentFromResource(updateRequest);
 
-        assertRestRequest(put("/entity")
+        assertRestRequest(put("/entities")
                         .contentType(APPLICATION_JSON)
                         .content(requestContent),
                 notFoundWithId1ResponseExpected,
@@ -109,12 +109,12 @@ class EntityControllerTest extends IntegrationTest {
     void delete() {
         putEntityToStorage(1L, "name");
 
-        assertRestRequest(MockMvcRequestBuilders.delete("/entity/1"), deleteResponseExpected, status().isOk());
+        assertRestRequest(MockMvcRequestBuilders.delete("/entities/1"), deleteResponseExpected, status().isOk());
     }
 
     @Test
     void deleteNotFound() {
-        assertRestRequest(MockMvcRequestBuilders.delete("/entity/1"),
+        assertRestRequest(MockMvcRequestBuilders.delete("/entities/1"),
                 notFoundWithId1ResponseExpected, status().isOk());
     }
 
