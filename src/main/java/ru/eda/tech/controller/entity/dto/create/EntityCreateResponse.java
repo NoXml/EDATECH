@@ -35,9 +35,10 @@ public class EntityCreateResponse {
 
     @Override
     public String toString() {
-        return "EntityCreateResponseDTO{" +
+        return "EntityCreateResponse{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }

@@ -25,8 +25,9 @@ public class EntityCreateRequest {
 
     @Override
     public String toString() {
-        return "EntityCreateRequestDTO{" +
+        return "EntityCreateRequest{" +
                 "name='" + name + '\'' +
                 '}';
     }
+
 }

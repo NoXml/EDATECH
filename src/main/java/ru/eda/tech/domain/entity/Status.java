@@ -1,6 +1,6 @@
 package ru.eda.tech.domain.entity;
 
-import javax.validation.constraints.NotNull;
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
@@ -14,7 +14,7 @@ public enum Status {
 
     private final Integer id;
 
-    Status(@NotNull Integer id) {
+    Status(@Nonnull Integer id) {
         this.id = Objects.requireNonNull(id, "id");
     }
 

@@ -15,6 +15,6 @@ class ControllerExceptionHandlerTest extends IntegrationTest {
 
     @Test
     void handleException() {
-        assertRestRequest(get("/entity/qwe"), failedWithException, status().isInternalServerError());
+        assertRestRequest(get("/entities/qwe"), failedWithException, status().isInternalServerError());
     }
 }
