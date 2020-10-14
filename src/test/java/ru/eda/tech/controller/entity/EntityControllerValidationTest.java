@@ -66,7 +66,7 @@ class EntityControllerValidationTest extends IntegrationTest {
     @Value("classpath:/ru/eda/tech/controller/entity/entityControllerValidation/responses/ResponseContentFailed400DeleteIdPositive.json")
     private Resource failed400DeleteIdPositive;
 
-    private RequestBuilder requestOf(MockHttpServletRequestBuilder requestBuilder, Resource resource){
+    private RequestBuilder requestOf(MockHttpServletRequestBuilder requestBuilder, Resource resource) {
         return requestBuilder.characterEncoding(UTF_8.name())
                 .contentType(APPLICATION_JSON)
                 .content(getContentFromResource(resource));
@@ -74,25 +74,25 @@ class EntityControllerValidationTest extends IntegrationTest {
 
     private Stream<Arguments> dataForTestingRequestValidation() {
         return Stream.of(
-                of(requestOf(post("/entity"), createNameIsNull),
+                of(requestOf(post("/entities"), createNameIsNull),
                         failed400NameNotBlank),
-                of(requestOf(post("/entity"), createNameIsEmpty),
+                of(requestOf(post("/entities"), createNameIsEmpty),
                         failed400NameNotBlank),
-                of(requestOf(post("/entity"), createNameIsOutOfBounds),
+                of(requestOf(post("/entities"), createNameIsOutOfBounds),
                         failed400NameSize),
-                of(get("/entity/-1"),
+                of(get("/entities/-1"),
                         failed400ReadIdPositive),
-                of(requestOf(put("/entity"), updateIdIsNull),
+                of(requestOf(put("/entities"), updateIdIsNull),
                         failed400IdNotNull),
-                of(requestOf(put("/entity"), updateIdIsNotPositive),
+                of(requestOf(put("/entities"), updateIdIsNotPositive),
                         failed400IdPositive),
-                of(requestOf(put("/entity"), updateNameIsNull),
+                of(requestOf(put("/entities"), updateNameIsNull),
                         failed400NameNotBlank),
-                of(requestOf(put("/entity"), updateNameIsEmpty),
+                of(requestOf(put("/entities"), updateNameIsEmpty),
                         failed400NameNotBlank),
-                of(requestOf(put("/entity"), updateNameIsOutOfBounds),
+                of(requestOf(put("/entities"), updateNameIsOutOfBounds),
                         failed400NameSize),
-                of(delete("/entity/-1"),
+                of(delete("/entities/-1"),
                         failed400DeleteIdPositive)
         );
     }
