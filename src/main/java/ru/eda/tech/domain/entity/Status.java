@@ -12,7 +12,6 @@ public enum Status {
     DELETED(2),
     ;
 
-    private static final String STATUS_NOT_FOUND = "Status with id was not found: id=%d";
     private final Integer id;
 
     Status(@NotNull Integer id) {
@@ -24,7 +23,7 @@ public enum Status {
                 .flatMap(requestedId -> Arrays.stream(Status.values())
                         .filter(statusEnum -> statusEnum.getId().equals(requestedId))
                         .findFirst())
-                .orElseThrow(() -> new IllegalArgumentException(String.format(STATUS_NOT_FOUND, id)));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Status with id was not found: id=%d", id)));
     }
 
     public Integer getId() {
