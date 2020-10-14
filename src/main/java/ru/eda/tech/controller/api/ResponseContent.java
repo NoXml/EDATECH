@@ -30,13 +30,13 @@ public class ResponseContent<T> {
         return status;
     }
 
-    @Nullable
+    @Nonnull
     @JsonGetter("result")
     public Optional<T> getResult() {
         return Optional.ofNullable(result);
     }
 
-    @Nullable
+    @Nonnull
     @JsonGetter("error")
     public Optional<Error> getError() {
         return Optional.ofNullable(error);
