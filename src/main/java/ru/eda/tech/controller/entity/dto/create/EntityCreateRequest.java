@@ -17,13 +17,13 @@ public class EntityCreateRequest {
     @ApiModelProperty(notes = "Entity name")
     private final String name;
 
-    public EntityCreateRequest(@JsonProperty("name") @Nonnull String name) {
-        this.name = Objects.requireNonNull(name, "name");
+    public EntityCreateRequest(@JsonProperty("name") String name) {
+        this.name = name;
     }
 
     @Nonnull
     public String getName() {
-        return name;
+        return Objects.requireNonNull(name, "name");
     }
 
     @Override

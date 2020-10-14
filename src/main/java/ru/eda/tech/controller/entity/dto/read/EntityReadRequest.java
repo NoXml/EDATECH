@@ -17,13 +17,13 @@ public class EntityReadRequest {
     @ApiModelProperty(notes = "Entity id")
     private final Long id;
 
-    public EntityReadRequest(@JsonProperty("id") @Nonnull Long id) {
-        this.id = Objects.requireNonNull(id, "id");
+    public EntityReadRequest(@JsonProperty("id") Long id) {
+        this.id = id;
     }
 
     @Nonnull
     public Long getId() {
-        return id;
+        return Objects.requireNonNull(id, "id");
     }
 
 }

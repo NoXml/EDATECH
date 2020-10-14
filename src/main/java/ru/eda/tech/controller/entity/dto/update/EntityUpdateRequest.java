@@ -24,19 +24,19 @@ public class EntityUpdateRequest {
     @ApiModelProperty(notes = "Entity name")
     private final String name;
 
-    public EntityUpdateRequest(@JsonProperty("id") @Nonnull Long id, @JsonProperty("name") @Nonnull String name) {
-        this.id = Objects.requireNonNull(id, "id");
-        this.name = Objects.requireNonNull(name, "name");
+    public EntityUpdateRequest(@JsonProperty("id") Long id, @JsonProperty("name") String name) {
+        this.id = id;
+        this.name = name;
     }
 
     @Nonnull
     public Long getId() {
-        return id;
+        return Objects.requireNonNull(id, "id");
     }
 
     @Nonnull
     public String getName() {
-        return name;
+        return Objects.requireNonNull(name, "name");
     }
 
 }
