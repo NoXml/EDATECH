@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import ru.eda.tech.domain.entity.Entity;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public class EntityReadResponse {
         return new EntityReadResponse(entity.getId(), entity.getName());
     }
 
-    public static List<EntityReadResponse> ofList(List<Entity> entities) {
+    public static List<EntityReadResponse> of(Collection<Entity> entities) {
         return entities.stream()
                 .map(EntityReadResponse::of)
                 .collect(Collectors.toList());
@@ -41,4 +42,5 @@ public class EntityReadResponse {
     public String getName() {
         return name;
     }
+
 }
