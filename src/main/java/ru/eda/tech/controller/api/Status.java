@@ -2,7 +2,7 @@ package ru.eda.tech.controller.api;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import javax.validation.constraints.NotNull;
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public enum Status {
@@ -13,7 +13,7 @@ public enum Status {
 
     private final String id;
 
-    Status(@NotNull String id) {
+    Status(@Nonnull String id) {
         this.id = Objects.requireNonNull(id, "id");
     }
 

@@ -1,21 +1,22 @@
 package ru.eda.tech.controller.api;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 
 public class ResponseContent<T> {
-    @NonNull
+
+    @Nonnull
     private final Status status;
     @Nullable
     private final T result;
     @Nullable
     private final Error error;
 
-    private ResponseContent(@NonNull Status status,
+    private ResponseContent(@Nonnull Status status,
                             @Nullable T result,
                             @Nullable Error error) {
         this.status = Objects.requireNonNull(status, "status");
@@ -23,7 +24,7 @@ public class ResponseContent<T> {
         this.error = error;
     }
 
-    @NonNull
+    @Nonnull
     @JsonGetter("status")
     public Status getStatus() {
         return status;
@@ -39,7 +40,7 @@ public class ResponseContent<T> {
         return Optional.ofNullable(error);
     }
 
-    public static Builder status(@NonNull Status status) {
+    public static Builder status(@Nonnull Status status) {
         return new Builder().status(status);
     }
 
@@ -96,4 +97,5 @@ public class ResponseContent<T> {
                 ", error=" + error +
                 '}';
     }
+
 }

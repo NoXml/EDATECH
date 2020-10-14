@@ -1,6 +1,6 @@
 package ru.eda.tech.controller.entity;
 
-import javax.validation.constraints.NotNull;
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public enum Errors {
@@ -11,7 +11,7 @@ public enum Errors {
     private final String code;
     private final String msgTemplate;
 
-    Errors(@NotNull String code, @NotNull String msgTemplate) {
+    Errors(@Nonnull String code, @Nonnull String msgTemplate) {
         this.code = Objects.requireNonNull(code, "code");
         this.msgTemplate = Objects.requireNonNull(msgTemplate, "msgTemplate");
     }

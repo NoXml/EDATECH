@@ -1,33 +1,34 @@
 package ru.eda.tech.controller.api;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import org.springframework.lang.NonNull;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public final class Error {
-    @NonNull
+
+    @Nonnull
     private final String code;
-    @NonNull
+    @Nonnull
     private final String message;
 
-    private Error(@NonNull String code, @NonNull String message) {
+    private Error(@Nonnull String code, @Nonnull String message) {
         this.code = Objects.requireNonNull(code, "code");
         this.message = Objects.requireNonNull(message, "message");
     }
 
-    @NonNull
-    public static Error of(@NonNull String code, @NonNull String message) {
+    @Nonnull
+    public static Error of(@Nonnull String code, @Nonnull String message) {
         return new Error(code, message);
     }
 
-    @NonNull
+    @Nonnull
     @JsonGetter("code")
     public String getCode() {
         return code;
     }
 
-    @NonNull
+    @Nonnull
     @JsonGetter("message")
     public String getMessage() {
         return message;
@@ -40,4 +41,5 @@ public final class Error {
                 ", message='" + message + '\'' +
                 '}';
     }
+
 }
