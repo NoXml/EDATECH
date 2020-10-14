@@ -20,7 +20,7 @@ public abstract class DbAwareTest {
                 connection.commit();
             } catch (Exception ex) {
                 connection.rollback();
-                throw new RuntimeException("Error while executing sql", ex);
+                throw new RuntimeException("Error while executing sql or commiting transaction", ex);
             }
         } catch (Exception ex) {
             throw new RuntimeException("Can not insert data to DB", ex);
