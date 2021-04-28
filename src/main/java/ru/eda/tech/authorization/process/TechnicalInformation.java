@@ -3,9 +3,9 @@ package ru.eda.tech.authorization.process;
 public class TechnicalInformation {
     private final String username;
     private final String password;
-    private final int id;
+    private final long id;
 
-    public TechnicalInformation(String username, String password, int id) {
+    public TechnicalInformation(String username, String password, long id) {
         this.username = username;
         this.password = password;
         this.id = id;
@@ -19,7 +19,7 @@ public class TechnicalInformation {
         return password;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

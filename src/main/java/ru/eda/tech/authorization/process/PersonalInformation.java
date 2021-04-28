@@ -1,22 +1,29 @@
 package ru.eda.tech.authorization.process;
 
+import java.time.LocalDate;
+
 public class PersonalInformation {
     public final String name;
     public final String surname;
     public final int age;
-    public final String sex;
+
+    public enum Sex {
+        Male, Female;
+    }
+
+    public Sex sex;
     private final String email;
     private final String phone;
-    public final String DateOfBirth;
+    public final LocalDate dateOfBirth;
 
-    public PersonalInformation(String name, String surname, int age, String sex, String email, String phone, String DateOfBirth) {
+    public PersonalInformation(String name, String surname, int age, Sex sex, String email, String phone, LocalDate dateOfBirth) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.sex = sex;
         this.email = email;
         this.phone = phone;
-        this.DateOfBirth = DateOfBirth;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getName() {
@@ -31,7 +38,7 @@ public class PersonalInformation {
         return age;
     }
 
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
@@ -43,8 +50,8 @@ public class PersonalInformation {
         return phone;
     }
 
-    public String getDateOfBirth() {
-        return DateOfBirth;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
     @Override
@@ -53,10 +60,10 @@ public class PersonalInformation {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
-                ", sex='" + sex + '\'' +
+                ", sex=" + sex +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", DateOfBirth='" + DateOfBirth + '\'' +
+                ", DateOfBirth='" + dateOfBirth + '\'' +
                 '}';
     }
 }

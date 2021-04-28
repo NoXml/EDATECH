@@ -1,5 +1,7 @@
 package ru.eda.tech.authorization.process;
 
+import java.time.LocalDate;
+
 public class Profile {
     private final TechnicalInformation technicalInformation;
     private final PersonalInformation personalInformation;
@@ -26,10 +28,9 @@ public class Profile {
     }
 
     public static void main(String[] args) {
-        TechnicalInformation a = new TechnicalInformation("shpikich", "12345", 125);
-        PersonalInformation b = new PersonalInformation("Nikita", "Yushkov", 24,
-                "Male", "y@gmail.com", "88005553535",
-                "14031997");
+        TechnicalInformation a = new TechnicalInformation("shpikich", "12345", 125L);
+        PersonalInformation b = new PersonalInformation("Nikita", "Yushkov", 24, PersonalInformation.Sex.Male,
+                "y@gmail.com", "88005553535", LocalDate.of(1997, 3, 14));
         Profile profile = new Profile(a, b);
         System.out.println(profile);
     }
