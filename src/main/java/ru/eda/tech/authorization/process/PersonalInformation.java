@@ -3,24 +3,19 @@ package ru.eda.tech.authorization.process;
 import java.time.LocalDate;
 
 public class PersonalInformation {
-    public final String name;
-    public final String surname;
-    public final int age;
-
-    public enum Sex {
-        Male, Female;
-    }
-
-    public Sex sex;
+    private final String name;
+    private final String surname;
+    private final int age;
+    private final Gender gender;
     private final String email;
     private final String phone;
-    public final LocalDate dateOfBirth;
+    private final LocalDate dateOfBirth;
 
-    public PersonalInformation(String name, String surname, int age, Sex sex, String email, String phone, LocalDate dateOfBirth) {
+    public PersonalInformation(String name, String surname, int age, Gender gender, String email, String phone, LocalDate dateOfBirth) {
         this.name = name;
         this.surname = surname;
         this.age = age;
-        this.sex = sex;
+        this.gender = gender;
         this.email = email;
         this.phone = phone;
         this.dateOfBirth = dateOfBirth;
@@ -38,8 +33,8 @@ public class PersonalInformation {
         return age;
     }
 
-    public Sex getSex() {
-        return sex;
+    public Gender getGender() {
+        return gender;
     }
 
     public String getEmail() {
@@ -60,10 +55,10 @@ public class PersonalInformation {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
-                ", sex=" + sex +
+                ", gender=" + gender +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", DateOfBirth='" + dateOfBirth + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
                 '}';
     }
 }

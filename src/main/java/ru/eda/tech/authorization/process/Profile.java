@@ -29,7 +29,7 @@ public class Profile {
 
     public static void main(String[] args) {
         TechnicalInformation a = new TechnicalInformation("shpikich", "12345", 125L);
-        PersonalInformation b = new PersonalInformation("Nikita", "Yushkov", 24, PersonalInformation.Sex.Male,
+        PersonalInformation b = new PersonalInformation("Nikita", "Yushkov", 24, Gender.Male,
                 "y@gmail.com", "88005553535", LocalDate.of(1997, 3, 14));
         Profile profile = new Profile(a, b);
         System.out.println(profile);
