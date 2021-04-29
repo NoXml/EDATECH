@@ -6,7 +6,7 @@ plugins {
     id 'idea'
     id 'jacoco'
     id 'com.github.spotbugs' version '4.4.4'
-    id "com.github.lkishalmi.gatling" version "3.0.0"
+//    id "com.github.lkishalmi.gatling" version "3.0.0"
 }
 
 spotbugs {
@@ -52,8 +52,8 @@ test {
     finalizedBy jacocoTestReport
 }
 
-gatling {
-    toolVersion = '3.0.0-RC4'
-    logLevel = 'INFO'
-    jvmArgs = ['-server', '-Xms512M', '-Xmx512M']
-}
+//gatling {
+//    toolVersion = '3.0.0-RC4'
+//    logLevel = 'INFO'
+//    jvmArgs = ['-server', '-Xms512M', '-Xmx512M']
+//}
