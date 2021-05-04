@@ -6,7 +6,7 @@ public class Profile {
     private final TechnicalInformation technicalInformation;
     private final PersonalInformation personalInformation;
 
-    public Profile(TechnicalInformation technicalInformation, PersonalInformation personalInformation) {
+    private Profile(TechnicalInformation technicalInformation, PersonalInformation personalInformation) {
         this.technicalInformation = technicalInformation;
         this.personalInformation = personalInformation;
     }
@@ -28,10 +28,21 @@ public class Profile {
     }
 
     public static void main(String[] args) {
-        TechnicalInformation a = new TechnicalInformation("shpikich", "12345", 125L);
-        PersonalInformation b = new PersonalInformation("Nikita", "Yushkov", 24, Gender.Male,
-                "y@gmail.com", "88005553535", LocalDate.of(1997, 3, 14));
-        Profile profile = new Profile(a, b);
+        TechnicalInformation technicalInformation = new TechnicalInformation.Builder()
+                .withUsername("shpikich")
+                .withPassword("12345678")
+                .withId(125L)
+                .build();
+        PersonalInformation personalInformation = new PersonalInformation.Builder()
+                .withName("Nikita")
+                .withSurname("Yushkov")
+                .withAge(24)
+                .withGender(Gender.Male)
+                .withEmail("y@gmail.com")
+                .withPhone("88005553535")
+                .withDateOfBirth(LocalDate.of(1997, 3, 14))
+                .build();
+        Profile profile = new Profile(technicalInformation, personalInformation);
         System.out.println(profile);
     }
 }
