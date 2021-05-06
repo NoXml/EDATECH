@@ -1,36 +1,14 @@
 package ru.eda.tech.authorization.process;
 
 public class TechnicalInformation {
-    private String username;
-    private String password;
-    private long id;
+    private final String username;
+    private final String password;
+    private final long id;
 
-    public static class Builder {
-        private final TechnicalInformation technicalInformation;
-
-        public Builder() {
-            technicalInformation = new TechnicalInformation();
-        }
-
-        public Builder withUsername(String username) {
-            technicalInformation.username = username;
-            return this;
-        }
-
-        public Builder withPassword(String password) {
-            technicalInformation.password = password;
-            return this;
-        }
-
-        public Builder withId(long id) {
-            technicalInformation.id = id;
-            return this;
-        }
-
-        public TechnicalInformation build() {
-            return technicalInformation;
-        }
-
+    private TechnicalInformation(Builder builder) {
+        this.username = builder.username;
+        this.password = builder.password;
+        this.id = builder.id;
     }
 
     public String getUsername() {
@@ -43,6 +21,32 @@ public class TechnicalInformation {
 
     public long getId() {
         return id;
+    }
+
+    public static class Builder {
+        private String username;
+        private String password;
+        private long id;
+
+        public Builder withUsername(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder withPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder withId(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public TechnicalInformation build() {
+            return new TechnicalInformation(this);
+        }
+
     }
 
     @Override
