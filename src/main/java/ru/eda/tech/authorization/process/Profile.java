@@ -6,9 +6,9 @@ public class Profile {
     private final TechnicalInformation technicalInformation;
     private final PersonalInformation personalInformation;
 
-    public Profile(TechnicalInformation technicalInformation, PersonalInformation personalInformation) {
-        this.technicalInformation = technicalInformation;
-        this.personalInformation = personalInformation;
+    private Profile(Builder builder) {
+        this.technicalInformation = builder.technicalInformation;
+        this.personalInformation = builder.personalInformation;
     }
 
     public TechnicalInformation getTechnicalInformation() {
@@ -19,6 +19,48 @@ public class Profile {
         return personalInformation;
     }
 
+    public static void main(String[] args) {
+        TechnicalInformation technicalInformation = new TechnicalInformation.Builder()
+                .withUsername("shpikich")
+                .withPassword("12345678")
+                .withId(125L)
+                .build();
+        PersonalInformation personalInformation = new PersonalInformation.Builder()
+                .withName("Nikita")
+                .withSurname("Yushkov")
+                .withAge(24)
+                .withGender(Gender.Male)
+                .withEmail("y@gmail.com")
+                .withPhone("88005553535")
+                .withDateOfBirth(LocalDate.of(1997, 3, 14))
+                .build();
+        Profile profile = new Profile.Builder()
+                .withTechnicalInformation(technicalInformation)
+                .withPersonalInformation(personalInformation)
+                .build();
+        System.out.println(profile);
+    }
+
+    public static class Builder {
+        private TechnicalInformation technicalInformation;
+        private PersonalInformation personalInformation;
+
+        public Builder withTechnicalInformation(TechnicalInformation technicalInformation) {
+            this.technicalInformation = technicalInformation;
+            return this;
+        }
+
+        public Builder withPersonalInformation(PersonalInformation personalInformation) {
+            this.personalInformation = personalInformation;
+            return this;
+        }
+
+        public Profile build() {
+            return new Profile(this);
+        }
+
+    }
+
     @Override
     public String toString() {
         return "Profile{" +
@@ -26,12 +68,5 @@ public class Profile {
                 ", personalInformation=" + personalInformation +
                 '}';
     }
-
-    public static void main(String[] args) {
-        TechnicalInformation a = new TechnicalInformation("shpikich", "12345", 125L);
-        PersonalInformation b = new PersonalInformation("Nikita", "Yushkov", 24, Gender.Male,
-                "y@gmail.com", "88005553535", LocalDate.of(1997, 3, 14));
-        Profile profile = new Profile(a, b);
-        System.out.println(profile);
-    }
 }
+
