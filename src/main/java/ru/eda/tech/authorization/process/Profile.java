@@ -23,7 +23,7 @@ public class Profile {
         TechnicalInformation technicalInformation = new TechnicalInformation.Builder()
                 .withUsername("shpikich")
                 .withPassword("12345678")
-                .withId(125L)
+                .withId(0)
                 .build();
         PersonalInformation personalInformation = new PersonalInformation.Builder()
                 .withName("Nikita")
@@ -39,6 +39,14 @@ public class Profile {
                 .withPersonalInformation(personalInformation)
                 .build();
         System.out.println(profile);
+
+        ArrayListProfileRepository repositoryA = new ArrayListProfileRepository();
+        repositoryA.save(profile);
+        System.out.println(repositoryA.find(0));
+
+        LinkedListProfileRepository repositoryB = new LinkedListProfileRepository();
+        repositoryB.save(profile);
+        System.out.println(repositoryB.find(0));
     }
 
     public static class Builder {
