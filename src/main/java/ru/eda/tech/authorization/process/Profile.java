@@ -1,10 +1,12 @@
 package ru.eda.tech.authorization.process;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Profile {
     private final TechnicalInformation technicalInformation;
     private final PersonalInformation personalInformation;
+    private static List<Profile> profiles;
 
     private Profile(Builder builder) {
         this.technicalInformation = builder.technicalInformation;
@@ -40,13 +42,6 @@ public class Profile {
                 .build();
         System.out.println(profile);
 
-        ArrayListProfileRepository repositoryA = new ArrayListProfileRepository();
-        repositoryA.save(profile);
-        System.out.println(repositoryA.find(0));
-
-        LinkedListProfileRepository repositoryB = new LinkedListProfileRepository();
-        repositoryB.save(profile);
-        System.out.println(repositoryB.find(0));
     }
 
     public static class Builder {
