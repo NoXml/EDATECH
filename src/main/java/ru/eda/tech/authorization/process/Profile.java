@@ -42,6 +42,13 @@ public class Profile {
                 .build();
         System.out.println(profile);
 
+        ProfileRepository arrayProfileRepository = new ArrayListProfileRepository();
+        arrayProfileRepository.save(profile);
+        System.out.println(arrayProfileRepository.find(0));
+
+        ProfileRepository linkedProfileRepository = new LinkedListProfileRepository();
+        linkedProfileRepository.save(profile);
+        System.out.println(linkedProfileRepository.find(0));
     }
 
     public static class Builder {

@@ -4,16 +4,20 @@ import java.util.List;
 
 public abstract class ListProfileRepository implements ProfileRepository {
 
-    public List<Profile> profileRepository;
+    private final List<Profile> profiles;
+
+    protected ListProfileRepository(List<Profile> profiles) {
+        this.profiles = profiles;
+    }
 
     @Override
     public void save(Profile profile) {
-        profileRepository.add(profile);
+        profiles.add(profile);
     }
 
     @Override
     public Profile find(long id) {
-        if (id <= profileRepository.size() && id >= 0) return profileRepository.get((int) id);
+        if (id <= profiles.size() && id >= 0) return profiles.get((int) id);
         else return null;
     }
 }
