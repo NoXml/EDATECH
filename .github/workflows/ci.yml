@@ -19,7 +19,7 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Build with Gradle
-        run: gradle build
+        run: gradle build --info
   buildFrontend:
     name: Build frontend
     if: startsWith(github.head_ref, 'feature/') == true
