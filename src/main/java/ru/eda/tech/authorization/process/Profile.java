@@ -6,7 +6,6 @@ import java.util.List;
 public class Profile {
     private final TechnicalInformation technicalInformation;
     private final PersonalInformation personalInformation;
-    private static List<Profile> profiles;
 
     private Profile(Builder builder) {
         this.technicalInformation = builder.technicalInformation;
