@@ -1,6 +1,7 @@
 package ru.eda.tech.authorization.process;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Profile {
     private final TechnicalInformation technicalInformation;
@@ -23,7 +24,7 @@ public class Profile {
         TechnicalInformation technicalInformation = new TechnicalInformation.Builder()
                 .withUsername("shpikich")
                 .withPassword("12345678")
-                .withId(125L)
+                .withId(0)
                 .build();
         PersonalInformation personalInformation = new PersonalInformation.Builder()
                 .withName("Nikita")
@@ -39,6 +40,14 @@ public class Profile {
                 .withPersonalInformation(personalInformation)
                 .build();
         System.out.println(profile);
+
+        ProfileRepository arrayProfileRepository = new ArrayListProfileRepository();
+        arrayProfileRepository.save(profile);
+        System.out.println(arrayProfileRepository.find(0));
+
+        ProfileRepository linkedProfileRepository = new LinkedListProfileRepository();
+        linkedProfileRepository.save(profile);
+        System.out.println(linkedProfileRepository.find(0));
     }
 
     public static class Builder {
