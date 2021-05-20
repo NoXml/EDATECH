@@ -1,7 +1,5 @@
 package ru.eda.tech.authorization.process;
 
-import java.time.LocalDate;
-
 public class Profile {
     private final TechnicalInformation technicalInformation;
     private final PersonalInformation personalInformation;

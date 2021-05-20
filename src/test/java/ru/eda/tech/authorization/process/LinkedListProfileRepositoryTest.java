@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ArrayListProfileRepositoryTest {
+class LinkedListProfileRepositoryTest {
 
     TechnicalInformation technicalInformation = new TechnicalInformation.Builder()
             .withUsername("shpikich")
@@ -27,24 +27,25 @@ class ArrayListProfileRepositoryTest {
             .withPersonalInformation(personalInformation)
             .build();
 
-    ArrayListProfileRepository arrayListProfileRepository = new ArrayListProfileRepository();
+    LinkedListProfileRepository linkedListProfileRepository = new LinkedListProfileRepository();
 
     @Test
     void savedIsSameAsFound() {
 
-        arrayListProfileRepository.save(profile);
-        assertEquals(profile, arrayListProfileRepository.find(technicalInformation.getId()));
+        linkedListProfileRepository.save(profile);
+        assertEquals(profile, linkedListProfileRepository.find(technicalInformation.getId()));
     }
 
     @Test
     void findProfileByWrongId() {
 
-        arrayListProfileRepository.save(profile);
-        assertNull(arrayListProfileRepository.find(technicalInformation.getId() + 2));
+        linkedListProfileRepository.save(profile);
+        assertNull(linkedListProfileRepository.find(technicalInformation.getId() + 2));
     }
 
     @Test
     void findProfileInEmptyRepository() {
-        assertNull(arrayListProfileRepository.find(1));
+        assertNull(linkedListProfileRepository.find(1));
     }
+
 }
