@@ -17,7 +17,11 @@ public abstract class ListProfileRepository implements ProfileRepository {
 
     @Override
     public Profile find(long id) {
-        if (id <= profiles.size() && id >= 0) return profiles.get((int) id);
-        else return null;
+        long index = -1;
+        for (Profile profile : profiles) {
+            if (profile.getTechnicalInformation().getId() == id) index = profiles.indexOf(profile);
+        }
+        if (index == -1) return null;
+        else return profiles.get((int) index);
     }
 }
